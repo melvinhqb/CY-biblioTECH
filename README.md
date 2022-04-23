@@ -34,4 +34,4 @@ Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu 
 ## Authors
 
 - Melvin Huynh-Quan-Binh _alias_ [@melvinhqb](https://www.github.com/melvinhqb)
-- Augustin Verove _alias_ [@unnamed](https://www.github.com/)
+- Augustin Verove _alias_ [@Hermeticis](https://github.com/Hermeticis)
