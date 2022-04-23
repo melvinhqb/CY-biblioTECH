@@ -1,6 +1,21 @@
 #include "biblio.h"
 
-// Function that asks the user to choose from the main menu
+/*****************************************************
+                USER INPUT MANAGEMENT
+*****************************************************/
+
+// Empty the buffer after using the fgets() function
+
+void EmptyBuffer()
+{
+    int c = 0;
+    while (c != '\n' && c != EOF)
+    {
+        c = getchar();
+    }
+}
+
+// Asks the user to choose from the main menu
 
 int MainMenu(){
 
@@ -13,10 +28,18 @@ int MainMenu(){
 
     if(fgets(choice, sizeof(choice), stdin) != NULL){
 
-        c = (int) strtol (choice, NULL, 10);  
+        c = (int) strtol (choice, NULL, 10);
+        char *lf = strchr(choice, '\n');
+        if(lf != NULL){
+            *lf = '\0';
+        }
+        else{
+            EmptyBuffer();
+        }
 
     }
 
     return c;
 
 }
+

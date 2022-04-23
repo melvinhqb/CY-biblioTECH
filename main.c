@@ -3,6 +3,10 @@
 int main(){
 
     int choice;
+    int sizeUser = FileSize("users.txt");
+    int sizeBook = FileSize("books.txt");
+    User *tabUser = LoadUsers("users.txt", sizeUser);
+    Book *tabBook = LoadBooks("books.txt", sizeBook);
 
     WelcomeMsg();
     choice = MainMenu();

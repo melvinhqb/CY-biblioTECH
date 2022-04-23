@@ -1,0 +1,2 @@
+Book1 Author1 1 2 1
+Book2 Author2 2 0 1
