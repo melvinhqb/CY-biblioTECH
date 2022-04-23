@@ -35,6 +35,9 @@ void ShowBooks(Book *tab, int size);
 
 void EmptyBuffer();
 int MainMenu();
+
+// manage_files.c functions
+
+int FileSize(char *name_file);
 User *LoadUsers(char *name_file, int size);
 Book *LoadBooks(char *name_file, int size);
-int FileSize(char *name_file);
