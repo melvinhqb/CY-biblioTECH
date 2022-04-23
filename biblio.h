@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-typedef enum{STUDENT, TEACHER, ADMIN}Role;
+typedef enum{STUDENT=1, TEACHER, ADMIN}Role;
 
 typedef enum{SCIENCE, LITERATURE, ART, HISTORY}Type;
 
@@ -34,10 +34,17 @@ void ShowBooks(Book *tab, int size);
 // input_functions.c functions
 
 void EmptyBuffer();
+void ReadInput(char *c, int size);
 int MainMenu();
+void CreateAccount(char *name_file, User *tab, int *size);
 
 // manage_files.c functions
 
 int FileSize(char *name_file);
 User *LoadUsers(char *name_file, int size);
 Book *LoadBooks(char *name_file, int size);
+
+// vignere.c functions
+
+void Encode(char chaine[], char cle[]);
+void Decode(char chaine[], char cle[]);

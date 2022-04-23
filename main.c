@@ -11,13 +11,6 @@ int main(){
     WelcomeMsg();
     choice = MainMenu();
 
-    while(choice != 1 && choice != 2){
-
-        printf("\nErreur de saisie, veuillez recommencer !\n");
-        choice = MainMenu();
-
-    }
-
     if(choice == 1){
 
         // Demander à l'utilisateur de se connecter
@@ -27,6 +20,7 @@ int main(){
     else{
 
         // Demander à l'utilisateur de creer son identifiant
+        CreateAccount("users.txt", tabUser, &sizeUser);
 
     }
 
