@@ -73,7 +73,7 @@ int MainMenu(){
 
 // Create a user account and store the data in users.txt
 
-void CreateAccount(char *name_file, User *tab, int *size){
+void CreateAccount(char *name_file, int *size){
 
     char login[22];
     char pswrd[22];
@@ -82,6 +82,7 @@ void CreateAccount(char *name_file, User *tab, int *size){
     int c;
     int check_size = 0;
     FILE *file = NULL;
+    User *tab = LoadUsers(name_file, *size);
     
     do{
 
@@ -128,7 +129,7 @@ void CreateAccount(char *name_file, User *tab, int *size){
 
     }while(check_size != 1);
 
-    Encode(pswrd, "clevigenere");
+    Encode(pswrd, VIGENERE_KEY);
 
     check_size = 0;
 
@@ -153,6 +154,57 @@ void CreateAccount(char *name_file, User *tab, int *size){
     file = fopen(name_file, "a");
     fprintf(file, "%s %s %d 0 0 0 0 0\n", login, pswrd, c);
     fclose(file);
+    *size += 1;
     printf("\nVotre compte est finalise !\n");
+
+}
+
+void ConnectAccount(char *name_file, int *size){
+
+    char login[22];
+    char pswrd[22];
+    int cmp = 1;
+    int index;
+    int check_size = 0;
+    FILE *file = NULL;
+    User *tab = LoadUsers(name_file, *size);
+
+    do{
+        printf("\nLogin\n>>>");
+        check_size = ReadInput(login, sizeof(login));
+
+        for(int i=0;i<*size;i++){
+
+            cmp = strcmp(login, tab[i].login);
+
+            if(cmp == 0){
+
+                index = i;
+                break;
+
+            }
+
+        }
+
+        if(cmp != 0){
+            printf("\nCet utilisateur n'existe pas !\n");
+        }
+
+    }while(cmp != 0);
+
+    do{
+
+        printf("\nMot de passe\n>>>");
+        check_size = ReadInput(pswrd, sizeof(pswrd));
+        Encode(pswrd, VIGENERE_KEY);
+        cmp = strcmp(pswrd, tab[index].pswrd);
+
+        if(cmp != 0){
+            printf("\nMot de passe incorect !\n");
+        }
+
+    }while(cmp != 0);
+
+    printf("\nBienvenue %s !\n",tab[index].login);
 
 }

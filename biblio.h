@@ -2,6 +2,8 @@
 #include <stdlib.h>
 #include <string.h>
 
+#define VIGENERE_KEY "clevigenere"
+
 typedef enum{STUDENT=1, TEACHER, ADMIN}Role;
 
 typedef enum{SCIENCE, LITERATURE, ART, HISTORY}Type;
@@ -36,7 +38,8 @@ void ShowBooks(Book *tab, int size);
 void EmptyBuffer();
 int ReadInput(char *c, int size);
 int MainMenu();
-void CreateAccount(char *name_file, User *tab, int *size);
+void CreateAccount(char *name_file, int *size);
+void ConnectAccount(char *name_file, int *size);
 
 // manage_files.c functions
 

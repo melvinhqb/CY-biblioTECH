@@ -5,7 +5,6 @@ int main(){
     int choice;
     int sizeUser = FileSize("users.txt");
     int sizeBook = FileSize("books.txt");
-    User *tabUser = LoadUsers("users.txt", sizeUser);
     Book *tabBook = LoadBooks("books.txt", sizeBook);
 
     WelcomeMsg();
@@ -14,13 +13,14 @@ int main(){
     if(choice == 1){
 
         // Demander à l'utilisateur de se connecter
+        ConnectAccount("users.txt", &sizeUser);
 
     }
 
     else{
 
         // Demander à l'utilisateur de creer son identifiant
-        CreateAccount("users.txt", tabUser, &sizeUser);
+        CreateAccount("users.txt", &sizeUser);
 
     }
 

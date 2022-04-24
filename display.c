@@ -7,7 +7,7 @@
 void WelcomeMsg(){
 
     printf("\n***********************************\n");
-    printf("    Bienvenue sur CY-biblioTech    \n");
+    printf("     Application CY-biblioTech     \n");
     printf("***********************************\n");
     
 }
