@@ -21,18 +21,7 @@ void Encode(char chaine[], char cle[]){
             chaine[i] = (char)dec_char;
 
         }
-
-        if (x == strlen(cle) - 1){
-
-            x = 0;
-
-        }
-        else{
-
-            x += 1;
-
-        }
-
+        
     }
 
 }
@@ -56,18 +45,7 @@ void Decode(char chaine[], char cle[]){
             }
 
             chaine[i] = (char)dec_char;
-
-        }
-
-        if (x == strlen(cle) - 1){
-
-            x = 0;
-
-        }
-        else{
-
-            x += 1;
-
+            
         }
 
     }
