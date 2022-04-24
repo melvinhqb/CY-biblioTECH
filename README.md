@@ -31,6 +31,12 @@ Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu 
 
     ./exec
 
+### Clear compilation files
+
+Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+
+    make clear
+
 ## Authors
 
 - Melvin Huynh-Quan-Binh _alias_ [@melvinhqb](https://www.github.com/melvinhqb)
