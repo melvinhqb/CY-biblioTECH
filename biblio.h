@@ -34,7 +34,7 @@ void ShowBooks(Book *tab, int size);
 // input_functions.c functions
 
 void EmptyBuffer();
-void ReadInput(char *c, int size);
+int ReadInput(char *c, int size);
 int MainMenu();
 void CreateAccount(char *name_file, User *tab, int *size);
 

@@ -20,7 +20,7 @@ void EmptyBuffer(){
 
 // Reads a string entered by the user, looks for the character \n and replaces it with \0
 
-void ReadInput(char *c, int size){
+int ReadInput(char *c, int size){
 
     if(fgets(c, size, stdin) != NULL){
 
@@ -29,11 +29,13 @@ void ReadInput(char *c, int size){
         if(lf != NULL){
 
             *lf = '\0';
+            return 1;
 
         }
         else{
 
             EmptyBuffer();
+            return 0;
 
         }
 
@@ -46,15 +48,16 @@ void ReadInput(char *c, int size){
 int MainMenu(){
 
     int c;
-    char choice[50];
+    int check_size = 0;
+    char choice[3];
 
     do{
 
         printf("\n1 - Se connecter\n");
         printf("2 - Creer un compte\n");
         printf(">>>");
-
-        ReadInput(choice, sizeof(choice));
+        
+        check_size = ReadInput(choice, sizeof(choice));
 
         c = (int) strtol (choice, NULL, 10);
 
@@ -62,7 +65,7 @@ int MainMenu(){
             printf("\nErreur de saisie, veuillez recommencer !\n");
         }
     
-    }while(c != 1 && c != 2);
+    }while(c != 1 && c != 2 || check_size != 1);
 
     return c;
 
@@ -72,17 +75,18 @@ int MainMenu(){
 
 void CreateAccount(char *name_file, User *tab, int *size){
 
-    char login[50];
-    char pswrd[50];
-    char role[50];
+    char login[22];
+    char pswrd[22];
+    char role[3];
     int cmp = 1;
     int c;
+    int check_size = 0;
     FILE *file = NULL;
     
     do{
 
         printf("\nLogin\n>>>");
-        ReadInput(login, sizeof(login));
+        check_size = ReadInput(login, sizeof(login));
 
         for(int i=0;i<*size;i++){
 
@@ -102,12 +106,31 @@ void CreateAccount(char *name_file, User *tab, int *size){
 
         }
 
-    }while(cmp == 0);
+        else if(check_size != 1){
 
-    cmp = 1;
-    printf("\nMot de passe\n>>>");
-    ReadInput(pswrd, sizeof(pswrd));
+            printf("\nCe login est trop grand ! (20 caracteres max)\n");
+
+        }
+
+    }while(cmp == 0 || check_size != 1);
+
+    check_size = 0;
+    do{
+
+        printf("\nMot de passe\n>>>");
+        check_size = ReadInput(pswrd, sizeof(pswrd));
+
+        if(check_size != 1){
+
+            printf("\nCe mot de passe est trop grand !  (20 caracteres max)\n");
+
+        }
+
+    }while(check_size != 1);
+
     Encode(pswrd, "clevigenere");
+
+    check_size = 0;
 
     do{
 
@@ -115,7 +138,7 @@ void CreateAccount(char *name_file, User *tab, int *size){
         printf("1 - Etudiant\n");
         printf("2 - Professeur\n");
         printf(">>>");
-        ReadInput(role, sizeof(role));
+        check_size = ReadInput(role, sizeof(role));
         c = (int) strtol (role, NULL, 10);
 
         if(c != 1 && c != 2){
@@ -124,7 +147,7 @@ void CreateAccount(char *name_file, User *tab, int *size){
 
         }
 
-    }while(c != 1 && c != 2);
+    }while(c != 1 && c != 2 || check_size != 1);
 
     
     file = fopen(name_file, "a");
