@@ -83,7 +83,7 @@ int MainMenu(){
 
         c = (int) strtol (choice, NULL, 10);
 
-        if(c != 1 && c != 2){
+        if(c != 1 && c != 2 || check_size != 1){
             printf("\nErreur de saisie, veuillez recommencer !\n");
         }
     
@@ -174,7 +174,7 @@ void CreateAccount(char *name_file, int *size){
         check_size = ReadInput(role, sizeof(role));
         c = (int) strtol (role, NULL, 10);
 
-        if(c != 1 && c != 2){
+        if(c != 1 && c != 2 || check_size != 1){
 
             printf("\nErreur de saisie, veuillez recommencer !\n");
 
@@ -191,15 +191,13 @@ void CreateAccount(char *name_file, int *size){
 
 }
 
-void ConnectAccount(char *name_file, int *size){
+int ConnectAccount(User *tab, int *size){
 
     char login[22];
     char pswrd[22];
     int cmp = 1;
     int index;
     int check_size = 0;
-    FILE *file = NULL;
-    User *tab = LoadUsers(name_file, *size);
 
     do{
         printf("\nLogin\n>>>");
@@ -248,6 +246,6 @@ void ConnectAccount(char *name_file, int *size){
 
     }while(cmp != 0);
 
-    printf("\nBienvenue %s !\n",tab[index].login);
+    return index;
 
 }

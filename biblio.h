@@ -6,7 +6,7 @@
 
 typedef enum{STUDENT=1, TEACHER, ADMIN}Role;
 
-typedef enum{SCIENCE, LITERATURE, ART, HISTORY}Type;
+typedef enum{SCIENCE=1, LITERATURE, ART, HISTORY}Type;
 
 typedef enum{NO, YES}Stock;
 
@@ -28,6 +28,7 @@ typedef struct{
 // display.c functions
 
 void WelcomeMsg();
+void BookMsg(Book *book, User user, int size);
 char *ShowBookType(int a);
 char *ShowBookStock(int a);
 void ShowBook(Book book);
@@ -40,7 +41,7 @@ int ReadInput(char *c, int size);
 void DeleteSpaces(char *tab);
 int MainMenu();
 void CreateAccount(char *name_file, int *size);
-void ConnectAccount(char *name_file, int *size);
+int ConnectAccount(User *tab, int *size);
 
 // manage_files.c functions
 

@@ -12,14 +12,13 @@ int main(){
 
     if(choice == 1){
 
-        // Demander à l'utilisateur de se connecter
-        ConnectAccount("users.txt", &sizeUser);
-
+        User *tabUser = LoadUsers("users.txt", sizeUser);
+        int index = ConnectAccount(tabUser, &sizeUser);
+        BookMsg(tabBook, tabUser[index], sizeBook);
     }
 
     else{
 
-        // Demander à l'utilisateur de creer son identifiant
         CreateAccount("users.txt", &sizeUser);
 
     }
