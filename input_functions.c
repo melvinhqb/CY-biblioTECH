@@ -43,6 +43,28 @@ int ReadInput(char *c, int size){
 
 }
 
+// Removes spaces in a table of caracteres
+
+void DeleteSpaces(char *tab){
+    
+    int i = 0, j = 0;
+
+    while(tab[i] != '\0'){
+
+        if(tab[i] != ' '){
+
+            tab[j] = tab[i];
+            j++;
+
+        }
+
+        i++;
+
+    }
+
+    tab[j] = '\0';
+}
+
 // Asks the user to choose from the main menu
 
 int MainMenu(){
@@ -89,25 +111,32 @@ void CreateAccount(char *name_file, int *size){
         printf("\nLogin\n>>>");
         check_size = ReadInput(login, sizeof(login));
 
-        for(int i=0;i<*size;i++){
+        if(check_size == 1){
 
-            cmp = strcmp(login, tab[i].login);
+            DeleteSpaces(login);
+
+            for(int i=0;i<*size;i++){
+
+                cmp = strcmp(login, tab[i].login);
+
+                if(cmp == 0){
+
+                    break;
+
+                }
+
+            }
 
             if(cmp == 0){
 
-                break;
+                printf("\nCe login est deja pris !\n");
 
             }
 
         }
 
-        if(cmp == 0){
 
-            printf("\nCe login est deja pris !\n");
-
-        }
-
-        else if(check_size != 1){
+        else{
 
             printf("\nCe login est trop grand ! (20 caracteres max)\n");
 
@@ -121,7 +150,10 @@ void CreateAccount(char *name_file, int *size){
         printf("\nMot de passe\n>>>");
         check_size = ReadInput(pswrd, sizeof(pswrd));
 
-        if(check_size != 1){
+        if(check_size == 1){
+            DeleteSpaces(pswrd);
+        }
+        else{
 
             printf("\nCe mot de passe est trop grand !  (20 caracteres max)\n");
 
@@ -173,21 +205,27 @@ void ConnectAccount(char *name_file, int *size){
         printf("\nLogin\n>>>");
         check_size = ReadInput(login, sizeof(login));
 
-        for(int i=0;i<*size;i++){
+        if(check_size == 1){
 
-            cmp = strcmp(login, tab[i].login);
+            DeleteSpaces(login);
 
-            if(cmp == 0){
+            for(int i=0;i<*size;i++){
 
-                index = i;
-                break;
+                cmp = strcmp(login, tab[i].login);
+
+                if(cmp == 0){
+
+                    index = i;
+                    break;
+
+                }
 
             }
 
         }
 
-        if(cmp != 0){
-            printf("\nCet utilisateur n'existe pas !\n");
+        if(cmp != 0 || check_size != 1){
+                printf("\nCet utilisateur n'existe pas !\n");
         }
 
     }while(cmp != 0);
@@ -196,10 +234,15 @@ void ConnectAccount(char *name_file, int *size){
 
         printf("\nMot de passe\n>>>");
         check_size = ReadInput(pswrd, sizeof(pswrd));
-        Encode(pswrd, VIGENERE_KEY);
-        cmp = strcmp(pswrd, tab[index].pswrd);
 
-        if(cmp != 0){
+        if(check_size == 1){
+            DeleteSpaces(pswrd);
+            Encode(pswrd, VIGENERE_KEY);
+            cmp = strcmp(pswrd, tab[index].pswrd);
+        }
+
+
+        if(cmp != 0 || check_size != 1){
             printf("\nMot de passe incorect !\n");
         }
 

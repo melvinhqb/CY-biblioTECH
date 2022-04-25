@@ -37,6 +37,7 @@ void ShowBooks(Book *tab, int size);
 
 void EmptyBuffer();
 int ReadInput(char *c, int size);
+void DeleteSpaces(char *tab);
 int MainMenu();
 void CreateAccount(char *name_file, int *size);
 void ConnectAccount(char *name_file, int *size);
