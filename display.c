@@ -12,6 +12,10 @@ void WelcomeMsg(){
     
 }
 
+char *StrTime(time_t sec){
+
+}
+
 // Displays the books borrowed by a user
 
 void BookMsg(Book *book, User user, int size){
@@ -21,7 +25,7 @@ void BookMsg(Book *book, User user, int size){
 
     for(int i=0;i<5;i++){
 
-        if(user.books_id[i] != 0){
+        if(user.books[i].id != 0){
 
             nb_books++;
 
@@ -40,9 +44,14 @@ void BookMsg(Book *book, User user, int size){
 
         for(int i=0;i<nb_books;i++){
 
-            int b_id = user.books_id[i] - 1;
+            int b_id = user.books[i].id - 1;
+            
+            time_t sec = user.books[i].time;
+            struct tm time=*localtime(&sec);
+            char hm_time[sizeof "HH h MM"];
+            strftime(hm_time, sizeof hm_time, "%H h %M", &time);
 
-            printf("%s  %s\n",book[b_id].title, book[b_id].author);
+            printf("%s  %s a rendre pour %s\n",book[b_id].title, book[b_id].author, hm_time);
 
         }
 

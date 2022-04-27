@@ -45,7 +45,8 @@ User *LoadUsers(char *name_file, int size){
 
         for(int j=0;j<5;j++){
 
-            fscanf(file, "%d",&tab[i].books_id[j]); // Book ID (int)
+            fscanf(file, "%d",&tab[i].books[j].id); // Book ID (int)
+            fscanf(file, "%d",&tab[i].books[j].time); // Maximum time
 
         }
 

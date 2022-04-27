@@ -1,6 +1,7 @@
-#include<stdio.h>
+#include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <time.h>
 
 #define VIGENERE_KEY "clevigenere"
 
@@ -11,10 +12,15 @@ typedef enum{SCIENCE=1, LITERATURE, ART, HISTORY}Type;
 typedef enum{NO, YES}Stock;
 
 typedef struct{
+    int id;
+    int time;
+}Book_tm;
+
+typedef struct{
     char login[50];
     char pswrd[50];
     int role;
-    int books_id[5];
+    Book_tm books[5];
 }User;
 
 typedef struct{

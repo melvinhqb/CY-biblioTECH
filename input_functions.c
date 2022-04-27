@@ -192,7 +192,7 @@ void CreateAccount(char *name_file, int *size){
 
     
     file = fopen(name_file, "a");
-    fprintf(file, "%s %s %d 0 0 0 0 0\n", login, pswrd, c);
+    fprintf(file, "%s %s %d 0 0 0 0 0 0 0 0 0 0\n", login, pswrd, c);
     fclose(file);
     *size += 1;
     printf("\nVotre compte est finalise !\n");

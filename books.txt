@@ -1,2 +1,8 @@
 Book1 Author1 1 2 1
-Book2 Author2 2 0 1
+Book2 Author2 2 1 1
+Book3 Author3 3 1 1
+Book4 Author4 4 3 1
+Book5 Author1 5 2 1
+Book6 Author2 6 4 1
+Book7 Author3 7 3 1
+Book8 Author4 8 4 1
