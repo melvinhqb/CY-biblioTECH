@@ -55,6 +55,8 @@ void BookMsg(Book *book, User user, int size){
     
 }
 
+// Convert an integer to its corresponding subject
+
 char *ShowBookType(int a){
 
     switch(a){
@@ -71,6 +73,8 @@ char *ShowBookType(int a){
     }
 
 }
+
+// Convert an integer to its corresponding state
 
 char *ShowBookStock(int a){
 
@@ -106,7 +110,7 @@ void ShowBooks(Book *tab, int size){
 
     for(int i=0;i<size;i++){
 
-        ShowBook(tab[i]);
+        ShowBook(tab[i]); // Show the book n°i in *tab
 
     }
 

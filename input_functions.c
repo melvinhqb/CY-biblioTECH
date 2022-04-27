@@ -65,6 +65,23 @@ void DeleteSpaces(char *tab){
     tab[j] = '\0';
 }
 
+// Compare a login with a login table
+
+int CompareTableUserLogin(User *tab, char *login, int size){
+    
+    for(int i=0;i<size;i++){
+
+        if(strcmp(login, tab[i].login) == 0){
+
+            return i; // If login is in tab
+
+        }
+
+    }
+
+    return -1; // If login is not in tab
+}
+
 // Asks the user to choose from the main menu
 
 int MainMenu(){
@@ -102,6 +119,7 @@ void CreateAccount(char *name_file, int *size){
     char role[3];
     int cmp = 1;
     int c;
+    int index;
     int check_size = 0;
     FILE *file = NULL;
     User *tab = LoadUsers(name_file, *size);
@@ -115,19 +133,9 @@ void CreateAccount(char *name_file, int *size){
 
             DeleteSpaces(login);
 
-            for(int i=0;i<*size;i++){
+            index = CompareTableUserLogin(tab, login, *size);
 
-                cmp = strcmp(login, tab[i].login);
-
-                if(cmp == 0){
-
-                    break;
-
-                }
-
-            }
-
-            if(cmp == 0){
+            if(index != -1){
 
                 printf("\nCe login est deja pris !\n");
 
@@ -142,7 +150,7 @@ void CreateAccount(char *name_file, int *size){
 
         }
 
-    }while(cmp == 0 || check_size != 1);
+    }while(index != -1 || check_size != 1);
 
     check_size = 0;
     do{
@@ -191,12 +199,14 @@ void CreateAccount(char *name_file, int *size){
 
 }
 
+// Logging in to a user account
+
 int ConnectAccount(User *tab, int *size){
 
     char login[22];
     char pswrd[22];
-    int cmp = 1;
     int index;
+    int cmp;
     int check_size = 0;
 
     do{
@@ -207,26 +217,14 @@ int ConnectAccount(User *tab, int *size){
 
             DeleteSpaces(login);
 
-            for(int i=0;i<*size;i++){
-
-                cmp = strcmp(login, tab[i].login);
-
-                if(cmp == 0){
-
-                    index = i;
-                    break;
-
-                }
-
-            }
-
+            index = CompareTableUserLogin(tab, login, *size);
         }
 
-        if(cmp != 0 || check_size != 1){
+        if(index == -1 || check_size != 1){
                 printf("\nCet utilisateur n'existe pas !\n");
         }
 
-    }while(cmp != 0);
+    }while(index == -1 || check_size != 1);
 
     do{
 
@@ -244,7 +242,7 @@ int ConnectAccount(User *tab, int *size){
             printf("\nMot de passe incorect !\n");
         }
 
-    }while(cmp != 0);
+    }while(cmp != 0 || check_size != 1);
 
     return index;
 
