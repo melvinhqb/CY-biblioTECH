@@ -4,16 +4,24 @@
                 DISPLAY FUNCTIONS
 *****************************************************/
 
-void WelcomeMsg(){
+void AppMsg(){
 
     printf("\n***********************************\n");
     printf("     Application CY-biblioTech     \n");
     printf("***********************************\n");
-    
+
 }
 
-char *StrTime(time_t sec){
+void WelcomeMsg(char *login){
 
+    int nb_spaces = (23-strlen(login))/2;
+    printf("\n***********************************\n");
+    for(int i=0;i<nb_spaces;i++){
+        printf(" ");
+    }
+    printf("Bienvenue %s !\n",login);
+    printf("***********************************\n");
+    
 }
 
 // Displays the books borrowed by a user
@@ -21,7 +29,8 @@ char *StrTime(time_t sec){
 void BookMsg(Book *book, User user, int size){
 
     int nb_books = 0;
-    printf("\nBienvenue %s !\n",user.login);
+    
+    WelcomeMsg(user.login);
 
     for(int i=0;i<5;i++){
 
@@ -40,7 +49,7 @@ void BookMsg(Book *book, User user, int size){
     
     if(nb_books != 0){
 
-        printf("Vous avez emprunte les livres suivants :\n");
+        printf("\nVous avez emprunte les livres suivants :\n");
 
         for(int i=0;i<nb_books;i++){
 
@@ -58,7 +67,7 @@ void BookMsg(Book *book, User user, int size){
     }
     else{
 
-        printf("Vous avez actuellement aucun livre emprunte !\n");
+        printf("\nVous avez actuellement aucun livre emprunte !\n");
 
     }
     

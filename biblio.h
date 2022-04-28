@@ -33,7 +33,8 @@ typedef struct{
 
 // display.c functions
 
-void WelcomeMsg();
+void AppMsg();
+void WelcomeMsg(char *login);
 void BookMsg(Book *book, User user, int size);
 char *ShowBookType(int a);
 char *ShowBookStock(int a);

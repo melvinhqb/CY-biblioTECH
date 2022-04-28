@@ -7,7 +7,7 @@ int main(){
     int sizeBook = FileSize("books.txt");
     Book *tabBook = LoadBooks("books.txt", sizeBook);
 
-    WelcomeMsg();
+    AppMsg();
     choice = MainMenu();
 
     if(choice == 1){
