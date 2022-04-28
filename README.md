@@ -37,6 +37,16 @@ Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu 
 
     make clear
 
+## Project Progress
+
+[x] Main menu
+
+[x] Login menu
+
+[x] Account creation menu
+
+[ ] Action menu (borrow a book, add a book, leave the app...)
+
 ## Authors
 
 - Melvin Huynh-Quan-Binh _alias_ [@melvinhqb](https://www.github.com/melvinhqb)
