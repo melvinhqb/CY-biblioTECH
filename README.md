@@ -39,13 +39,13 @@ Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu 
 
 ## Project Progress
 
-[x] Main menu
+- [x] Main menu
 
-[x] Login menu
+- [x] Login menu
 
-[x] Account creation menu
+- [x] Account creation menu
 
-[ ] Action menu (borrow a book, add a book, leave the app...)
+- [ ] Action menu (borrow a book, add a book, leave the app...)
 
 ## Authors
 
