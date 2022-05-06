@@ -22,3 +22,9 @@ ifneq ($(OS), Win32)
 else
 	rm exec
 endif
+
+help:
+	@echo help     : Show this help
+	@echo all      : Compiles all files
+	@echo clean    : Deletes object files
+	@echo mrproper : Deletes object files and the executable
