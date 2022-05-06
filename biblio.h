@@ -5,7 +5,7 @@
 
 #define USER_NAME_FILE "users.txt"
 #define BOOK_NAME_FILE "books.txt"
-#define VIGENERE_KEY "clevigenere"
+#define VIGENERE_KEY "CYTECHLIBRARY"
 #define NB_ROLE 3
 #define NB_TYPE 4
 
@@ -16,7 +16,7 @@ typedef enum{SCIENCE=1, LITERATURE, ART, HISTORY}Type;
 typedef enum{OUT_OF_STOCK, IN_STOCK}Stock;
 
 typedef struct{
-    int id;
+    long long id;
     int time;
 }Book_tm;
 
@@ -30,7 +30,7 @@ typedef struct{
 typedef struct{
     char title[100];
     char author[50];
-    int id;
+    long long id;
     int type;
     int stock;
 }Book;

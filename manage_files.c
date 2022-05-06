@@ -45,7 +45,7 @@ User *LoadUsers(char *name_file, int size){
 
         for(int j=0;j<5;j++){
 
-            fscanf(file, "%d",&tab[i].books[j].id); // Book ID (int)
+            fscanf(file, "%lli",&tab[i].books[j].id); // Book ID (int)
             fscanf(file, "%d",&tab[i].books[j].time); // Maximum time
 
         }
@@ -70,7 +70,7 @@ Book *LoadBooks(char *name_file, int size){
 
         fscanf(file, "%s", tab[i].title); // Title
         fscanf(file, "%s", tab[i].author); // Author
-        fscanf(file, "%d", &tab[i].id); // Book ID
+        fscanf(file, "%lli", &tab[i].id); // Book ID
         fscanf(file, "%d", &tab[i].type); // Category (Science=1, Literature=2 ...)
         fscanf(file, "%d", &tab[i].stock); // Number of books available
 

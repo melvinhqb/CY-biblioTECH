@@ -6,7 +6,7 @@ void ShowBook(Book book){
 
     printf("\nTitre : %s\n",book.title);
     printf("Auteur : %s\n",book.author);
-    printf("ID : %d\n", book.id);
+    printf("ID : %lli\n", book.id);
     printf("Categorie : %s\n", ShowBookType(book.type));
     printf("Stock : %s\n\n", ShowBookStock(book.stock));
 
@@ -55,14 +55,19 @@ void BookMsg(Book *book, User user, int size){
 
         for(int i=0;i<nb_books;i++){
 
-            int b_id = user.books[i].id - 1;
-            
-            time_t sec = user.books[i].time;
-            struct tm time=*localtime(&sec);
-            char hm_time[sizeof "HH h MM"];
-            strftime(hm_time, sizeof hm_time, "%H h %M", &time);
+            for(int j=0;j<size;j++){
 
-            printf("%s  %s a rendre pour %s\n",book[b_id].title, book[b_id].author, hm_time);
+                if(user.books[i].id == book[j].id){
+
+                    time_t sec = user.books[i].time;
+                    struct tm time=*localtime(&sec);
+                    char hm_time[sizeof "HH h MM"];
+                    strftime(hm_time, sizeof hm_time, "%H h %M", &time);
+                    printf("%s  %s a rendre pour %s\n",book[j].title, book[j].author, hm_time);
+
+                }
+
+            }
 
         }
 
