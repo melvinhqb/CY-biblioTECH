@@ -3,13 +3,17 @@
 #include <string.h>
 #include <time.h>
 
+#define USER_NAME_FILE "users.txt"
+#define BOOK_NAME_FILE "books.txt"
 #define VIGENERE_KEY "clevigenere"
+#define NB_ROLE 3
+#define NB_TYPE 4
 
 typedef enum{STUDENT=1, TEACHER, ADMIN}Role;
 
 typedef enum{SCIENCE=1, LITERATURE, ART, HISTORY}Type;
 
-typedef enum{NO, YES}Stock;
+typedef enum{OUT_OF_STOCK, IN_STOCK}Stock;
 
 typedef struct{
     int id;
@@ -31,25 +35,36 @@ typedef struct{
     int stock;
 }Book;
 
-// display.c functions
+// general.c functions
 
 void AppMsg();
-void WelcomeMsg(char *login);
-void BookMsg(Book *book, User user, int size);
-char *ShowBookType(int a);
-char *ShowBookStock(int a);
-void ShowBook(Book book);
-void ShowBooks(Book *tab, int size);
-
-// input_functions.c functions
-
 void EmptyBuffer();
 int ReadInput(char *c, int size);
 void DeleteSpaces(char *tab);
-int CompareTableUser(char *tab, char *x, int size);
 int MainMenu();
+
+// user.c functions
+
+void WelcomeMsg(char *login);
 void CreateAccount(char *name_file, int *size);
 int ConnectAccount(User *tab, int *size);
+
+// book.c functions
+
+void ShowBook(Book book);
+void ShowBooks(Book *tab, int size);
+void BookMsg(Book *book, User user, int size);
+void AddBook(char *name_file, int *size);
+
+// convert.c functions
+
+char *ShowBookType(int a);
+char *ShowBookStock(int a);
+
+// compare.c functions
+
+int CompareTableUserLogin(User *tab, char *login, int size);
+int CompareTableBookId(Book *tab, char *id, int size);
 
 // manage_files.c functions
 

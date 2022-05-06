@@ -1,14 +1,23 @@
-exec: main.o input_functions.o display.o manage_files.o vigenere.o
+exec: main.o general.o user.o book.o convert.o compare.o manage_files.o vigenere.o
 	gcc *.o -o exec
 
 main.o: main.c biblio.h
 	gcc -c main.c -o main.o
 
-input_functions.o: input_functions.c biblio.h
-	gcc -c input_functions.c -o input_functions.o
+general.o: general.c biblio.h
+	gcc -c general.c -o general.o
 
-display.o: display.c biblio.h
-	gcc -c display.c -o display.o
+user.o: user.c biblio.h
+	gcc -c user.c -o user.o
+
+book.o: book.c biblio.h
+	gcc -c book.c -o book.o
+
+convert.o: convert.c biblio.h
+	gcc -c convert.c -o convert.o
+
+compare.o: compare.c biblio.h
+	gcc -c compare.c -o compare.o
 
 manage_files.o: manage_files.c biblio.h
 	gcc -c manage_files.c -o manage_files.o
