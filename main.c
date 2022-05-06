@@ -15,7 +15,14 @@ int main(){
         User *tabUser = LoadUsers(USER_NAME_FILE, sizeUser);
         int index = ConnectAccount(tabUser, &sizeUser);
         BookMsg(tabBook, tabUser[index], sizeBook);
-        AddBook(BOOK_NAME_FILE, &sizeBook);
+        choice = SecondMenu(tabUser[index].role);
+
+        if(choice == 0){
+
+            ByeMsg();
+
+        }
+
     }
 
     else{

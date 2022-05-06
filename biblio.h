@@ -38,10 +38,12 @@ typedef struct{
 // general.c functions
 
 void AppMsg();
+void ByeMsg();
 void EmptyBuffer();
 int ReadInput(char *c, int size);
 void DeleteSpaces(char *tab);
 int MainMenu();
+int SecondMenu(int role);
 
 // user.c functions
 
