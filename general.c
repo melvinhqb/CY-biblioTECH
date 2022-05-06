@@ -121,24 +121,17 @@ int MainMenu(){
 
 int SecondMenu(int role){
 
-    int n = 2;
     int c = 0;
     int check_size = 0;
 
     char choice[3];
-
-    if(role == 3){
-
-        n = 3;
-
-    }
 
     do{
 
         printf("\n1 - Emprunter un livre\n");
         printf("2 - Rendre un livre\n");
 
-        if(role == 3){
+        if(role == TEACHER){
 
             printf("3 - Ajouter un livre\n");
             printf("4 - Retirer un livre\n");
@@ -159,7 +152,7 @@ int SecondMenu(int role){
 
             c = (int) strtol (choice, NULL, 10);
 
-            if(c < 0 || c > n){
+            if(c < 0 || c > role){
 
                 printf("\nErreur de saisie, veuillez recommencer !\n");
 
@@ -167,7 +160,7 @@ int SecondMenu(int role){
 
         }
     
-    }while(c < 0 || c > n || check_size != 1);
+    }while(c < 0 || c > role || check_size != 1);
 
     return c;
 

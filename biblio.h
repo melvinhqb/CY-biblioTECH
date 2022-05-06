@@ -6,10 +6,10 @@
 #define USER_NAME_FILE "users.txt"
 #define BOOK_NAME_FILE "books.txt"
 #define VIGENERE_KEY "CYTECHLIBRARY"
-#define NB_ROLE 3
+#define NB_ROLE 2
 #define NB_TYPE 4
 
-typedef enum{STUDENT=1, TEACHER, ADMIN}Role;
+typedef enum{STUDENT=1, TEACHER}Role;
 
 typedef enum{SCIENCE=1, LITERATURE, ART, HISTORY}Type;
 
