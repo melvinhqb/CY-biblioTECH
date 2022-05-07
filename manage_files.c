@@ -35,6 +35,11 @@ User *LoadUsers(char *name_file, int size){
     User *tab = NULL;
     FILE *file = fopen(name_file, "r"); // Open users.txt with read mode
 
+    if(file == NULL){
+        printf("%s\n",strerror(errno)); // Error message
+        exit(1);
+    }
+
     tab = malloc(size*sizeof(User));
 
     for(int i=0;i<size;i++){
@@ -63,6 +68,11 @@ Book *LoadBooks(char *name_file, int size){
     
     Book *tab = NULL;
     FILE *file = fopen(name_file, "r"); // Open books.txt with read mode
+
+    if(file == NULL){
+        printf("%s\n",strerror(errno)); // Error message
+        exit(1);
+    }
 
     tab = malloc(size*sizeof(Book));
 

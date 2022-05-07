@@ -214,6 +214,12 @@ void AddBook(char *name_file, int *size){
 
     // Adds the data to a text file
     file = fopen(name_file, "a");
+
+    if(file == NULL){
+        printf("%s\n",strerror(errno)); // Error message
+        exit(1);
+    }
+    
     fprintf(file, "%s %s %s %d 1\n", title, author, id, c); // The number one correspond to the "in stock" state
     fclose(file);
     *size += 1;

@@ -95,7 +95,6 @@ void CreateAccount(char *name_file, int *size){
         printf("\nQuel est votre role ?\n");
         printf("1 - Etudiant\n");
         printf("2 - Professeur\n");
-        printf("3 - Administrateur\n");
         printf(">>>");
 
         check_size = ReadInput(role, sizeof(role));
@@ -121,6 +120,12 @@ void CreateAccount(char *name_file, int *size){
 
     // Adds the data to a text file
     file = fopen(name_file, "a");
+
+    if(file == NULL){
+        printf("%s\n",strerror(errno)); // Error message
+        exit(1);
+    }
+    
     fprintf(file, "%s %s %d 0 0 0 0 0 0 0 0 0 0\n", login, pswrd, c); // The zeros correspond to the locations of the books and their times
     fclose(file);
     *size += 1;

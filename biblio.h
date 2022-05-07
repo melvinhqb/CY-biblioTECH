@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <time.h>
+#include <errno.h>
 
 #define USER_NAME_FILE "users.txt"
 #define BOOK_NAME_FILE "books.txt"
@@ -44,6 +45,7 @@ void EmptyBuffer();
 int ReadInput(char *c, int size);
 int MainMenu();
 int SecondMenu(int role);
+int EndMenu();
 
 // user.c functions
 

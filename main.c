@@ -15,13 +15,28 @@ int main(){
         User *tabUser = LoadUsers(USER_NAME_FILE, sizeUser);
         int index = ConnectAccount(tabUser, &sizeUser);
         BookMsg(tabBook, tabUser[index], sizeBook);
-        choice = SecondMenu(tabUser[index].role);
 
-        if(choice == 0){
+        do{
 
-            ByeMsg();
+            choice = SecondMenu(tabUser[index].role);
 
-        }
+            switch(choice){
+                case 3:
+                    AddBook(BOOK_NAME_FILE, &sizeBook);
+                    break;
+                default:
+                    printf("\nCette fonction est indisponible pour le moment !\n");
+            }
+
+            choice = EndMenu();
+
+            if(choice == 1){
+
+                User *tabUser = LoadUsers(USER_NAME_FILE, sizeUser);
+
+            }
+
+        }while(choice != 0);
 
     }
 
@@ -31,5 +46,6 @@ int main(){
 
     }
 
+    ByeMsg();
     return 0;
 }

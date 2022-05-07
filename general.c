@@ -101,6 +101,7 @@ int SecondMenu(int role){
 
     int c = 0;
     int check_size = 0;
+    int nb_choice = 2;
 
     char choice[3];
 
@@ -113,10 +114,10 @@ int SecondMenu(int role){
 
             printf("3 - Ajouter un livre\n");
             printf("4 - Retirer un livre\n");
+            nb_choice = 4;
 
         }
 
-        printf("0 - Quitter\n");
         printf(">>>");
 
         check_size = ReadInput(choice, sizeof(choice));
@@ -130,7 +131,7 @@ int SecondMenu(int role){
 
             c = (int) strtol (choice, NULL, 10);
 
-            if(c < 0 || c > role){
+            if(c < 1 || c > nb_choice){
 
                 printf("\nErreur de saisie, veuillez recommencer !\n");
 
@@ -138,7 +139,47 @@ int SecondMenu(int role){
 
         }
     
-    }while(c < 0 || c > role || check_size != 1);
+    }while(c < 1 || c > nb_choice || check_size != 1);
+
+    return c;
+
+}
+
+// Asks the user to choose from the end menu
+
+int EndMenu(){
+
+    int c = 0;
+    int check_size = 0;
+
+    char choice[3];
+
+    do{
+
+        printf("\n1 - Continuer\n");
+        printf("0 - Quitter\n");
+        printf(">>>");
+        
+        check_size = ReadInput(choice, sizeof(choice));
+
+        if(check_size != 1){
+
+            printf("\nErreur de saisie, veuillez recommencer !\n");
+
+        }
+        else{
+
+            c = (int) strtol (choice, NULL, 10);
+
+            if(c != 0 && c != 1){
+
+                printf("\nErreur de saisie, veuillez recommencer !\n");
+
+            }
+
+        }
+    
+    }while(c != 0 && c != 1 || check_size != 1);
 
     return c;
 
