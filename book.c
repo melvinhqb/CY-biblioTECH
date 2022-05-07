@@ -62,8 +62,15 @@ void BookMsg(Book *book, User user, int size){
                     time_t sec = user.books[i].time;
                     struct tm time=*localtime(&sec);
                     char hm_time[sizeof "HH h MM"];
+                    char *t = book[j].title;
+                    char *a = book[j].author;
+
+                    ReplaceUnderscores(t);
+                    ReplaceUnderscores(a);
+
                     strftime(hm_time, sizeof hm_time, "%H h %M", &time);
-                    printf("%s  %s a rendre pour %s\n",book[j].title, book[j].author, hm_time);
+                    
+                    printf("%s  %s a rendre pour %s\n",t, a, hm_time);
 
                 }
 
@@ -107,7 +114,7 @@ void AddBook(char *name_file, int *size){
 
         if(check_size == 1){
 
-            DeleteSpaces(title);
+            ReplaceSpaces(title);
 
         }
         else{
@@ -129,7 +136,7 @@ void AddBook(char *name_file, int *size){
 
         if(check_size == 1){
 
-            DeleteSpaces(author);
+            ReplaceSpaces(author);
 
         }
         else{
@@ -186,7 +193,7 @@ void AddBook(char *name_file, int *size){
 
         if(check_size == 1){
 
-            DeleteSpaces(id);
+            ReplaceSpaces(id);
 
             index = CompareTableBookId(tab, id, *size);
 

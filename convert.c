@@ -34,3 +34,43 @@ char *ShowBookStock(int a){
     }
 
 }
+
+// Replace spaces in a table of caracteres by underscores
+
+void ReplaceSpaces(char *tab){
+
+    int i = 0;
+
+    while(tab[i] != '\0'){
+
+        if(tab[i] == ' '){
+
+            tab[i] = '_';
+
+        }
+
+        i++;
+
+    }
+
+}
+
+// Replace underscores in a table of caracteres by spaces
+
+void ReplaceUnderscores(char *tab){
+
+    int i = 0;
+
+    while(tab[i] != '\0'){
+
+        if(tab[i] == '_'){
+
+            tab[i] = (char)ASCII_SPACE;
+
+        }
+
+        i++;
+
+    }
+    
+}

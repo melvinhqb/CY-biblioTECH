@@ -8,6 +8,7 @@
 #define VIGENERE_KEY "CYTECHLIBRARY"
 #define NB_ROLE 2
 #define NB_TYPE 4
+#define ASCII_SPACE 32
 
 typedef enum{STUDENT=1, TEACHER}Role;
 
@@ -41,7 +42,6 @@ void AppMsg();
 void ByeMsg();
 void EmptyBuffer();
 int ReadInput(char *c, int size);
-void DeleteSpaces(char *tab);
 int MainMenu();
 int SecondMenu(int role);
 
@@ -62,6 +62,8 @@ void AddBook(char *name_file, int *size);
 
 char *ShowBookType(int a);
 char *ShowBookStock(int a);
+void ReplaceSpaces(char *tab);
+void ReplaceUnderscores(char *tab);
 
 // compare.c functions
 

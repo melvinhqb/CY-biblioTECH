@@ -55,28 +55,6 @@ int ReadInput(char *c, int size){
 
 }
 
-// Removes spaces in a table of caracteres
-
-void DeleteSpaces(char *tab){
-    
-    int i = 0, j = 0;
-
-    while(tab[i] != '\0'){
-
-        if(tab[i] != ' '){
-
-            tab[j] = tab[i];
-            j++;
-
-        }
-
-        i++;
-
-    }
-
-    tab[j] = '\0';
-}
-
 // Asks the user to choose from the main menu
 
 int MainMenu(){

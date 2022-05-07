@@ -3,10 +3,17 @@
 void WelcomeMsg(char *login){
 
     int nb_spaces = (23-strlen(login))/2;
+
     printf("\n***********************************\n");
+
     for(int i=0;i<nb_spaces;i++){
+
         printf(" ");
+
     }
+
+    ReplaceUnderscores(login);
+    
     printf("Bienvenue %s !\n",login);
     printf("***********************************\n");
     
@@ -37,7 +44,7 @@ void CreateAccount(char *name_file, int *size){
 
         if(check_size == 1){
 
-            DeleteSpaces(login);
+            ReplaceSpaces(login);
 
             index = CompareTableUserLogin(tab, login, *size);
 
@@ -67,7 +74,7 @@ void CreateAccount(char *name_file, int *size){
 
         if(check_size == 1){
 
-            DeleteSpaces(pswrd);
+            ReplaceSpaces(pswrd);
 
         }
         else{
@@ -140,7 +147,7 @@ int ConnectAccount(User *tab, int *size){
 
         if(check_size == 1){
 
-            DeleteSpaces(login);
+            ReplaceSpaces(login);
 
             index = CompareTableUserLogin(tab, login, *size);
 
@@ -166,7 +173,7 @@ int ConnectAccount(User *tab, int *size){
         }
         else{
 
-            DeleteSpaces(pswrd);
+            ReplaceSpaces(pswrd);
             Encode(pswrd, VIGENERE_KEY);
             cmp = strcmp(pswrd, tab[index].pswrd);
 
