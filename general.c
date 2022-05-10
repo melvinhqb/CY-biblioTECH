@@ -57,12 +57,17 @@ int ReadInput(char *c, int size){
 
 // Asks the user to choose from the main menu
 
-int MainMenu(){
+int MainMenu(int nb_users){
 
     int c = 0;
     int check_size = 0;
 
     char choice[3];
+
+    if(nb_users == 0){
+        printf("\nCreer un compte\n");
+        return 2;
+    }
 
     do{
 

@@ -8,7 +8,7 @@ int main(){
     Book *tabBook = LoadBooks(BOOK_NAME_FILE, sizeBook);
 
     AppMsg();
-    choice = MainMenu();
+    choice = MainMenu(sizeUser);
 
     if(choice == 1){
 
@@ -33,6 +33,7 @@ int main(){
             if(choice == 1){
 
                 User *tabUser = LoadUsers(USER_NAME_FILE, sizeUser);
+                Book *tabBook = LoadBooks(BOOK_NAME_FILE, sizeBook);
 
             }
 

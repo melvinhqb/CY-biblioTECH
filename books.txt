@@ -18,4 +18,3 @@ Les_1001_tableaux_qu'il_faut_avoir_vus_dans_sa_vie Collectif 2081267187 3 1
 Van_Gogh,_Maitre_de_la_couleur Gerard_Denizeau 2035941806 3 0
 Monet,_orfevre_de_la_lumiere Gerard_Denizeau 2035876214 3 1
 50_portraits_de_la_Joconde Denis_Gaydier 2912544238 3 1
-

@@ -43,7 +43,7 @@ void AppMsg();
 void ByeMsg();
 void EmptyBuffer();
 int ReadInput(char *c, int size);
-int MainMenu();
+int MainMenu(int nb_users);
 int SecondMenu(int role);
 int EndMenu();
 
