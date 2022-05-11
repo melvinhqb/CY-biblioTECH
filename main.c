@@ -3,6 +3,7 @@
 int main(){
 
     int choice;
+    int index;
     int sizeUser = FileSize(USER_NAME_FILE);
     int sizeBook = FileSize(BOOK_NAME_FILE);
     Book *tabBook = LoadBooks(BOOK_NAME_FILE, sizeBook);
@@ -13,7 +14,7 @@ int main(){
     if(choice == 1){
 
         User *tabUser = LoadUsers(USER_NAME_FILE, sizeUser);
-        int index = ConnectAccount(tabUser, &sizeUser);
+        index = ConnectAccount(tabUser, &sizeUser);
         BookMsg(tabBook, tabUser[index], sizeBook);
 
         do{

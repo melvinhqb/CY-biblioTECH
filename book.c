@@ -31,6 +31,11 @@ void ShowBooks(Book *tab, int size){
 void BookMsg(Book *book, User user, int size){
 
     int nb_books = 0;
+    time_t sec;
+    struct tm time;
+    char hm_time[sizeof "HH h MM"];
+    char *title = NULL;
+    char *author = NULL;
     
     WelcomeMsg(user.login);
 
@@ -59,18 +64,17 @@ void BookMsg(Book *book, User user, int size){
 
                 if(user.books[i].id == book[j].id){
 
-                    time_t sec = user.books[i].time;
-                    struct tm time=*localtime(&sec);
-                    char hm_time[sizeof "HH h MM"];
-                    char *t = book[j].title;
-                    char *a = book[j].author;
+                    sec = user.books[i].time;
+                    time=*localtime(&sec);
+                    title = book[j].title;
+                    author = book[j].author;
 
-                    ReplaceUnderscores(t);
-                    ReplaceUnderscores(a);
+                    ReplaceUnderscores(title);
+                    ReplaceUnderscores(author);
 
                     strftime(hm_time, sizeof hm_time, "%H h %M", &time);
                     
-                    printf("%s  %s a rendre pour %s\n",t, a, hm_time);
+                    printf("%s  %s a rendre pour %s\n",title, author, hm_time);
 
                 }
 

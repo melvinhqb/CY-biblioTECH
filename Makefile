@@ -3,6 +3,15 @@ HEADER = biblio.h
 SRC = main.c general.c user.c book.c convert.c compare.c manage_files.c vigenere.c
 OBJ = $(SRC:.c=.o)
 
+ifdef OS
+	RM = del
+	NUL = >nul 2>&1
+else
+   	ifeq ($(shell uname), Linux)
+      	RM = rm -f
+   	endif
+endif
+
 all: $(OBJ)
 	gcc *.o -o $(EXEC)
 
@@ -10,18 +19,10 @@ all: $(OBJ)
 	gcc -c $< -o $@
 
 clean:
-ifneq ($(OS), Win32)
-	del *.o
-else
-	rm *.o
-endif
+	$(RM) *.o $(NUL)
 
 mrproper: clean
-ifneq ($(OS), Win32)
-	del exec.exe
-else
-	rm exec
-endif
+	$(RM) $(EXEC).exe $(NUL)
 
 help:
 	@echo help     : Show this help

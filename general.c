@@ -34,9 +34,11 @@ void EmptyBuffer(){
 
 int ReadInput(char *c, int size){
 
+    char *lf = NULL;
+
     if(fgets(c, size, stdin) != NULL){
 
-        char *lf = strchr(c, '\n');
+        lf = strchr(c, '\n');
 
         if(lf != NULL){
 

@@ -8,9 +8,11 @@
 
 int FileSize(char *name_file){
 
-    FILE *file = fopen(name_file, "r"); // Charge a text file
+    FILE *file = NULL;
     char line[1000]; // Max number of characters per line
     int count = 0; // Counts the number of lines in a text file
+
+    file = fopen(name_file, "r"); // Charge a text file
 
     if(file == NULL){
         printf("%s\n",strerror(errno)); // Error message
@@ -33,7 +35,9 @@ int FileSize(char *name_file){
 User *LoadUsers(char *name_file, int size){
 
     User *tab = NULL;
-    FILE *file = fopen(name_file, "r"); // Open users.txt with read mode
+    FILE *file = NULL;
+
+    file = fopen(name_file, "r"); // Open users.txt with read mode
 
     if(file == NULL){
         printf("%s\n",strerror(errno)); // Error message
@@ -67,7 +71,9 @@ User *LoadUsers(char *name_file, int size){
 Book *LoadBooks(char *name_file, int size){
     
     Book *tab = NULL;
-    FILE *file = fopen(name_file, "r"); // Open books.txt with read mode
+    FILE *file = NULL;
+
+    file = fopen(name_file, "r"); // Open books.txt with read mode
 
     if(file == NULL){
         printf("%s\n",strerror(errno)); // Error message
