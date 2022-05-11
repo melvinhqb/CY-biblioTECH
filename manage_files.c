@@ -1,9 +1,5 @@
 #include "biblio.h"
 
-/*****************************************************
-                TEXT FILE MANAGEMENT
-*****************************************************/
-
 // Function that counts the number of lines in a text file
 
 int FileSize(char *name_file){
@@ -29,6 +25,10 @@ int FileSize(char *name_file){
     return count; // Return the number of lines in the text file
 
 }
+
+/*****************************************************
+                TEXT FILE --TO-> TABLE
+*****************************************************/
 
 // Function that loads data from users.txt into an array structure
 
@@ -94,5 +94,80 @@ Book *LoadBooks(char *name_file, int size){
 
     fclose(file);
     return tab;  // Return a books table
+
+}
+
+/*****************************************************
+                TABLE --TO-> TEXT FILE
+*****************************************************/
+
+// Writes a user table to a text file
+
+void WriteUser(char *name_file, User *tab, int size){
+
+    char *login = NULL;
+    char *pswrd = NULL;
+    int role;
+    long long book_id;
+    int time;
+
+    FILE *file = NULL;
+
+    file = fopen(name_file, "w"); // Open books.txt with written mode
+
+    for(int i=0;i<size;i++){
+        login = tab[i].login;
+        pswrd = tab[i].pswrd;
+        role = tab[i].role;
+
+        fprintf(file,"%s %s %d ", login, pswrd, role);
+
+        book_id = tab[i].books[0].id;
+        time = tab[i].books[0].time;
+
+        fprintf(file,"%lli %d", book_id, time);
+
+        for(int j=1;j<5;j++){
+            book_id = tab[i].books[j].id;
+            time = tab[i].books[j].time;
+
+            fprintf(file," %lli %d", book_id, time);
+
+        }
+
+        fprintf(file,"\n");
+
+    }
+
+    fclose(file);
+
+}
+
+// Writes a book table to a text file
+
+void WriteBook(char *name_file, Book *tab, int size){
+
+    char *title = NULL;
+    char *author = NULL;
+    long long id;
+    int type;
+    int stock;
+
+    FILE *file = NULL;
+
+    file = fopen(name_file, "w");
+
+    for(int i=0;i<size;i++){
+        title = tab[i].title;
+        author = tab[i].author;
+        id = tab[i].id;
+        type = tab[i].type;
+        stock = tab[i].stock;
+
+        fprintf(file,"%s %s %lli %d %d\n", title, author, id, type, stock);
+
+    }
+
+    fclose(file);
 
 }

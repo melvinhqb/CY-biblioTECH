@@ -74,7 +74,10 @@ void BookMsg(Book *book, User user, int size){
 
                     strftime(hm_time, sizeof hm_time, "%H h %M", &time);
                     
-                    printf("%s  %s a rendre pour %s\n",title, author, hm_time);
+                    printf("%s de %s a rendre pour %s\n",title, author, hm_time);
+
+                    ReplaceSpaces(title);
+                    ReplaceSpaces(author);
 
                 }
 
@@ -228,5 +231,87 @@ void AddBook(char *name_file, int *size){
     fclose(file);
     *size += 1;
     printf("\nLivre ajoute avec succes !\n");
+
+}
+
+// Function that adds a book to a user file and the storage status to a book file
+
+User ReserveBook(Book *book, User user, int size){
+
+    char title2[102];
+    int check_size;
+    int count1 = 0;
+    int count2 = 0;
+    int index;
+    int delay;
+    int role;
+
+    Book_tm *user_books = NULL;
+    user_books = user.books;
+
+    for(int i=0;i<5;i++){
+        if(user_books[i].id != 0){
+            count1++;
+        }
+    }
+
+    role = user.role;
+
+    if((role == STUDENT && count1 == 3) || (role == TEACHER && count1 == 5)){
+
+        printf("\nVous ne pouvez pas emprunter plus de %d livres !\n", count1);
+        return user;
+    }
+
+
+    if(user.role == 1){
+        delay = 120;
+    }
+    else{
+        delay = 180;
+    }
+
+    printf("\nTitre\n>>>");
+
+    check_size = ReadInput(title2, sizeof(title2));
+
+    if(check_size == 1){
+
+        ReplaceSpaces(title2);
+        count2 = 0;
+
+        for(int i=0; i<size; i++){
+
+            if(strcmp(book[i].title, title2) == 0 && book[i].stock != 0){
+
+                count2++;
+                index = i;
+
+            }
+
+        }
+
+        if(count2 == 0){
+
+            printf("\nCe livre n'est pas disponible pour le moment !\n");
+
+        }
+        else if(count2 > 1){
+
+            printf("\nLequel de ces livres voulez-vous ?\n>>>");
+
+        }
+        else{
+
+            book[index].stock -= 1;
+            user_books[count1].id = book[index].id;
+            user_books[count1].time = time(NULL) + delay;
+
+            printf("\nLivre reserve avec succes !\n");
+
+        }
+
+    }
+    return user;
 
 }

@@ -59,6 +59,7 @@ void ShowBook(Book book);
 void ShowBooks(Book *tab, int size);
 void BookMsg(Book *book, User user, int size);
 void AddBook(char *name_file, int *size);
+User ReserveBook(Book *book, User user, int size);
 
 // convert.c functions
 
@@ -77,6 +78,8 @@ int CompareTableBookId(Book *tab, char *id, int size);
 int FileSize(char *name_file);
 User *LoadUsers(char *name_file, int size);
 Book *LoadBooks(char *name_file, int size);
+void WriteUser(char *name_file, User *tab, int size);
+void WriteBook(char *name_file, Book *tab, int size);
 
 // vignere.c functions
 

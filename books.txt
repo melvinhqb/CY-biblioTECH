@@ -1,5 +1,5 @@
 Reseaux_informatiques Jose_Dordoigne 2409021395 1 1
-Securite_informatique ACISSI 2409009743 1 0
+Securite_informatique ACISSI 2409009743 1 1
 Programmer_en_langage_C Claude_Delannoy 2212118252 1 1
 Toute_la_Physique_sans_les_equations Antoine_Moreau 2340063531 1 1
 L'Univers_a_portee_de_main Christophe_Galfard 2081422204 1 1
@@ -10,11 +10,11 @@ Alcools Guillaume_Apollinaire 2401056807 2 1
 La_Princesse_de_Cleves Madame_de_Lafayette 2401059377 2 1
 Le_Rouge_et_le_Noir Stendhal 2218939509 2 1
 Le_Malade_imaginaire Moliere 2401063579 2 1
-Voyage_au_centre_de_la_Terre Jules_Verne 2401059342 2 0
+Voyage_au_centre_de_la_Terre Jules_Verne 2401059342 2 1
 L'histoire_du_monde_par_les_cartes Collectif 2035969409 4 1
 Les_grandes_batailles_par_les_cartes Perter_Snow 2036008178 4 1
 Art_:_Histoire_de_l'art_en_image Andrew_Graham-Dixon 2081227789 3 1
 Les_1001_tableaux_qu'il_faut_avoir_vus_dans_sa_vie Collectif 2081267187 3 1
-Van_Gogh,_Maitre_de_la_couleur Gerard_Denizeau 2035941806 3 0
+Van_Gogh,_Maitre_de_la_couleur Gerard_Denizeau 2035941806 3 1
 Monet,_orfevre_de_la_lumiere Gerard_Denizeau 2035876214 3 1
 50_portraits_de_la_Joconde Denis_Gaydier 2912544238 3 1
