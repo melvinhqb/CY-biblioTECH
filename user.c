@@ -25,7 +25,8 @@ void CreateAccount(char *name_file, int *size){
 
     char login[22];
     char pswrd[22];
-    char role[3];
+    char char_role[3];
+    int role;
 
     int cmp = 1;
     int c = 0;
@@ -97,26 +98,9 @@ void CreateAccount(char *name_file, int *size){
         printf("2 - Professeur\n");
         printf(">>>");
 
-        check_size = ReadInput(role, sizeof(role));
+        role = MenuChoice(char_role, NB_ROLE);
 
-        if(check_size != 1){
-
-            printf("\nErreur de saisie, veuillez recommencer !\n");
-
-        }
-        else{
-
-            c = (int) strtol (role, NULL, 10);
-
-            if(c < 1 || c > NB_ROLE){
-
-                printf("\nErreur de saisie, veuillez recommencer !\n");
-
-            }
-
-        }
-
-    }while(c < 1 || c > NB_ROLE || check_size != 1);
+    }while(role == 0);
 
     // Adds the data to a text file
     file = fopen(name_file, "a");
@@ -126,7 +110,7 @@ void CreateAccount(char *name_file, int *size){
         exit(1);
     }
     
-    fprintf(file, "%s %s %d 0 0 0 0 0 0 0 0 0 0\n", login, pswrd, c); // The zeros correspond to the locations of the books and their times
+    fprintf(file, "%s %s %d 0 0 0 0 0 0 0 0 0 0\n", login, pswrd, role); // The zeros correspond to the locations of the books and their times
     fclose(file);
     *size += 1;
     printf("\nVotre compte est finalise !\n");

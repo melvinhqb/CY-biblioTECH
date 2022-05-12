@@ -37,7 +37,7 @@ int main(){
 
             choice = EndMenu();
 
-        }while(choice != 0);
+        }while(choice != 2);
 
     }
 
