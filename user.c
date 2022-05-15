@@ -1,5 +1,30 @@
 #include "biblio.h"
 
+void ShowUser(User user){
+
+    Decode(user.pswrd, VIGENERE_KEY);
+
+    printf("\nLogin : %s\n",user.login);
+    printf("Mot de passe : %s\n\n",user.pswrd);
+
+    Encode(user.pswrd, VIGENERE_KEY);
+
+}
+
+// Displays the characteristics of books in a table
+
+void ShowUsers(User *tab, int size){
+
+    printf("\n***********************************\n");
+
+    for(int i=0;i<size;i++){
+
+        ShowUser(tab[i]); // Show the book n°i in *tab
+
+    }
+
+}
+
 void WelcomeMsg(char *login){
 
     int nb_spaces = (23-strlen(login))/2;

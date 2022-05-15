@@ -57,12 +57,37 @@ int ReadInput(char *c, int size){
 
 }
 
+// Function that removes spaces from a char* and returns 1 if its size is correct
+
+int UserInput(char *input, int size){
+
+    int check_size;
+
+    check_size = ReadInput(input, size);
+
+    if(check_size == 1){
+
+            ReplaceSpaces(input);
+
+    }
+    else{
+
+        printf("\nCe champ saisie est trop grand ! (%d caracteres max)\n", size-2);
+
+    }
+
+    return check_size;
+
+}
+
+// Function that returns the integer choice in a user's menu
+
 int MenuChoice(char *choice, int max){
 
     int check_size;
     int c = 0;
 
-    check_size = ReadInput(choice, sizeof(choice));
+    check_size = ReadInput(choice, 3);
 
     if(check_size != 1){
 
@@ -118,7 +143,7 @@ int SecondMenu(int role){
 
     int c = 0;
     int user_choice = 0;
-    int nb_choice = 2;
+    int nb_choice = 3;
 
     char choice[3];
 
@@ -126,12 +151,13 @@ int SecondMenu(int role){
 
         printf("\n1 - Emprunter un livre\n");
         printf("2 - Rendre un livre\n");
+        printf("3 - Afficher mes livres\n");
 
         if(role == TEACHER){
 
-            printf("3 - Ajouter un livre\n");
-            printf("4 - Retirer un livre\n");
-            nb_choice = 4;
+            printf("4 - Ajouter un livre\n");
+            printf("5 - Retirer un livre\n");
+            nb_choice += 2;
 
         }
 
@@ -163,6 +189,12 @@ int EndMenu(){
         user_choice = MenuChoice(choice, 2);
     
     }while(user_choice == 0);
+
+    if(user_choice == 2){
+
+        return 0;
+
+    }
 
     return user_choice;
 

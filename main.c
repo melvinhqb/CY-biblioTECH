@@ -8,44 +8,68 @@ int main(){
     int sizeBook = FileSize(BOOK_NAME_FILE);
 
     AppMsg();
-    choice = MainMenu(sizeUser);
 
-    if(choice == 1){
+    do{
 
-        Book *tabBook = LoadBooks(BOOK_NAME_FILE, sizeBook);
-        User *tabUser = LoadUsers(USER_NAME_FILE, sizeUser);
-        index = ConnectAccount(tabUser, &sizeUser);
-        BookMsg(tabBook, tabUser[index], sizeBook);
+        choice = MainMenu(sizeUser);
 
-        do{
+        if(choice == 1){
 
-            choice = SecondMenu(tabUser[index].role);
+            Book *tabBook = LoadBooks(BOOK_NAME_FILE, sizeBook);
+            User *tabUser = LoadUsers(USER_NAME_FILE, sizeUser);
+            index = ConnectAccount(tabUser, &sizeUser);
+            WelcomeMsg(tabUser[index].login);
+            BookMsg(tabBook, tabUser[index], sizeBook);
 
-            switch(choice){
-                case 1:
-                    tabUser[index] = ReserveBook(tabBook, tabUser[index], sizeBook);
-                    WriteUser(USER_NAME_FILE, tabUser, sizeUser);
-                    WriteBook(BOOK_NAME_FILE, tabBook, sizeBook);
-                    break;
-                case 3:
-                    AddBook(BOOK_NAME_FILE, &sizeBook);
-                    Book *tabBook = LoadBooks(BOOK_NAME_FILE, sizeBook);
-                    break;
-                default:
-                    printf("\nCette fonction est indisponible pour le moment !\n");
-            }
+            do{
 
+                choice = SecondMenu(tabUser[index].role);
+
+                switch(choice){
+                    case 1:
+                        tabUser[index] = ReserveBook(tabBook, tabUser[index], sizeBook);
+                        WriteUser(USER_NAME_FILE, tabUser, sizeUser);
+                        WriteBook(BOOK_NAME_FILE, tabBook, sizeBook);
+                        break;
+                    case 2:
+                        tabUser[index] = ReturnBook(tabBook, tabUser[index], sizeBook);
+                        WriteUser(USER_NAME_FILE, tabUser, sizeUser);
+                        WriteBook(BOOK_NAME_FILE, tabBook, sizeBook);
+                        break;
+                    case 3:
+                        BookMsg(tabBook, tabUser[index], sizeBook);
+                        break;
+                    case 4:
+                        choice = AddBook(BOOK_NAME_FILE, tabBook, &sizeBook);
+                        if(choice < 0){
+                            tabBook = LoadBooks(BOOK_NAME_FILE, sizeBook);
+                        }
+                        else{
+                            WriteBook(BOOK_NAME_FILE, tabBook, sizeBook);
+                        }
+                        break;
+                    case 5:
+                        RemoveBook(tabBook, sizeBook);
+                        WriteBook(BOOK_NAME_FILE, tabBook, sizeBook);
+                        break;
+                    default:
+                        printf("\nCette fonction est indisponible pour le moment !\n");
+                }
+
+                choice = EndMenu();
+
+            }while(choice != 0);
+
+        }
+
+        else if(choice == 2){
+
+            CreateAccount(USER_NAME_FILE, &sizeUser);
             choice = EndMenu();
 
-        }while(choice != 2);
-
-    }
-
-    else{
-
-        CreateAccount(USER_NAME_FILE, &sizeUser);
-
-    }
+        }
+    
+    }while(choice != 0);
 
     ByeMsg();
     return 0;

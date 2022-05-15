@@ -43,6 +43,7 @@ void AppMsg();
 void ByeMsg();
 void EmptyBuffer();
 int ReadInput(char *c, int size);
+int UserInput(char *input, int size);
 int MenuChoice(char *choice, int max);
 int MainMenu(int nb_users);
 int SecondMenu(int role);
@@ -50,6 +51,8 @@ int EndMenu();
 
 // user.c functions
 
+void ShowUser(User user);
+void ShowUsers(User *tab, int size);
 void WelcomeMsg(char *login);
 void CreateAccount(char *name_file, int *size);
 int ConnectAccount(User *tab, int *size);
@@ -59,8 +62,10 @@ int ConnectAccount(User *tab, int *size);
 void ShowBook(Book book);
 void ShowBooks(Book *tab, int size);
 void BookMsg(Book *book, User user, int size);
-void AddBook(char *name_file, int *size);
+int AddBook(char *name_file, Book *book, int *size);
+void RemoveBook(Book *book, int size);
 User ReserveBook(Book *book, User user, int size);
+User ReturnBook(Book *book, User user, int size);
 
 // convert.c functions
 
@@ -72,7 +77,11 @@ void ReplaceUnderscores(char *tab);
 // compare.c functions
 
 int CompareTableUserLogin(User *tab, char *login, int size);
-int CompareTableBookId(Book *tab, char *id, int size);
+int CompareTableBookId(Book *tab, long long id, int size);
+int CompareTableBookTitle(Book *tab, char *title, int size);
+int CompareTableBookAuthor(Book *tab, char *author, int size);
+int CompareTableBookType(Book *tab, int type, int size);
+int CompareTableBook(Book *tab, Book book, int size);
 
 // manage_files.c functions
 

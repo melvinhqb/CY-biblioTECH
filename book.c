@@ -36,8 +36,6 @@ void BookMsg(Book *book, User user, int size){
     char hm_time[sizeof "HH h MM"];
     char *title = NULL;
     char *author = NULL;
-    
-    WelcomeMsg(user.login);
 
     for(int i=0;i<5;i++){
 
@@ -96,67 +94,36 @@ void BookMsg(Book *book, User user, int size){
 
 // Function that add a book to a text file
 
-void AddBook(char *name_file, int *size){
+int AddBook(char *name_file, Book *book, int *size){
 
-    char title[102];
-    char author[52];
-    char id[15];
+    int check_size;
+    Book new_book;
+    char id_char[15];
     char type[3];
-    char stock[3];
-
-    int cmp = 1;
-    int c = 0;
-    int index = 0;
-    int check_size = 0;
-
+    long long c;
+    char *ptr = NULL;
+    int index;
     FILE *file = NULL;
-    Book *tab = LoadBooks(name_file, *size);
 
-    // Creating the books's title
     do{
 
         printf("\nTitre\n>>>");
 
-        check_size = ReadInput(title, sizeof(title));
-
-        if(check_size == 1){
-
-            ReplaceSpaces(title);
-
-        }
-        else{
-
-            printf("\nCe titre est trop grand ! (100 caracteres max)\n");
-
-        }
+        check_size = UserInput(new_book.title, sizeof(new_book.title));
 
     }while(check_size != 1);
 
     check_size = 0;
 
-    // Creating the books's author
     do{
 
         printf("\nAuteur\n>>>");
 
-        check_size = ReadInput(author, sizeof(author));
-
-        if(check_size == 1){
-
-            ReplaceSpaces(author);
-
-        }
-        else{
-            
-            printf("\nCe nom est trop grand ! (50 caracteres max)\n");
-
-        }
+        check_size = UserInput(new_book.author, sizeof(new_book.author));
 
     }while(check_size != 1);
 
     check_size = 0;
-
-    // Creating the book's type
 
     do{
 
@@ -167,46 +134,72 @@ void AddBook(char *name_file, int *size){
         printf("4 - History\n");
         printf(">>>");
 
-        check_size = ReadInput(type, sizeof(type));
+        new_book.type = MenuChoice(type, 4);
 
-        if(check_size != 1){
-
-            printf("\nErreur de saisie, veuillez recommencer !\n");
-
-        }
-        else{
-
-            c = (int) strtol (type, NULL, 10);
-
-            if(c < 1 || c > NB_TYPE){
-
-                printf("\nErreur de saisie, veuillez recommencer !\n");
-
-            }
-
-        }
-
-    }while(c < 1 || c > NB_TYPE || check_size != 1);
+    }while(new_book.type == 0);
 
     check_size = 0;
 
-    // Creating the book's ID
-
-    do{
+   do{
 
         printf("\nIdentifiant (ISBN)\n>>>");
 
-        check_size = ReadInput(id, sizeof(id));
+        check_size = ReadInput(id_char, sizeof(id_char));
 
         if(check_size == 1){
 
-            ReplaceSpaces(id);
+            for(int i=0;i<strlen(id_char);i++){
 
-            index = CompareTableBookId(tab, id, *size);
+                if(id_char[i] < 48 || id_char[i] > 57){
 
-            if(index != -1){
+                    printf("\nSeuls les chiffres sont acceptes !\n");
+                    check_size = 0;
+                    break;
 
-                printf("\nCet identifiant est deja pris !\n");
+                }
+
+            }
+
+            if(check_size == 1){
+
+                new_book.id = (long long)strtoll(id_char, NULL, 10);
+                index = CompareTableBook(book, new_book, *size);
+
+                if(index == -2){
+
+                    // Adds the data to a text file
+                    file = fopen(name_file, "a");
+
+                    if(file == NULL){
+
+                        printf("%s\n",strerror(errno)); // Error message
+                        exit(1);
+
+                    }
+                    
+                    fprintf(file, "%s %s %lli %d 1\n", new_book.title, new_book.author, new_book.id, new_book.type); // The number one correspond to the "in stock" state
+                    fclose(file);
+                    *size += 1;
+
+                    printf("\nLivre ajoute avec succes !\n");
+
+                }
+                else if(index == -3){
+
+                    printf("\nCe livre existe sous un autre identifiant !\n");
+
+                }
+                else if(index == -1){
+
+                    printf("\nCet identifiant est deja pris pour un autre livre !\n");
+
+                }
+                else{
+
+                    book[index].stock += 1;
+                    printf("\nLivre ajoute avec succes !\n");
+
+                }
 
             }
 
@@ -217,20 +210,53 @@ void AddBook(char *name_file, int *size){
 
         }
 
-    }while(index != -1 || check_size != 1);
-
-    // Adds the data to a text file
-    file = fopen(name_file, "a");
-
-    if(file == NULL){
-        printf("%s\n",strerror(errno)); // Error message
-        exit(1);
-    }
+    }while(check_size != 1);
     
-    fprintf(file, "%s %s %s %d 1\n", title, author, id, c); // The number one correspond to the "in stock" state
-    fclose(file);
-    *size += 1;
-    printf("\nLivre ajoute avec succes !\n");
+    return index;
+
+}
+
+// Function that remove a book to a text file
+
+void RemoveBook(Book *book, int size){
+
+    int check_size;
+    char id_char[15];
+    int index;
+    long long id;
+
+    do{
+
+        printf("\nIdentifiant (ISBN)\n>>>");
+
+        check_size = ReadInput(id_char, sizeof(id_char));
+
+        if(check_size == 1){
+
+            ReplaceSpaces(id_char);
+            id = (long long)strtoll(id_char, NULL, 10);
+            index = CompareTableBookId(book, id, size);
+
+            if(index != -1 && book[index].stock != 0){
+
+                book[index].stock = 0;
+                printf("\nLivre retire de la bibliotheque !\n");
+
+            }
+            else{
+
+                printf("\nReference inconnue !\n");
+
+            }
+
+        }
+        else{
+
+            printf("\nCet identifiant est trop grand ! (13 caracteres max)\n");
+
+        }
+
+    }while(index == -1 || check_size != 1);
 
 }
 
@@ -250,9 +276,13 @@ User ReserveBook(Book *book, User user, int size){
     user_books = user.books;
 
     for(int i=0;i<5;i++){
+
         if(user_books[i].id != 0){
+
             count1++;
+
         }
+
     }
 
     role = user.role;
@@ -265,10 +295,14 @@ User ReserveBook(Book *book, User user, int size){
 
 
     if(user.role == 1){
+
         delay = 120;
+
     }
     else{
+
         delay = 180;
+
     }
 
     printf("\nTitre\n>>>");
@@ -312,6 +346,83 @@ User ReserveBook(Book *book, User user, int size){
         }
 
     }
+    else{
+
+        printf("\nCe livre n'est pas disponible pour le moment !\n");
+
+    }
+
+    return user;
+
+}
+
+// Function that removes a book to a user file and the storage status to a book file
+
+User ReturnBook(Book *book, User user, int size){
+
+    char title2[102];
+    int check_size;
+    int count1 = 0;
+    int count2 = 0;
+    int index;
+    int delay;
+    int role;
+
+    Book_tm *user_books = NULL;
+    user_books = user.books;
+
+    for(int i=0;i<5;i++){
+
+        if(user_books[i].id != 0){
+
+            count1++;
+
+        }
+
+    }
+
+    role = user.role;
+
+    if((count1 == 0)){
+
+        printf("\nVous ne pouvez pas retourner de livres !\n");
+        return user;
+    }
+
+    printf("\nTitre\n>>>");
+
+    check_size = ReadInput(title2, sizeof(title2));
+
+    if(check_size == 1){
+
+        ReplaceSpaces(title2);
+        
+        int indexbook;
+        int indexuser;
+
+        for(int i=0;i<size;i++){
+
+            for(int j=0;j<count1;j++){
+
+                if(strcmp(title2, book[i].title) == 0 && book[i].id == user.books[j].id){
+
+                    book[i].stock += 1;
+                    user_books[j].id = 0;
+                    user_books[j].time = 0;
+
+                    printf("\nLivre rendu avec succes !\n");
+                    return user;
+
+                }
+
+            }
+
+        }
+
+    }
+
+    printf("\nVous ne possedez pas ce livre !\n");
+
     return user;
 
 }
