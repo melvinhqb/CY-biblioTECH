@@ -25,11 +25,11 @@ char *ShowBookStock(int a){
 
     switch(a){
 
-        case IN_STOCK:
-            return "En stock";
-
         case OUT_OF_STOCK:
             return "Indisponible";
+
+        default:
+            return "Disponible";
 
     }
 

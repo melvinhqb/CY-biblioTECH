@@ -4,11 +4,15 @@
 
 void ShowBook(Book book){
 
-    printf("\nTitre : %s\n",book.title);
-    printf("Auteur : %s\n",book.author);
-    printf("ID : %lli\n", book.id);
-    printf("Categorie : %s\n", ShowBookType(book.type));
-    printf("Stock : %s\n\n", ShowBookStock(book.stock));
+    ReplaceUnderscores(book.title);
+    printf("%s ",book.title);
+    ReplaceSpaces(book.title);
+
+    ReplaceUnderscores(book.author);
+    printf("de %s ",book.author);
+    ReplaceSpaces(book.author);
+
+    printf("(%s)\n", ShowBookStock(book.stock));
 
 }
 
@@ -16,7 +20,7 @@ void ShowBook(Book book){
 
 void ShowBooks(Book *tab, int size){
 
-    printf("\n***********************************\n");
+    printf("\n");
 
     for(int i=0;i<size;i++){
 
@@ -262,8 +266,9 @@ void RemoveBook(Book *book, int size){
 
 // Function that adds a book to a user file and the storage status to a book file
 
-User ReserveBook(Book *book, User user, int size){
+int ReserveBook(Book *book, User *user, int size){
 
+    char search[102];
     char title2[102];
     int check_size;
     int count1 = 0;
@@ -272,8 +277,14 @@ User ReserveBook(Book *book, User user, int size){
     int delay;
     int role;
 
+    Book *search_book_title = NULL;
+    Book *search_book_author = NULL;
+    Book *search_book = NULL;
+    int search_size_title;
+    int search_size_author;
+    int search_size;
     Book_tm *user_books = NULL;
-    user_books = user.books;
+    user_books = user->books;
 
     for(int i=0;i<5;i++){
 
@@ -285,16 +296,16 @@ User ReserveBook(Book *book, User user, int size){
 
     }
 
-    role = user.role;
+    role = user->role;
 
     if((role == STUDENT && count1 == 3) || (role == TEACHER && count1 == 5)){
 
         printf("\nVous ne pouvez pas emprunter plus de %d livres !\n", count1);
-        return user;
+        return 0;
     }
 
 
-    if(user.role == 1){
+    if(user->role == 1){
 
         delay = 120;
 
@@ -303,6 +314,27 @@ User ReserveBook(Book *book, User user, int size){
 
         delay = 180;
 
+    }
+
+    do{
+
+        printf("\nRechercher titre\n>>>");
+
+        check_size = UserInput(search, sizeof(search));
+
+    }while(check_size != 1);
+
+    search_book_title = SearchByTitle(book, search, size, &search_size_title);
+    //search_book_author = SearchByAuthor(book, search, size, &search_size_author);
+    //search_book = MergesBooks(search_book_title, search_book_author, search_size_title, search_size_author, &search_size);
+
+    if(search_size_title > 0){
+        printf("\nCela peut vous interreser :\n");
+        ShowBooks(search_book_title, search_size_title);
+    }
+    else{
+        printf("\nAucun livre ne correcpond aux termes recherche !\n");
+        return 0;
     }
 
     printf("\nTitre\n>>>");
@@ -343,6 +375,8 @@ User ReserveBook(Book *book, User user, int size){
 
             printf("\nLivre reserve avec succes !\n");
 
+            return 1;
+
         }
 
     }
@@ -352,13 +386,13 @@ User ReserveBook(Book *book, User user, int size){
 
     }
 
-    return user;
+    return 0;
 
 }
 
 // Function that removes a book to a user file and the storage status to a book file
 
-User ReturnBook(Book *book, User user, int size){
+int ReturnBook(Book *book, User *user, int size){
 
     char title2[102];
     int check_size;
@@ -369,7 +403,7 @@ User ReturnBook(Book *book, User user, int size){
     int role;
 
     Book_tm *user_books = NULL;
-    user_books = user.books;
+    user_books = user->books;
 
     for(int i=0;i<5;i++){
 
@@ -381,12 +415,12 @@ User ReturnBook(Book *book, User user, int size){
 
     }
 
-    role = user.role;
+    role = user->role;
 
     if((count1 == 0)){
 
         printf("\nVous ne pouvez pas retourner de livres !\n");
-        return user;
+        return 0;
     }
 
     printf("\nTitre\n>>>");
@@ -404,14 +438,22 @@ User ReturnBook(Book *book, User user, int size){
 
             for(int j=0;j<count1;j++){
 
-                if(strcmp(title2, book[i].title) == 0 && book[i].id == user.books[j].id){
+                if(strcmp(title2, book[i].title) == 0 && book[i].id == user->books[j].id){
 
                     book[i].stock += 1;
-                    user_books[j].id = 0;
-                    user_books[j].time = 0;
+
+                    for(int k=j; k<4;k++){
+
+                        user_books[k].id = user_books[k+1].id;
+                        user_books[k].time = user_books[k+1].time;
+
+                    }
+                    
+                    user_books[4].id = 0;
+                    user_books[4].time = 0;
 
                     printf("\nLivre rendu avec succes !\n");
-                    return user;
+                    return 1;
 
                 }
 
@@ -423,6 +465,6 @@ User ReturnBook(Book *book, User user, int size){
 
     printf("\nVous ne possedez pas ce livre !\n");
 
-    return user;
+    return 0;
 
 }

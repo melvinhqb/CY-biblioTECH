@@ -4,6 +4,7 @@ int main(){
 
     int choice;
     int index;
+    int verif;
     int sizeUser = FileSize(USER_NAME_FILE);
     int sizeBook = FileSize(BOOK_NAME_FILE);
 
@@ -27,14 +28,18 @@ int main(){
 
                 switch(choice){
                     case 1:
-                        tabUser[index] = ReserveBook(tabBook, tabUser[index], sizeBook);
-                        WriteUser(USER_NAME_FILE, tabUser, sizeUser);
-                        WriteBook(BOOK_NAME_FILE, tabBook, sizeBook);
+                        verif = ReserveBook(tabBook, &tabUser[index], sizeBook);
+                        if(verif == 1){
+                            WriteUser(USER_NAME_FILE, tabUser, sizeUser);
+                            WriteBook(BOOK_NAME_FILE, tabBook, sizeBook);
+                        }
                         break;
                     case 2:
-                        tabUser[index] = ReturnBook(tabBook, tabUser[index], sizeBook);
-                        WriteUser(USER_NAME_FILE, tabUser, sizeUser);
-                        WriteBook(BOOK_NAME_FILE, tabBook, sizeBook);
+                        verif = ReturnBook(tabBook, &tabUser[index], sizeBook);
+                        if(verif == 1){
+                            WriteUser(USER_NAME_FILE, tabUser, sizeUser);
+                            WriteBook(BOOK_NAME_FILE, tabBook, sizeBook);
+                        }
                         break;
                     case 3:
                         BookMsg(tabBook, tabUser[index], sizeBook);

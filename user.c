@@ -41,6 +41,8 @@ void WelcomeMsg(char *login){
     
     printf("Bienvenue %s !\n",login);
     printf("***********************************\n");
+
+    ReplaceSpaces(login);
     
 }
 

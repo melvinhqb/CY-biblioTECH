@@ -64,8 +64,8 @@ void ShowBooks(Book *tab, int size);
 void BookMsg(Book *book, User user, int size);
 int AddBook(char *name_file, Book *book, int *size);
 void RemoveBook(Book *book, int size);
-User ReserveBook(Book *book, User user, int size);
-User ReturnBook(Book *book, User user, int size);
+int ReserveBook(Book *book, User *user, int size);
+int ReturnBook(Book *book, User *user, int size);
 
 // convert.c functions
 
@@ -95,3 +95,9 @@ void WriteBook(char *name_file, Book *tab, int size);
 
 void Encode(char chaine[], char cle[]);
 void Decode(char chaine[], char cle[]);
+
+// search.c
+
+Book *SearchByTitle(Book *tabBook, char *content, int size, int *count);
+Book *SearchByAuthor(Book *tabBook, char *content, int size, int *count);
+Book *MergesBooks(Book *tab1, Book *tab2, int size1, int size2, int *size3);
