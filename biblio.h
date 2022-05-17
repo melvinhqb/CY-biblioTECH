@@ -6,10 +6,22 @@
 
 #define USER_NAME_FILE "users.txt"
 #define BOOK_NAME_FILE "books.txt"
+
 #define VIGENERE_KEY "CYTECHLIBRARY"
+
+#define SCIENCE_NAME "Sciences"
+#define LITERATURE_NAME "Litterature"
+#define ART_NAME "Art"
+#define HISTORY_NAME "Histoire"
+
 #define NB_ROLE 2
 #define NB_TYPE 4
 #define ASCII_SPACE 32
+
+#define MAX_SIZE_LOGIN 20
+#define MAX_SIZE_PSWRD 20
+#define MAX_SIZE_TITLE 80
+#define MAX_SIZE_AUTHOR 50
 
 typedef enum{STUDENT=1, TEACHER}Role;
 
@@ -23,15 +35,15 @@ typedef struct{
 }Book_tm;
 
 typedef struct{
-    char login[50];
-    char pswrd[50];
+    char login[MAX_SIZE_LOGIN+2];
+    char pswrd[MAX_SIZE_LOGIN+2];
     int role;
     Book_tm books[5];
 }User;
 
 typedef struct{
-    char title[100];
-    char author[50];
+    char title[MAX_SIZE_TITLE+2];
+    char author[MAX_SIZE_AUTHOR+2];
     long long id;
     int type;
     int stock;
@@ -101,4 +113,5 @@ void Decode(char chaine[], char cle[]);
 
 Book *SearchByTitle(Book *tabBook, char *content, int size, int *count);
 Book *SearchByAuthor(Book *tabBook, char *content, int size, int *count);
+Book *SearchByType(Book *tabBook, char *content, int size, int *count);
 Book *MergesBooks(Book *tab1, Book *tab2, int size1, int size2, int *size3);

@@ -87,9 +87,15 @@ int MenuChoice(char *choice, int max){
     int check_size;
     int c = 0;
 
-    check_size = ReadInput(choice, 3);
+    check_size = ReadInput(choice, 4);
 
     if(check_size != 1){
+
+        printf("\nErreur de saisie, veuillez recommencer !\n");
+        return 0;
+
+    }
+    else if(choice[1] != '\0' && ((int)choice[1] < 48 || (int)choice[1] > 57)){
 
         printf("\nErreur de saisie, veuillez recommencer !\n");
         return 0;

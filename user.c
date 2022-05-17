@@ -27,7 +27,7 @@ void ShowUsers(User *tab, int size){
 
 void WelcomeMsg(char *login){
 
-    int nb_spaces = (23-strlen(login))/2;
+    int nb_spaces = (MAX_SIZE_LOGIN + 3 - strlen(login))/2;
 
     printf("\n***********************************\n");
 
@@ -50,8 +50,8 @@ void WelcomeMsg(char *login){
 
 void CreateAccount(char *name_file, int *size){
 
-    char login[22];
-    char pswrd[22];
+    char login[MAX_SIZE_LOGIN + 2];
+    char pswrd[MAX_SIZE_PSWRD + 2];
     char char_role[3];
     int role;
 
@@ -85,7 +85,7 @@ void CreateAccount(char *name_file, int *size){
         }
         else{
 
-            printf("\nCe login est trop grand ! (20 caracteres max)\n");
+            printf("\nCe login est trop grand ! (%d caracteres max)\n", MAX_SIZE_LOGIN);
 
         }
 
@@ -107,7 +107,7 @@ void CreateAccount(char *name_file, int *size){
         }
         else{
 
-            printf("\nCe mot de passe est trop grand !  (20 caracteres max)\n");
+            printf("\nCe mot de passe est trop grand !  (%d caracteres max)\n", MAX_SIZE_PSWRD);
 
         }
 
@@ -148,8 +148,8 @@ void CreateAccount(char *name_file, int *size){
 
 int ConnectAccount(User *tab, int *size){
 
-    char login[22];
-    char pswrd[22];
+    char login[MAX_SIZE_LOGIN + 2];
+    char pswrd[MAX_SIZE_PSWRD + 2];
 
     int index;
     int cmp;

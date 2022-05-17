@@ -6,13 +6,13 @@ char *ShowBookType(int a){
 
     switch(a){
         case SCIENCE:
-            return "Science";
+            return SCIENCE_NAME;
         case LITERATURE:
-            return "Litterature";
+            return LITERATURE_NAME;
         case ART:
-            return "Art";
+            return ART_NAME;
         case HISTORY:
-            return "Histoire";
+            return HISTORY_NAME;
         default:
             return "???";
     }

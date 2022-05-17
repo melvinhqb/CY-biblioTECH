@@ -8,9 +8,23 @@ void ShowBook(Book book){
     printf("%s ",book.title);
     ReplaceSpaces(book.title);
 
+    for(int i=0;i<MAX_SIZE_TITLE+3-strlen(book.title);i++){
+        printf(" ");
+    }
+
     ReplaceUnderscores(book.author);
     printf("de %s ",book.author);
     ReplaceSpaces(book.author);
+
+    for(int i=0;i<55-strlen(book.author);i++){
+        printf(" ");
+    }
+
+    printf("%s", ShowBookType(book.type));
+
+    for(int i=0;i<16-strlen(ShowBookType(book.type));i++){
+        printf(" ");
+    }
 
     printf("(%s)", ShowBookStock(book.stock));
 
@@ -287,8 +301,8 @@ int DelayCheck(Book_tm *my_books, int size){
 
 int ReserveBook(Book *book, User *user, int size){
 
-    char search[102];
-    char title2[102];
+    char search[MAX_SIZE_TITLE];
+    char title2[MAX_SIZE_TITLE];
     int check_size;
     int count1 = 0;
     int count2 = 0;
@@ -296,15 +310,17 @@ int ReserveBook(Book *book, User *user, int size){
     int delay;
     int role;
     int verif;
-    char id_char[15];
-    long long id;
+    char choice[4];
+    int user_choice;
 
     Book *search_book_title = NULL;
     Book *search_book_author = NULL;
+    Book *search_book_type = NULL;
     Book *search_book = NULL;
     Book *choice_book = NULL;
     int search_size_title;
     int search_size_author;
+    int search_size_type;
     int search_size;
     int choice_book_size;
     Book_tm *user_books = NULL;
@@ -362,12 +378,14 @@ int ReserveBook(Book *book, User *user, int size){
     }while(check_size != 1);
 
     search_book_title = SearchByTitle(book, search, size, &search_size_title);
-    //search_book_author = SearchByAuthor(book, search, size, &search_size_author);
-    //search_book = MergesBooks(search_book_title, search_book_author, search_size_title, search_size_author, &search_size);
+    search_book_author = SearchByAuthor(book, search, size, &search_size_author);
+    search_book_type = SearchByType(book, search, size, &search_size_type);
+    search_book = MergesBooks(search_book_title, search_book_author, search_size_title, search_size_author, &search_size);
+    search_book = MergesBooks(search_book, search_book_type, search_size, search_size_type, &search_size);
 
-    if(search_size_title > 0){
-        printf("\nCela peut vous interreser :\n");
-        ShowBooks(search_book_title, search_size_title);
+    if(search_size > 0){
+        printf("\nSuggestions :\n");
+        ShowBooks(search_book, search_size);
     }
     else{
         printf("\nAucun livre ne correcpond aux termes recherche !\n");
@@ -401,30 +419,36 @@ int ReserveBook(Book *book, User *user, int size){
         }
         else if(count2 > 1){
 
-            printf("\nLequel de ces livres voulez-vous ?\n\n");
+            printf("\nLequel de ces livres voulez-vous ?\n");
             
             choice_book = SearchByTitle(book, title2, size, &count2);
 
             for(int i=0;i<count2;i++){
 
+                printf("\n%d - ", i+1);
                 ShowBook(choice_book[i]);
-                printf("     ID : %lli\n", choice_book[i].id);
 
             }
 
-            printf("\nIdentifiant (ISBN)\n>>>");
+            printf("\n\nChoisir numero\n>>>");
 
-            check_size = ReadInput(id_char, sizeof(id_char));
+            user_choice = MenuChoice(choice, count2);
 
-            if(check_size == 1){
+            if(user_choice != 0){
 
-                id = (long long)strtoll(id_char, NULL, 10);
-                index = CompareTableBookId(choice_book, id, choice_book_size);
-                printf("%d\n",index);
-                /*
-                Si index != -1 , chercher ISBN coorespondant dans book
-                puis faire -1 et ajouter dans user
-                */
+                for(int i=0;i<size;i++){
+                       if(book[i].id == choice_book[user_choice-1].id){
+
+                            book[i].stock -= 1;
+                            user_books[count1].id = book[i].id;
+                            user_books[count1].time = time(NULL) + delay;
+
+                            printf("\nLivre reserve avec succes !\n");
+
+                            return 1;
+
+                       }
+                   }
 
             }
 
@@ -456,7 +480,7 @@ int ReserveBook(Book *book, User *user, int size){
 
 int ReturnBook(Book *book, User *user, int size){
 
-    char title2[102];
+    char title2[MAX_SIZE_TITLE];
     int check_size;
     int count1 = 0;
     int count2 = 0;
