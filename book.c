@@ -12,7 +12,7 @@ void ShowBook(Book book){
     printf("de %s ",book.author);
     ReplaceSpaces(book.author);
 
-    printf("(%s)\n", ShowBookStock(book.stock));
+    printf("(%s)", ShowBookStock(book.stock));
 
 }
 
@@ -25,6 +25,7 @@ void ShowBooks(Book *tab, int size){
     for(int i=0;i<size;i++){
 
         ShowBook(tab[i]); // Show the book n°i in *tab
+        printf("\n");
 
     }
 
@@ -264,6 +265,24 @@ void RemoveBook(Book *book, int size){
 
 }
 
+int DelayCheck(Book_tm *my_books, int size){
+
+    for(int i=0;i<size;i++){
+
+        if(my_books[i].time < time(NULL)){
+
+            return 0;
+
+        }
+
+    }
+
+    return 1;
+
+}
+
+
+
 // Function that adds a book to a user file and the storage status to a book file
 
 int ReserveBook(Book *book, User *user, int size){
@@ -276,15 +295,22 @@ int ReserveBook(Book *book, User *user, int size){
     int index;
     int delay;
     int role;
+    int verif;
+    char id_char[15];
+    long long id;
 
     Book *search_book_title = NULL;
     Book *search_book_author = NULL;
     Book *search_book = NULL;
+    Book *choice_book = NULL;
     int search_size_title;
     int search_size_author;
     int search_size;
+    int choice_book_size;
     Book_tm *user_books = NULL;
     user_books = user->books;
+
+    // Count how many books have the user
 
     for(int i=0;i<5;i++){
 
@@ -296,14 +322,25 @@ int ReserveBook(Book *book, User *user, int size){
 
     }
 
+    // Verification of conditions of reservation
+
+    verif = DelayCheck(user_books, count1);
+
     role = user->role;
+
+    if(verif == 0){
+
+        printf("\nAu moins un de vos livres n'a pas ete rendu a temps !\n");
+        printf("\nPour emprunter, veuillez le(s) rendre\n");
+        return 0;
+
+    }
 
     if((role == STUDENT && count1 == 3) || (role == TEACHER && count1 == 5)){
 
         printf("\nVous ne pouvez pas emprunter plus de %d livres !\n", count1);
         return 0;
     }
-
 
     if(user->role == 1){
 
@@ -364,7 +401,32 @@ int ReserveBook(Book *book, User *user, int size){
         }
         else if(count2 > 1){
 
-            printf("\nLequel de ces livres voulez-vous ?\n>>>");
+            printf("\nLequel de ces livres voulez-vous ?\n\n");
+            
+            choice_book = SearchByTitle(book, title2, size, &count2);
+
+            for(int i=0;i<count2;i++){
+
+                ShowBook(choice_book[i]);
+                printf("     ID : %lli\n", choice_book[i].id);
+
+            }
+
+            printf("\nIdentifiant (ISBN)\n>>>");
+
+            check_size = ReadInput(id_char, sizeof(id_char));
+
+            if(check_size == 1){
+
+                id = (long long)strtoll(id_char, NULL, 10);
+                index = CompareTableBookId(choice_book, id, choice_book_size);
+                printf("%d\n",index);
+                /*
+                Si index != -1 , chercher ISBN coorespondant dans book
+                puis faire -1 et ajouter dans user
+                */
+
+            }
 
         }
         else{

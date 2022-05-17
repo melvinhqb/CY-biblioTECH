@@ -64,6 +64,7 @@ void ShowBooks(Book *tab, int size);
 void BookMsg(Book *book, User user, int size);
 int AddBook(char *name_file, Book *book, int *size);
 void RemoveBook(Book *book, int size);
+int DelayCheck(Book_tm *my_books, int size);
 int ReserveBook(Book *book, User *user, int size);
 int ReturnBook(Book *book, User *user, int size);
 
