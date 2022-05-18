@@ -30,10 +30,12 @@ void ShowBook(Book book){
 
 }
 
-void ShowBook2(Book book){
+void ShowBook2(Book book, char *content){
+
+    ReplaceUnderscores(content);
 
     ReplaceUnderscores(book.title);
-    ShowWithColor(book.title, "e");
+    ShowWithColor(book.title, content);
     ReplaceSpaces(book.title);
 
     for(int i=0;i<MAX_SIZE_TITLE+3-strlen(book.title);i++){
@@ -41,20 +43,22 @@ void ShowBook2(Book book){
     }
 
     ReplaceUnderscores(book.author);
-    printf("de ",book.author);
+    printf("de ");
+    ShowWithColor(book.author, content);
     ReplaceSpaces(book.author);
 
     for(int i=0;i<55-strlen(book.author);i++){
         printf(" ");
     }
-
-    printf("%s", ShowBookType(book.type));
+    ShowWithColor(ShowBookType(book.type), content);
 
     for(int i=0;i<16-strlen(ShowBookType(book.type));i++){
         printf(" ");
     }
 
     printf("(%s)", ShowBookStock(book.stock));
+
+    ReplaceSpaces(content);
 
 }
 
@@ -73,13 +77,13 @@ void ShowBooks(Book *tab, int size){
 
 }
 
-void ShowBooks2(Book *tab, int size){
+void ShowBooks2(Book *tab, char *content, int size){
 
     printf("\n");
 
     for(int i=0;i<size;i++){
 
-        ShowBook2(tab[i]); // Show the book n°i in *tab
+        ShowBook2(tab[i], content); // Show the book n°i in *tab
         printf("\n");
 
     }
@@ -424,7 +428,11 @@ int ReserveBook(Book *book, User *user, int size){
     search_book = MergesBooks(search_book_title, search_book_author, search_size_title, search_size_author, &search_size);
     search_book = MergesBooks(search_book, search_book_type, search_size, search_size_type, &search_size);
 
-    if(search_size > 0){
+    if(search_size > 0 && (int)search[0] != 0){
+        printf("\nSuggestions :\n");
+        ShowBooks2(search_book, search, search_size);
+    }
+    else if(search_size > 0 && (int)search[0] == 0){
         printf("\nSuggestions :\n");
         ShowBooks(search_book, search_size);
     }

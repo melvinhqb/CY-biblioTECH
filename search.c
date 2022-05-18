@@ -339,34 +339,32 @@ Book *MergesBooks(Book *tab1, Book *tab2, int size1, int size2, int *size3){
 
 }
 
-void ShowWithColor(char *content1, char *content2){
+void ShowWithColor(char *sentence, char *search){
 
     int c, c2;
+    int a = 0;
 
     c2 = 0;
 
-    while(content1[c2] != '\0'){
+    while(sentence[c2] != '\0'){
 
         c = 0;
 
-        while(content1[c2] == content2[c]){
+        while(sentence[c2] == search[c]){
 
-            if(content2[c] == '\0'){
+            a++;
 
-                printf("\033[%sm","34");
+            if(search[c] == '\0'){
 
-                for(int i=c2-c;i<c;i++){
+                printf("\033[%sm", "32");
+                for(int i=0;i<c;i++){
 
-                    printf("%c", content1[i]);
+                    printf("%c", search[i]);
 
                 }
+                printf("\033[%sm", "37");
+                return;
 
-                printf("\033[%sm","37");
-                break;
-
-            }
-            else{
-                printf("%c", content1[c2]);
             }
 
             c++;
@@ -374,26 +372,33 @@ void ShowWithColor(char *content1, char *content2){
 
         }
 
-        if(content1[c] == '\0' && content1[c2] != '\0'){
+        if(search[c] == '\0' && sentence[c2] != '\0'){
 
-            printf("\033[%sm","34");
+            printf("\033[%sm", "32");
+            for(int i=0;i<c;i++){
 
-            for(int i=c2-c;i<c;i++){
-
-                printf("%c", content1[i]);
+                    printf("%c", search[i]);
 
             }
+            printf("\033[%sm", "37");
+            a = 0;
 
-            printf("\033[%sm","37");
-            break;
-
+        }
+        else if(a != 0){
+            for(int i=c2-a;i<c2;i++){
+                if(i < (int)strlen(sentence)){
+                    printf("%c", sentence[i]);
+                }
+                
+            }
+            a = 0;
         }
         else{
-            printf("%c", content1[c2]);
-
-        }
-
-        c2++;
+            if(c2 < (int)strlen(sentence)){
+                printf("%c", sentence[c2]);
+            }
+            c2++;
+        }        
 
     }
 
