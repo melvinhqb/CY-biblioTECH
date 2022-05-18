@@ -30,6 +30,34 @@ void ShowBook(Book book){
 
 }
 
+void ShowBook2(Book book){
+
+    ReplaceUnderscores(book.title);
+    ShowWithColor(book.title, "e");
+    ReplaceSpaces(book.title);
+
+    for(int i=0;i<MAX_SIZE_TITLE+3-strlen(book.title);i++){
+        printf(" ");
+    }
+
+    ReplaceUnderscores(book.author);
+    printf("de ",book.author);
+    ReplaceSpaces(book.author);
+
+    for(int i=0;i<55-strlen(book.author);i++){
+        printf(" ");
+    }
+
+    printf("%s", ShowBookType(book.type));
+
+    for(int i=0;i<16-strlen(ShowBookType(book.type));i++){
+        printf(" ");
+    }
+
+    printf("(%s)", ShowBookStock(book.stock));
+
+}
+
 // Displays the characteristics of books in a table
 
 void ShowBooks(Book *tab, int size){
@@ -39,6 +67,19 @@ void ShowBooks(Book *tab, int size){
     for(int i=0;i<size;i++){
 
         ShowBook(tab[i]); // Show the book n°i in *tab
+        printf("\n");
+
+    }
+
+}
+
+void ShowBooks2(Book *tab, int size){
+
+    printf("\n");
+
+    for(int i=0;i<size;i++){
+
+        ShowBook2(tab[i]); // Show the book n°i in *tab
         printf("\n");
 
     }

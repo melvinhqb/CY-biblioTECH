@@ -301,6 +301,7 @@ Book *MergesBooks(Book *tab1, Book *tab2, int size1, int size2, int *size3){
 
     Book *tab3 = NULL;
     *size3 = size1;
+    int j;
 
     for(int i=0; i<size2; i++){
 
@@ -321,15 +322,79 @@ Book *MergesBooks(Book *tab1, Book *tab2, int size1, int size2, int *size3){
 
     }
 
-    for(int i=size1; i<*size3; i++){
+    j = size1;
 
-        if(CompareTableBookId(tab1, tab2[i-size1].id, size1) == -1){
-            tab3[i] = tab2[i-size1];
+    for(int i=0; i<size2; i++){
+
+        if(CompareTableBookId(tab1, tab2[i].id, size1) == -1){
+
+            tab3[j] = tab2[i];
+            j++;
 
         }
 
     }
 
     return tab3;
+
+}
+
+void ShowWithColor(char *content1, char *content2){
+
+    int c, c2;
+
+    c2 = 0;
+
+    while(content1[c2] != '\0'){
+
+        c = 0;
+
+        while(content1[c2] == content2[c]){
+
+            if(content2[c] == '\0'){
+
+                printf("\033[%sm","34");
+
+                for(int i=c2-c;i<c;i++){
+
+                    printf("%c", content1[i]);
+
+                }
+
+                printf("\033[%sm","37");
+                break;
+
+            }
+            else{
+                printf("%c", content1[c2]);
+            }
+
+            c++;
+            c2++;
+
+        }
+
+        if(content1[c] == '\0' && content1[c2] != '\0'){
+
+            printf("\033[%sm","34");
+
+            for(int i=c2-c;i<c;i++){
+
+                printf("%c", content1[i]);
+
+            }
+
+            printf("\033[%sm","37");
+            break;
+
+        }
+        else{
+            printf("%c", content1[c2]);
+
+        }
+
+        c2++;
+
+    }
 
 }

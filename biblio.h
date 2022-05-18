@@ -115,3 +115,4 @@ Book *SearchByTitle(Book *tabBook, char *content, int size, int *count);
 Book *SearchByAuthor(Book *tabBook, char *content, int size, int *count);
 Book *SearchByType(Book *tabBook, char *content, int size, int *count);
 Book *MergesBooks(Book *tab1, Book *tab2, int size1, int size2, int *size3);
+void ShowWithColor(char *content1, char *content2);
