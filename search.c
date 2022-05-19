@@ -1,5 +1,7 @@
 #include "biblio.h"
 
+// Function that returns an array of books based on a book title
+
 Book *SearchByTitle(Book *tabBook, char *content, int size, int *count){
 
     Book *book = NULL;
@@ -86,6 +88,8 @@ Book *SearchByTitle(Book *tabBook, char *content, int size, int *count){
 
 }
 
+// Function that returns an array of books based on a book author
+
 Book *SearchByAuthor(Book *tabBook, char *content, int size, int *count){
 
     Book *book = NULL;
@@ -171,6 +175,8 @@ Book *SearchByAuthor(Book *tabBook, char *content, int size, int *count){
     return book;
 
 }
+
+// Function that returns an array of books based on a book type
 
 Book *SearchByType(Book *tabBook, char *content, int size, int *count){
 
@@ -296,6 +302,7 @@ Book *SearchByType(Book *tabBook, char *content, int size, int *count){
 
 }   
 
+// Function that merges two tables by removing duplicates
 
 Book *MergesBooks(Book *tab1, Book *tab2, int size1, int size2, int *size3){
 
@@ -338,6 +345,8 @@ Book *MergesBooks(Book *tab1, Book *tab2, int size1, int size2, int *size3){
     return tab3;
 
 }
+
+// Function that displays the search item in colour in relation to another item
 
 void ShowWithColor(char *sentence, char *search){
 

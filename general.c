@@ -87,7 +87,7 @@ int MenuChoice(char *choice, int max){
     int check_size;
     int c = 0;
 
-    check_size = ReadInput(choice, 4);
+    check_size = ReadInput(choice, 5);
 
     if(check_size != 1){
 

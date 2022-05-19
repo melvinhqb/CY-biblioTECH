@@ -416,7 +416,7 @@ int ReserveBook(Book *book, User *user, int size){
 
     do{
 
-        printf("\nRechercher titre\n>>>");
+        printf("\nRechercher (titre/auteur/matiere)\n>>>");
 
         check_size = UserInput(search, sizeof(search));
 
@@ -429,98 +429,63 @@ int ReserveBook(Book *book, User *user, int size){
     search_book = MergesBooks(search_book, search_book_type, search_size, search_size_type, &search_size);
 
     if(search_size > 0 && (int)search[0] != 0){
-        printf("\nSuggestions :\n");
-        ShowBooks2(search_book, search, search_size);
+        printf("\nSuggestions :\n\n");
+        for(int i=0;i<search_size;i++){
+            int j = i+1;
+            while(j < 1000){
+                printf(" ");
+                j = j*10;
+            }
+            printf("%d - ",i+1);
+            ShowBook2(search_book[i], search);
+            printf("\n");
+
+        }
     }
     else if(search_size > 0 && (int)search[0] == 0){
-        printf("\nSuggestions :\n");
-        ShowBooks(search_book, search_size);
+        printf("\nSuggestions :\n\n");
+
+        for(int i=0;i<search_size;i++){
+            int j = i+1;
+            while(j < 1000){
+                printf(" ");
+                j = j*10;
+            }
+            printf("%d - ",i+1);
+            ShowBook(search_book[i]);
+            printf("\n");
+
+        }
+
     }
     else{
         printf("\nAucun livre ne correcpond aux termes recherche !\n");
         return 0;
     }
 
-    printf("\nTitre\n>>>");
+    printf("\n\nChoisir numero\n>>>");
 
-    check_size = ReadInput(title2, sizeof(title2));
+    user_choice = MenuChoice(choice, search_size);
 
-    if(check_size == 1){
+    if(user_choice != 0){
 
-        ReplaceSpaces(title2);
-        count2 = 0;
+        for(int i=0;i<size;i++){
+                if(book[i].id == search_book[user_choice-1].id && book[i].stock != 0){
 
-        for(int i=0; i<size; i++){
+                    book[i].stock -= 1;
+                    user_books[count1].id = book[i].id;
+                    user_books[count1].time = time(NULL) + delay;
 
-            if(strcmp(book[i].title, title2) == 0 && book[i].stock != 0){
+                    printf("\nLivre reserve avec succes !\n");
 
-                count2++;
-                index = i;
+                    return 1;
 
+                }
             }
-
-        }
-
-        if(count2 == 0){
-
-            printf("\nCe livre n'est pas disponible pour le moment !\n");
-
-        }
-        else if(count2 > 1){
-
-            printf("\nLequel de ces livres voulez-vous ?\n");
-            
-            choice_book = SearchByTitle(book, title2, size, &count2);
-
-            for(int i=0;i<count2;i++){
-
-                printf("\n%d - ", i+1);
-                ShowBook(choice_book[i]);
-
-            }
-
-            printf("\n\nChoisir numero\n>>>");
-
-            user_choice = MenuChoice(choice, count2);
-
-            if(user_choice != 0){
-
-                for(int i=0;i<size;i++){
-                       if(book[i].id == choice_book[user_choice-1].id){
-
-                            book[i].stock -= 1;
-                            user_books[count1].id = book[i].id;
-                            user_books[count1].time = time(NULL) + delay;
-
-                            printf("\nLivre reserve avec succes !\n");
-
-                            return 1;
-
-                       }
-                   }
-
-            }
-
-        }
-        else{
-
-            book[index].stock -= 1;
-            user_books[count1].id = book[index].id;
-            user_books[count1].time = time(NULL) + delay;
-
-            printf("\nLivre reserve avec succes !\n");
-
-            return 1;
-
-        }
 
     }
-    else{
-
-        printf("\nCe livre n'est pas disponible pour le moment !\n");
-
-    }
-
+    
+    printf("\nCe livre n'est pas disponible pour le moment !\n");
     return 0;
 
 }
