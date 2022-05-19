@@ -1,6 +1,6 @@
 EXEC = exec
 HEADER = biblio.h
-SRC = main.c general.c user.c book.c convert.c compare.c manage_files.c vigenere.c search.c
+SRC = main.c general.c user.c book.c convert.c compare.c manage_files.c vigenere.c search.c sort.c
 OBJ = $(SRC:.c=.o)
 
 all: $(OBJ)

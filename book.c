@@ -1,5 +1,21 @@
 #include "biblio.h"
 
+int DelayCheck(Book_tm *my_books, int size){
+
+    for(int i=0;i<size;i++){
+
+        if(my_books[i].time < time(NULL)){
+
+            return 0;
+
+        }
+
+    }
+
+    return 1;
+
+}
+
 // Displays the characteristics of a book
 
 void ShowBook(Book book){
@@ -84,7 +100,7 @@ void BookMsg(Book *book, User user, int size){
 
     int nb_books = 0;
     time_t sec;
-    struct tm time;
+    struct tm tm_time;
     char hm_time[sizeof "HH h MM"];
     char *title = NULL;
     char *author = NULL;
@@ -106,28 +122,36 @@ void BookMsg(Book *book, User user, int size){
     
     if(nb_books != 0){
 
-        printf("\nVous avez emprunte les livres suivants :\n");
+        printf("\nVous avez emprunte les livres suivants :\n\n");
 
         for(int i=0;i<nb_books;i++){
 
             for(int j=0;j<size;j++){
 
                 if(user.books[i].id == book[j].id){
-
+                    
                     sec = user.books[i].time;
-                    time=*localtime(&sec);
+                    tm_time=*localtime(&sec);
                     title = book[j].title;
                     author = book[j].author;
 
-                    ReplaceUnderscores(title);
-                    ReplaceUnderscores(author);
+                    ShowBook(book[j]);
 
-                    strftime(hm_time, sizeof hm_time, "%H h %M", &time);
+                    strftime(hm_time, sizeof hm_time, "%H h %M", &tm_time);
+
+                    for(int k=0;k<20-strlen(ShowBookType(book[j].type));k++){
+                        printf(" ");
+                    }
                     
-                    printf("%s de %s a rendre pour %s\n",title, author, hm_time);
+                    printf("a rendre pour %s", hm_time);
 
-                    ReplaceSpaces(title);
-                    ReplaceSpaces(author);
+                    if(sec < time(NULL)){
+                        printf("\033[%sm", "31");
+                        printf("    (en retard)");
+                        printf("\033[%sm", "39");
+                    }
+
+                    printf("\n");
 
                 }
 
@@ -312,34 +336,13 @@ void RemoveBook(Book *book, int size){
 
 }
 
-int DelayCheck(Book_tm *my_books, int size){
-
-    for(int i=0;i<size;i++){
-
-        if(my_books[i].time < time(NULL)){
-
-            return 0;
-
-        }
-
-    }
-
-    return 1;
-
-}
-
-
-
 // Function that adds a book to a user file and the storage status to a book file
 
 int ReserveBook(Book *book, User *user, int size){
 
     char search[MAX_SIZE_TITLE];
-    char title2[MAX_SIZE_TITLE];
     int check_size;
-    int count1 = 0;
-    int count2 = 0;
-    int index;
+    int count = 0;
     int delay;
     int role;
     int verif;
@@ -367,7 +370,7 @@ int ReserveBook(Book *book, User *user, int size){
 
         if(user_books[i].id != 0){
 
-            count1++;
+            count++;
 
         }
 
@@ -375,7 +378,7 @@ int ReserveBook(Book *book, User *user, int size){
 
     // Verification of conditions of reservation
 
-    verif = DelayCheck(user_books, count1);
+    verif = DelayCheck(user_books, count);
 
     role = user->role;
 
@@ -387,9 +390,9 @@ int ReserveBook(Book *book, User *user, int size){
 
     }
 
-    if((role == STUDENT && count1 == 3) || (role == TEACHER && count1 == 5)){
+    if((role == STUDENT && count == 3) || (role == TEACHER && count == 5)){
 
-        printf("\nVous ne pouvez pas emprunter plus de %d livres !\n", count1);
+        printf("\nVous ne pouvez pas emprunter plus de %d livres !\n", count);
         return 0;
     }
 
@@ -416,12 +419,9 @@ int ReserveBook(Book *book, User *user, int size){
 
     }while(check_size != 1);
 
-    search_book_title = SearchByTitle(book, search, size, &search_size_title);
-    search_book_author = SearchByAuthor(book, search, size, &search_size_author);
-    search_book_type = SearchByType(book, search, size, &search_size_type);
-    search_book = MergesBooks(search_book_title, search_book_author, search_size_title, search_size_author, &search_size);
-    search_book = MergesBooks(search_book, search_book_type, search_size, search_size_type, &search_size);
-    search_book = SearchByStock(search_book, 1, search_size, &search_size);
+    search_book = SearchAvailableBooks(book, search, size, &search_size);
+
+    SortBooks(search_book, search_size);
 
     if(search_size > 0 && (int)search[0] != 0){
         printf("\nSuggestions :\n\n");
@@ -468,8 +468,8 @@ int ReserveBook(Book *book, User *user, int size){
                 if(book[i].id == search_book[user_choice-1].id && book[i].stock != 0){
 
                     book[i].stock -= 1;
-                    user_books[count1].id = book[i].id;
-                    user_books[count1].time = time(NULL) + delay;
+                    user_books[count].id = book[i].id;
+                    user_books[count].time = time(NULL) + delay;
 
                     printf("\nLivre reserve avec succes !\n");
 

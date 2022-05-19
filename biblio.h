@@ -71,12 +71,12 @@ int ConnectAccount(User *tab, int *size);
 
 // book.c functions
 
+int DelayCheck(Book_tm *my_books, int size);
 void ShowBook(Book book);
 void ShowBooks(Book *tab, int size);
 void BookMsg(Book *book, User user, int size);
 int AddBook(char *name_file, Book *book, int *size);
 void RemoveBook(Book *book, int size);
-int DelayCheck(Book_tm *my_books, int size);
 int ReserveBook(Book *book, User *user, int size);
 int ReturnBook(Book *book, User *user, int size);
 
@@ -115,5 +115,13 @@ Book *SearchByTitle(Book *tabBook, char *content, int size, int *count);
 Book *SearchByAuthor(Book *tabBook, char *content, int size, int *count);
 Book *SearchByType(Book *tabBook, char *content, int size, int *count);
 Book *SearchByStock(Book *tabBook, int stock, int size, int *count);
+Book *SearchAvailableBooks(Book *book, char *search, int size, int *search_size);
 Book *MergesBooks(Book *tab1, Book *tab2, int size1, int size2, int *size3);
 void ShowWithColor(char *content1, char *content2);
+
+// sort.c
+
+int TitleCompare(const void *p1, const void *p2);
+int AuthorCompare(const void *p1, const void *p2);
+int TypeCompare(const void *p1, const void *p2);
+void SortBooks(Book *book, int size);
