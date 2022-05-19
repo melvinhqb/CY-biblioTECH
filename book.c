@@ -22,12 +22,6 @@ void ShowBook(Book book){
 
     printf("%s", ShowBookType(book.type));
 
-    for(int i=0;i<16-strlen(ShowBookType(book.type));i++){
-        printf(" ");
-    }
-
-    printf("(%s)", ShowBookStock(book.stock));
-
 }
 
 void ShowBook2(Book book, char *content){
@@ -51,12 +45,6 @@ void ShowBook2(Book book, char *content){
         printf(" ");
     }
     ShowWithColor(ShowBookType(book.type), content);
-
-    for(int i=0;i<16-strlen(ShowBookType(book.type));i++){
-        printf(" ");
-    }
-
-    printf("(%s)", ShowBookStock(book.stock));
 
     ReplaceSpaces(content);
 
@@ -355,17 +343,19 @@ int ReserveBook(Book *book, User *user, int size){
     int delay;
     int role;
     int verif;
-    char choice[4];
+    char choice[5];
     int user_choice;
 
     Book *search_book_title = NULL;
     Book *search_book_author = NULL;
     Book *search_book_type = NULL;
+    Book *search_book_stock = NULL;
     Book *search_book = NULL;
     Book *choice_book = NULL;
     int search_size_title;
     int search_size_author;
     int search_size_type;
+    int search_size_stock;
     int search_size;
     int choice_book_size;
     Book_tm *user_books = NULL;
@@ -403,6 +393,8 @@ int ReserveBook(Book *book, User *user, int size){
         return 0;
     }
 
+    // Define the delay of reservation
+
     if(user->role == 1){
 
         delay = 120;
@@ -413,6 +405,8 @@ int ReserveBook(Book *book, User *user, int size){
         delay = 180;
 
     }
+
+    // Make a research
 
     do{
 
@@ -427,6 +421,7 @@ int ReserveBook(Book *book, User *user, int size){
     search_book_type = SearchByType(book, search, size, &search_size_type);
     search_book = MergesBooks(search_book_title, search_book_author, search_size_title, search_size_author, &search_size);
     search_book = MergesBooks(search_book, search_book_type, search_size, search_size_type, &search_size);
+    search_book = SearchByStock(search_book, 1, search_size, &search_size);
 
     if(search_size > 0 && (int)search[0] != 0){
         printf("\nSuggestions :\n\n");
@@ -494,13 +489,11 @@ int ReserveBook(Book *book, User *user, int size){
 
 int ReturnBook(Book *book, User *user, int size){
 
-    char title2[MAX_SIZE_TITLE];
-    int check_size;
     int count1 = 0;
-    int count2 = 0;
-    int index;
-    int delay;
     int role;
+
+    char choice[3];
+    int user_choice;
 
     Book_tm *user_books = NULL;
     user_books = user->books;
@@ -508,6 +501,19 @@ int ReturnBook(Book *book, User *user, int size){
     for(int i=0;i<5;i++){
 
         if(user_books[i].id != 0){
+
+            for(int j=0;j<size;j++){
+
+                if(user_books[i].id == book[j].id){
+                    if(count1 == 0){
+                        printf("\nVos livres :\n\n");
+                    }
+                    printf("   %d - ", i+1);
+                    ShowBook(book[j]);
+                    printf("\n");
+                    break;
+                }
+            }
 
             count1++;
 
@@ -523,46 +529,31 @@ int ReturnBook(Book *book, User *user, int size){
         return 0;
     }
 
-    printf("\nTitre\n>>>");
+    printf("\n\nChoisir numero\n>>>");
 
-    check_size = ReadInput(title2, sizeof(title2));
+    user_choice = MenuChoice(choice, count1);
 
-    if(check_size == 1){
-
-        ReplaceSpaces(title2);
-        
-        int indexbook;
-        int indexuser;
+    if(user_choice != 0){
 
         for(int i=0;i<size;i++){
-
-            for(int j=0;j<count1;j++){
-
-                if(strcmp(title2, book[i].title) == 0 && book[i].id == user->books[j].id){
+                if(book[i].id == user_books[user_choice-1].id ){
 
                     book[i].stock += 1;
-
-                    for(int k=j; k<4;k++){
-
-                        user_books[k].id = user_books[k+1].id;
-                        user_books[k].time = user_books[k+1].time;
-
+                    for(int j=user_choice-1;j<4;j++){
+                        user_books[j].id = user_books[j+1].id;
+                        user_books[j].time = user_books[j+1].time;
                     }
-                    
                     user_books[4].id = 0;
                     user_books[4].time = 0;
 
                     printf("\nLivre rendu avec succes !\n");
+
                     return 1;
 
                 }
-
             }
 
-        }
-
     }
-
     printf("\nVous ne possedez pas ce livre !\n");
 
     return 0;

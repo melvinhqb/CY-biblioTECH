@@ -300,7 +300,52 @@ Book *SearchByType(Book *tabBook, char *content, int size, int *count){
 
     return book;
 
-}   
+}
+
+Book *SearchByStock(Book *tabBook, int stock, int size, int *count){ // Stock = 0 (Unavailable) or Stock = 1 (Available)
+
+    Book *book = NULL;
+    *count = 0;
+
+    for(int i=0;i<size;i++){
+
+        if(tabBook[i].stock == 0 && stock == 0){
+
+            *count += 1;
+
+        }
+        else if(tabBook[i].stock != 0 && stock != 0){
+
+            *count += 1;
+        }
+
+    }
+
+    book = malloc(*count*sizeof(Book));
+
+    *count = 0;
+
+    for(int i=0;i<size;i++){
+
+        if(tabBook[i].stock == 0 && stock == 0){
+
+            book[*count] = tabBook[i];
+            *count += 1;
+
+        }
+        else if(tabBook[i].stock != 0 && stock != 0){
+
+            book[*count] = tabBook[i];
+            *count += 1;
+        }
+
+    }
+
+    printf("%d\n", *count); 
+
+    return book;
+
+}
 
 // Function that merges two tables by removing duplicates
 
@@ -371,7 +416,7 @@ void ShowWithColor(char *sentence, char *search){
                     printf("%c", search[i]);
 
                 }
-                printf("\033[%sm", "37");
+                printf("\033[%sm", "39");
                 return;
 
             }
@@ -389,7 +434,7 @@ void ShowWithColor(char *sentence, char *search){
                     printf("%c", search[i]);
 
             }
-            printf("\033[%sm", "37");
+            printf("\033[%sm", "39");
             a = 0;
 
         }
