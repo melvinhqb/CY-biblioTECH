@@ -67,14 +67,19 @@ void ShowUser(User user);
 void ShowUsers(User *tab, int size);
 void WelcomeMsg(char *login);
 void CreateAccount(char *name_file, int *size);
-int ConnectAccount(User *tab, int *size);
+int ConnectAccount(User *tab, int size);
 
 // book.c functions
 
 int DelayCheck(Book_tm *my_books, int size);
 void ShowBook(Book book);
+void ShowBookColor(Book book, char *content);
 void ShowBooks(Book *tab, int size);
+void ShowBooksColor(Book *tab, char *content, int size);
 void BookMsg(Book *book, User user, int size);
+
+// movebook.c functions
+
 int AddBook(char *name_file, Book *book, int *size);
 void RemoveBook(Book *book, int size);
 int ReserveBook(Book *book, User *user, int size);

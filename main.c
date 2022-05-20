@@ -18,7 +18,7 @@ int main(){
 
             Book *tabBook = LoadBooks(BOOK_NAME_FILE, sizeBook);
             User *tabUser = LoadUsers(USER_NAME_FILE, sizeUser);
-            index = ConnectAccount(tabUser, &sizeUser);
+            index = ConnectAccount(tabUser, sizeUser);
             WelcomeMsg(tabUser[index].login);
             BookMsg(tabBook, tabUser[index], sizeBook);
 

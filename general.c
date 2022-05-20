@@ -31,24 +31,26 @@ void EmptyBuffer(){
 }
 
 // Reads a string entered by the user, looks for the character \n and replaces it with \0
+// use the string entered by the user and the max size allowed 
+// return 1 if size of the string is ok also 0
 
 int ReadInput(char *c, int size){
 
-    char *lf = NULL;
+    char *position = NULL;
+    // read the string form the keybroad 
+    if(fgets(c, size, stdin) != NULL){ // input error check
 
-    if(fgets(c, size, stdin) != NULL){
+        position = strchr(c, '\n');
 
-        lf = strchr(c, '\n');
+        if(position != NULL){
 
-        if(lf != NULL){
-
-            *lf = '\0';
+            *position = '\0';
             return 1;
 
         }
         else{
 
-            EmptyBuffer();
+            EmptyBuffer(); // empty the buffer else 
             return 0;
 
         }
@@ -58,6 +60,9 @@ int ReadInput(char *c, int size){
 }
 
 // Function that removes spaces from a char* and returns 1 if its size is correct
+// use the string entered by the user and the max size allowed 
+// return 1 if size of the string is ok also 0
+
 
 int UserInput(char *input, int size){
 
@@ -67,12 +72,13 @@ int UserInput(char *input, int size){
 
     if(check_size == 1){
 
-            ReplaceSpaces(input);
+            ReplaceSpaces(input); // text processing 
 
     }
     else{
 
         printf("\nCe champ saisie est trop grand ! (%d caracteres max)\n", size-2);
+        // explain the error to the user
 
     }
 
@@ -81,6 +87,8 @@ int UserInput(char *input, int size){
 }
 
 // Function that returns the integer choice in a user's menu
+// Enter : input from user choise and of the current menu
+// return the choise (1,2,3,... ,max ) or 0 if error 
 
 int MenuChoice(char *choice, int max){
 
@@ -116,6 +124,10 @@ int MenuChoice(char *choice, int max){
 }
 
 // Asks the user to choose from the main menu
+// first interface  after ./exec
+// this function is mainly a display function 
+// nb_users of user form txt archive
+//return user choise 
 
 int MainMenu(int nb_users){
 
@@ -144,6 +156,11 @@ int MainMenu(int nb_users){
 }
 
 // Asks the user to choose from the second menu
+// this function is mainly a display function 
+// this function is the main interface into the book manager 
+// enter the role of the user (student or teacher)
+//return user choise 
+
 
 int SecondMenu(int role){
 
@@ -178,6 +195,8 @@ int SecondMenu(int role){
 }
 
 // Asks the user to choose from the end menu
+// function to make a choise ( leave or  continue) after have made an function
+// return 0 or  1 according to the user choise
 
 int EndMenu(){
 

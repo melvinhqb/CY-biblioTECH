@@ -1,5 +1,6 @@
 #include "biblio.h"
-
+// show login and the pwd of an user 
+// enter : an user 
 void ShowUser(User user){
 
     Decode(user.pswrd, VIGENERE_KEY);
@@ -12,6 +13,7 @@ void ShowUser(User user){
 }
 
 // Displays the characteristics of books in a table
+// enter: a tab of user and this size 
 
 void ShowUsers(User *tab, int size){
 
@@ -24,6 +26,9 @@ void ShowUsers(User *tab, int size){
     }
 
 }
+
+// display a personalized message afte the conncetion into the book manager 
+// enter current user login 
 
 void WelcomeMsg(char *login){
 
@@ -47,6 +52,7 @@ void WelcomeMsg(char *login){
 }
 
 // Create a user account and store the data in users.txt
+// enter: the name of user txt backup and the current number of user into this file   
 
 void CreateAccount(char *name_file, int *size){
 
@@ -145,8 +151,9 @@ void CreateAccount(char *name_file, int *size){
 }
 
 // Logging in to a user account
+// enter : the global data user tab and this size 
 
-int ConnectAccount(User *tab, int *size){
+int ConnectAccount(User *tab, int size){
 
     char login[MAX_SIZE_LOGIN + 2];
     char pswrd[MAX_SIZE_PSWRD + 2];
@@ -165,7 +172,7 @@ int ConnectAccount(User *tab, int *size){
 
             ReplaceSpaces(login);
 
-            index = CompareTableUserLogin(tab, login, *size);
+            index = CompareTableUserLogin(tab, login, size);
 
         }
 
