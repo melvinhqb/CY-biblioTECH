@@ -349,18 +349,12 @@ int ReserveBook(Book *book, User *user, int size){
     char choice[5];
     int user_choice;
 
-    Book *search_book_title = NULL;
-    Book *search_book_author = NULL;
-    Book *search_book_type = NULL;
     Book *search_book_stock = NULL;
     Book *search_book = NULL;
-    Book *choice_book = NULL;
-    int search_size_title;
-    int search_size_author;
-    int search_size_type;
+
     int search_size_stock;
     int search_size;
-    int choice_book_size;
+    
     Book_tm *user_books = NULL;
     user_books = user->books;
 
@@ -419,7 +413,8 @@ int ReserveBook(Book *book, User *user, int size){
 
     }while(check_size != 1);
 
-    search_book = SearchAvailableBooks(book, search, size, &search_size);
+    search_book = SearchBooks(book, search, size, &search_size);
+    search_book = SearchByStock(search_book, 1, search_size, &search_size);
 
     SortBooks(search_book, search_size);
 

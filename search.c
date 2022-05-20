@@ -389,7 +389,7 @@ Book *MergesBooks(Book *tab1, Book *tab2, int size1, int size2, int *size3){
 
 }
 
-Book *SearchAvailableBooks(Book *book, char *search, int size, int *search_size){
+Book *SearchBooks(Book *book, char *search, int size, int *search_size){
 
     Book *search_book = NULL;
     Book *search_book_title = NULL;
@@ -404,7 +404,7 @@ Book *SearchAvailableBooks(Book *book, char *search, int size, int *search_size)
     search_book_type = SearchByType(book, search, size, &search_size_type);
     search_book = MergesBooks(search_book_title, search_book_author, search_size_title, search_size_author, search_size);
     search_book = MergesBooks(search_book, search_book_type, *search_size, search_size_type, search_size);
-    search_book = SearchByStock(search_book, 1, *search_size, search_size);
+    //search_book = SearchByStock(search_book, 1, *search_size, search_size);
 
     return search_book;
 
