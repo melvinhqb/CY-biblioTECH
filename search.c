@@ -200,61 +200,74 @@ Book *SearchByAuthor(Book *tabBook, char *content, int size, int *count){
 
 Book *SearchByType(Book *tabBook, char *content, int size, int *count){
 
-    char *cmp = malloc(20);
-    int c, c2;
     Book *book = NULL;
+    char *content_cpy = malloc(strlen(content));
+    char **tabType = malloc(20*size);
+    int c, c2;
+
+    RemoveUpperCase(content_cpy, content);
+
+    if(content_cpy[0] >= 97 && content_cpy[0] <= 122){
+
+        content_cpy[0] -= 32;
+
+    }
 
     for(int i=0;i<size;i++){
 
-        if(tabBook[i].type != 0){
+        switch(tabBook[i].type){
 
-            switch(tabBook[i].type){
-                case SCIENCE:
-                    cmp = SCIENCE_NAME;
-                    break;
-                case LITERATURE:
-                    cmp = LITERATURE_NAME;
-                    break;
-                case ART:
-                    cmp = ART_NAME;
-                    break;
-                case HISTORY:
-                    cmp = HISTORY_NAME;
-                    break;
-            }
+            case SCIENCE:
+                tabType[i] = SCIENCE_NAME;
+                break;
+            case LITERATURE:
+                tabType[i] = LITERATURE_NAME;
+                break;
+            case ART:
+                tabType[i] = ART_NAME;
+                break;
+            case HISTORY:
+                tabType[i] = HISTORY_NAME;
+                break;
+            default:
+                tabType[i] = "???";
 
-            c2 = 0;
+        }
 
-            while(cmp[c2] != '\0'){
+    }
 
-                c = 0;
+    for(int i=0;i<size;i++){
 
-                while(cmp[c2] == content[c]){
+        c2 = 0;
 
-                    if(content[c] == '\0'){
+        while(tabType[i][c2] != '\0'){
 
-                        *count += 1;
-                        break;
+            c = 0;
 
-                    }
+            while(tabType[i][c2] == content_cpy[c]){
 
-                    c++;
-                    c2++;
-
-                }
-
-                if(content[c] == '\0' && cmp[c2] != '\0'){
+                if(content_cpy[c] == '\0'){
 
                     *count += 1;
                     break;
 
                 }
 
+                c++;
                 c2++;
 
-            } 
+            }
 
-        }
+            if(content_cpy[c] == '\0' && tabType[i][c2] != '\0'){
+
+                *count += 1;
+                break;
+
+            }
+
+            c2++;
+
+        }   
 
     }
 
@@ -264,45 +277,15 @@ Book *SearchByType(Book *tabBook, char *content, int size, int *count){
 
     for(int i=0;i<size;i++){
 
-        if(tabBook[i].type != 0){
+        c2 = 0;
 
-            switch(tabBook[i].type){
-                case SCIENCE:
-                    cmp = SCIENCE_NAME;
-                    break;
-                case LITERATURE:
-                    cmp = LITERATURE_NAME;
-                    break;
-                case ART:
-                    cmp = ART_NAME;
-                    break;
-                case HISTORY:
-                    cmp = HISTORY_NAME;
-                    break;
-            }
+        while(tabType[i][c2] != '\0'){
 
-            c2 = 0;
+            c = 0;
 
-            while(cmp[c2] != '\0'){
+            while(tabType[i][c2] == content_cpy[c]){
 
-                c = 0;
-
-                while(cmp[c2] == content[c]){
-
-                    if(content[c] == '\0'){
-
-                        book[*count] = tabBook[i];
-                        *count += 1;
-                        break;
-
-                    }
-
-                    c++;
-                    c2++;
-
-                }
-
-                if(content[c] == '\0' && cmp[c2] != '\0'){
+                if(content_cpy[c] == '\0'){
 
                     book[*count] = tabBook[i];
                     *count += 1;
@@ -310,9 +293,20 @@ Book *SearchByType(Book *tabBook, char *content, int size, int *count){
 
                 }
 
+                c++;
                 c2++;
 
-            } 
+            }
+
+            if(content_cpy[c] == '\0' && tabType[i][c2] != '\0'){
+
+                book[*count] = tabBook[i];
+                *count += 1;
+                break;
+
+            }
+
+            c2++;
 
         }
 

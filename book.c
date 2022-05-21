@@ -135,9 +135,9 @@ void BookMsg(Book *book, User user, int size){
                     printf("a rendre pour %s", hm_time);
 
                     if(sec < time(NULL)){
-                        printf(RED);
+                        printf(LATE_THM);
                         printf("    (en retard)");
-                        printf(DFT);
+                        printf(RESET_FONT);
                     }
 
                     printf("\n");

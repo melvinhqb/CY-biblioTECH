@@ -123,13 +123,13 @@ void ShowWithColor(char *sentence, char *search){
 
             if(search[c] == '\0'){
 
-                printf("\033[%sm", "32");
+                printf(SUGGEST_THM);
                 for(int i=c2-c;i<c2;i++){
 
                     printf("%c", sentence[i]);
 
                 }
-                printf("\033[%sm", "39");
+                printf(RESET_FONT);
                 return;
 
             }
@@ -141,13 +141,13 @@ void ShowWithColor(char *sentence, char *search){
 
         if(search_cpy[c] == '\0' && sentence_cpy[c2] != '\0'){
 
-            printf(GRN);
+            printf(SUGGEST_THM);
             for(int i=c2-c;i<c2;i++){
 
                 printf("%c", sentence[i]);
 
             }
-            printf(DFT);
+            printf(RESET_FONT);
             a = 0;
 
         }

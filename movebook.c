@@ -397,9 +397,9 @@ int ReturnBook(Book *book, User *user, int size){
                     printf("a rendre pour %s", hm_time);
 
                     if(user_books[i].time < time(NULL)){
-                        printf(RED);
+                        printf(LATE_THM);
                         printf("    (en retard)");
-                        printf(DFT);
+                        printf(RESET_FONT);
                     }
 
                     printf("\n");

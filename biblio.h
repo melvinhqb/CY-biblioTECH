@@ -16,8 +16,13 @@
 #define RED "\e[0;31m"
 #define GRN "\e[0;32m"
 #define YEL "\e[0;33m"
-#define DFT "\e[0;39m"
-#define ARROW YEL">>> "DFT
+#define ITALIC "\e[3m"
+#define REVERSE "\e[7m"
+#define RESET_FONT "\e[0m"
+
+#define SUGGEST_THM GRN
+#define LATE_THM RED
+#define ARROW YEL">>> "RESET_FONT
 
 #define SCIENCE_NAME "Sciences"
 #define LITERATURE_NAME "Litterature"
