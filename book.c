@@ -1,21 +1,5 @@
 #include "biblio.h"
 
-int DelayCheck(Book_tm *my_books, int size){
-
-    for(int i=0;i<size;i++){
-
-        if(my_books[i].time < time(NULL)){
-
-            return 0;
-
-        }
-
-    }
-
-    return 1;
-
-}
-
 // Displays the characteristics of a book
 // enter the data book 
 
@@ -110,8 +94,6 @@ void BookMsg(Book *book, User user, int size){
     time_t sec;
     struct tm tm_time;
     char hm_time[sizeof "HH h MM"];
-    char *title = NULL;
-    char *author = NULL;
 
     for(int i=0;i<5;i++){ // count the number of books borrowed by the current user
 
@@ -140,9 +122,8 @@ void BookMsg(Book *book, User user, int size){
                     
                     sec = user.books[i].time; // get timestamp
                     tm_time=*localtime(&sec); // convert timestamp in localtime
-                    title = book[j].title;
-                    author = book[j].author;
 
+                    printf("       ");
                     ShowBook(book[j]);
 
                     strftime(hm_time, sizeof hm_time, "%H h %M", &tm_time); // Display the hour and minutes of the localtime
@@ -150,13 +131,13 @@ void BookMsg(Book *book, User user, int size){
                     for(int k=0;k<20-strlen(ShowBookType(book[j].type));k++){
                         printf(" ");
                     }
-                    
+
                     printf("a rendre pour %s", hm_time);
 
                     if(sec < time(NULL)){
-                        printf("\033[%sm", "31");
+                        printf(RED);
                         printf("    (en retard)");
-                        printf("\033[%sm", "39");
+                        printf(DFT);
                     }
 
                     printf("\n");
@@ -174,4 +155,61 @@ void BookMsg(Book *book, User user, int size){
 
     }
     
+}
+
+// Display a table in the form of suggestions
+
+void ShowBookSuggestion(Book *search_book, int search_size, char *search){
+
+    int j;
+
+    if(search_size > 0 && (int)search[0] != 0){
+
+        printf("\nSuggestions :\n\n");
+
+        for(int i=0;i<search_size;i++){
+
+            j = i+1;
+
+            while(j < 1000){
+
+                printf(" ");
+                j = j*10;
+
+            }
+
+            printf("%d - ",i+1);
+            ShowBookColor(search_book[i], search);
+            printf("\n");
+
+        }
+    }
+    else if(search_size > 0 && (int)search[0] == 0){
+
+        printf("\nSuggestions :\n\n");
+
+        for(int i=0;i<search_size;i++){
+
+            j = i+1;
+
+            while(j < 1000){
+
+                printf(" ");
+                j = j*10;
+
+            }
+
+            printf("%d - ",i+1);
+            ShowBook(search_book[i]);
+            printf("\n");
+
+        }
+
+    }
+    else{
+
+        printf("\nAuncun livre ne correspond a votre recherche !\n");
+
+    }
+
 }

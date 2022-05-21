@@ -1,6 +1,8 @@
 #include "biblio.h"
-// show login and the pwd of an user 
-// enter : an user 
+
+// Show login and the pwd of an user 
+// Enter : an user 
+
 void ShowUser(User user){
 
     Decode(user.pswrd, VIGENERE_KEY);
@@ -13,7 +15,7 @@ void ShowUser(User user){
 }
 
 // Displays the characteristics of books in a table
-// enter: a tab of user and this size 
+// Enter: a tab of user and this size 
 
 void ShowUsers(User *tab, int size){
 
@@ -27,8 +29,8 @@ void ShowUsers(User *tab, int size){
 
 }
 
-// display a personalized message afte the conncetion into the book manager 
-// enter current user login 
+// Display a personalized message afte the conncetion into the book manager 
+// Enter current user login 
 
 void WelcomeMsg(char *login){
 
@@ -72,7 +74,8 @@ void CreateAccount(char *name_file, int *size){
     // Creating the user's login
     do{
 
-        printf("\nLogin\n>>>");
+        printf("\nLogin\n");
+        printf(ARROW);
 
         check_size = ReadInput(login, sizeof(login));
 
@@ -100,11 +103,15 @@ void CreateAccount(char *name_file, int *size){
     check_size = 0;
 
     // Creating the user's password
+
     do{
 
-        printf("\nMot de passe\n>>>");
+        printf("\nMot de passe\n");
+        printf(ARROW);
 
+        //system(HIDE_ECHO);
         check_size = ReadInput(pswrd, sizeof(pswrd));
+        //system(SHOW_ECHO);
 
         if(check_size == 1){
 
@@ -124,18 +131,20 @@ void CreateAccount(char *name_file, int *size){
     check_size = 0;
 
     // Creating the user's role
+
     do{
 
         printf("\nQuel est votre role ?\n");
         printf("1 - Etudiant\n");
         printf("2 - Professeur\n");
-        printf(">>>");
+        printf(ARROW);
 
-        role = MenuChoice(char_role, NB_ROLE);
+        role = MenuChoice(char_role, sizeof(char_role), NB_ROLE);
 
     }while(role == 0);
 
     // Adds the data to a text file
+
     file = fopen(name_file, "a");
 
     if(file == NULL){
@@ -143,7 +152,8 @@ void CreateAccount(char *name_file, int *size){
         exit(1);
     }
     
-    fprintf(file, "%s %s %d 0 0 0 0 0 0 0 0 0 0\n", login, pswrd, role); // The zeros correspond to the locations of the books and their times
+    fprintf(file, "%s %s %d 0 0 0 0 0 0 0 0 0 0\n", login, pswrd, role);
+    // The zeros correspond to the locations of the books and their times
     fclose(file);
     *size += 1;
     printf("\nVotre compte est finalise !\n");
@@ -165,7 +175,8 @@ int ConnectAccount(User *tab, int size){
     // Check user's login
     do{
 
-        printf("\nLogin\n>>>");
+        printf("\nLogin\n");
+        printf(ARROW);
         check_size = ReadInput(login, sizeof(login));
 
         if(check_size == 1){
@@ -187,8 +198,11 @@ int ConnectAccount(User *tab, int size){
     // Check user's password
     do{
 
-        printf("\nMot de passe\n>>>");
+        printf("\nMot de passe\n");
+        printf(ARROW);
+        //system(HIDE_ECHO); // Hide echo
         check_size = ReadInput(pswrd, sizeof(pswrd));
+        //system(SHOW_ECHO); // Show echo
 
         if(check_size != 1){
             

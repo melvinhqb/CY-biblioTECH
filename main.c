@@ -54,11 +54,12 @@ int main(){
                         }
                         break;
                     case 5:
-                        RemoveBook(tabBook, sizeBook);
-                        WriteBook(BOOK_NAME_FILE, tabBook, sizeBook);
+                        verif = RemoveBook(tabBook, sizeBook);
+                        if(verif == 1){
+                            WriteBook(BOOK_NAME_FILE, tabBook, sizeBook);
+                        }
                         break;
-                    default:
-                        printf("\nCette fonction est indisponible pour le moment !\n");
+
                 }
 
                 choice = EndMenu();
@@ -70,6 +71,11 @@ int main(){
         else if(choice == 2){
 
             CreateAccount(USER_NAME_FILE, &sizeUser);
+            choice = EndMenu();
+
+        }
+        else{
+
             choice = EndMenu();
 
         }

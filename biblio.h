@@ -3,11 +3,21 @@
 #include <string.h>
 #include <time.h>
 #include <errno.h>
+#include <unistd.h>
 
 #define USER_NAME_FILE "users.txt"
 #define BOOK_NAME_FILE "books.txt"
 
 #define VIGENERE_KEY "CYTECHLIBRARY"
+
+#define SHOW_ECHO "stty echo"
+#define HIDE_ECHO "stty -echo"
+
+#define RED "\e[0;31m"
+#define GRN "\e[0;32m"
+#define YEL "\e[0;33m"
+#define DFT "\e[0;39m"
+#define ARROW YEL">>> "DFT
 
 #define SCIENCE_NAME "Sciences"
 #define LITERATURE_NAME "Litterature"
@@ -49,19 +59,27 @@ typedef struct{
     int stock;
 }Book;
 
-// general.c functions
+// general.c
 
 void AppMsg();
 void ByeMsg();
 void EmptyBuffer();
 int ReadInput(char *c, int size);
 int UserInput(char *input, int size);
-int MenuChoice(char *choice, int max);
+int DelayCheck(Book_tm *my_books, int size);
+void ShowWithColor(char *sentence, char *search);
+void RemoveUpperCase(char *strcopy, char *str);
+
+// menu.c
+
+int MenuChoice(char *choice, int size_choice, int max);
 int MainMenu(int nb_users);
 int SecondMenu(int role);
 int EndMenu();
+int SortMenu();
+int TypeMenu();
 
-// user.c functions
+// user.c
 
 void ShowUser(User user);
 void ShowUsers(User *tab, int size);
@@ -69,30 +87,30 @@ void WelcomeMsg(char *login);
 void CreateAccount(char *name_file, int *size);
 int ConnectAccount(User *tab, int size);
 
-// book.c functions
+// book.c
 
-int DelayCheck(Book_tm *my_books, int size);
 void ShowBook(Book book);
 void ShowBookColor(Book book, char *content);
 void ShowBooks(Book *tab, int size);
 void ShowBooksColor(Book *tab, char *content, int size);
 void BookMsg(Book *book, User user, int size);
+void ShowBookSuggestion(Book *search_book, int search_size, char *search);
 
-// movebook.c functions
+// movebook.c
 
 int AddBook(char *name_file, Book *book, int *size);
-void RemoveBook(Book *book, int size);
+int RemoveBook(Book *book, int size);
 int ReserveBook(Book *book, User *user, int size);
 int ReturnBook(Book *book, User *user, int size);
 
-// convert.c functions
+// convert.c
 
 char *ShowBookType(int a);
 char *ShowBookStock(int a);
 void ReplaceSpaces(char *tab);
 void ReplaceUnderscores(char *tab);
 
-// compare.c functions
+// compare.c
 
 int CompareTableUserLogin(User *tab, char *login, int size);
 int CompareTableBookId(Book *tab, long long id, int size);
@@ -101,7 +119,7 @@ int CompareTableBookAuthor(Book *tab, char *author, int size);
 int CompareTableBookType(Book *tab, int type, int size);
 int CompareTableBook(Book *tab, Book book, int size);
 
-// manage_files.c functions
+// manage_files.c
 
 int FileSize(char *name_file);
 User *LoadUsers(char *name_file, int size);
@@ -109,7 +127,7 @@ Book *LoadBooks(char *name_file, int size);
 void WriteUser(char *name_file, User *tab, int size);
 void WriteBook(char *name_file, Book *tab, int size);
 
-// vignere.c functions
+// vignere.c
 
 void Encode(char chaine[], char cle[]);
 void Decode(char chaine[], char cle[]);
@@ -122,11 +140,9 @@ Book *SearchByType(Book *tabBook, char *content, int size, int *count);
 Book *SearchByStock(Book *tabBook, int stock, int size, int *count);
 Book *SearchBooks(Book *book, char *search, int size, int *search_size);
 Book *MergesBooks(Book *tab1, Book *tab2, int size1, int size2, int *size3);
-void ShowWithColor(char *content1, char *content2);
 
 // sort.c
 
 int TitleCompare(const void *p1, const void *p2);
 int AuthorCompare(const void *p1, const void *p2);
 int TypeCompare(const void *p1, const void *p2);
-void SortBooks(Book *book, int size);

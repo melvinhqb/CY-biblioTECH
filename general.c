@@ -75,152 +75,113 @@ int UserInput(char *input, int size){
             ReplaceSpaces(input); // text processing 
 
     }
-    else{
-
-        printf("\nCe champ saisie est trop grand ! (%d caracteres max)\n", size-2);
-        // explain the error to the user
-
-    }
 
     return check_size;
 
 }
 
-// Function that returns the integer choice in a user's menu
-// Enter : input from user choise and of the current menu
-// return the choise (1,2,3,... ,max ) or 0 if error 
+// Check if the current user is overdue for the return of their books
 
-int MenuChoice(char *choice, int max){
+int DelayCheck(Book_tm *my_books, int size){
 
-    int check_size;
-    int c = 0;
+    for(int i=0;i<size;i++){
 
-    check_size = ReadInput(choice, 5);
+        if(my_books[i].time < time(NULL)){
 
-    if(check_size != 1){
-
-        printf("\nErreur de saisie, veuillez recommencer !\n");
-        return 0;
-
-    }
-    else if(choice[1] != '\0' && ((int)choice[1] < 48 || (int)choice[1] > 57)){
-
-        printf("\nErreur de saisie, veuillez recommencer !\n");
-        return 0;
-
-    }
-
-    c = (int)strtol(choice, NULL, 10);
-
-    if(c < 1 || c > max){
-
-        printf("\nErreur de saisie, veuillez recommencer !\n");
-        return 0;
-
-    }
-
-    return c;
-
-}
-
-// Asks the user to choose from the main menu
-// first interface  after ./exec
-// this function is mainly a display function 
-// nb_users of user form txt archive
-//return user choise 
-
-int MainMenu(int nb_users){
-
-    int c = 0;
-    int user_choice = 0;
-
-    char choice[3];
-
-    if(nb_users == 0){
-        printf("\nCreer un compte\n");
-        return 2;
-    }
-
-    do{
-
-        printf("\n1 - Se connecter\n");
-        printf("2 - Creer un compte\n");
-        printf(">>>");
-        
-        user_choice = MenuChoice(choice, 2);
-    
-    }while(user_choice == 0);
-
-    return user_choice; // Returns 1 or 2
-
-}
-
-// Asks the user to choose from the second menu
-// this function is mainly a display function 
-// this function is the main interface into the book manager 
-// enter the role of the user (student or teacher)
-//return user choise 
-
-
-int SecondMenu(int role){
-
-    int c = 0;
-    int user_choice = 0;
-    int nb_choice = 3;
-
-    char choice[3];
-
-    do{
-
-        printf("\n1 - Emprunter un livre\n");
-        printf("2 - Rendre un livre\n");
-        printf("3 - Afficher mes livres\n");
-
-        if(role == TEACHER){
-
-            printf("4 - Ajouter un livre\n");
-            printf("5 - Retirer un livre\n");
-            nb_choice += 2;
+            return 0;
 
         }
 
-        printf(">>>");
+    }
 
-        user_choice = MenuChoice(choice, nb_choice);
-    
-    }while(user_choice == 0);
-
-    return user_choice;
+    return 1;
 
 }
 
-// Asks the user to choose from the end menu
-// function to make a choise ( leave or  continue) after have made an function
-// return 0 or  1 according to the user choise
+// Function that displays the search item in colour in relation to another item
 
-int EndMenu(){
+void ShowWithColor(char *sentence, char *search){
 
-    int c = 0;
-    int user_choice = 0;
+    int c, c2;
+    int a = 0;
 
-    char choice[3];
+    c2 = 0;
 
-    do{
+    char *sentence_cpy = malloc(strlen(sentence));
+    char *search_cpy = malloc(strlen(search));
 
-        printf("\n1 - Continuer\n");
-        printf("2 - Quitter\n");
-        printf(">>>");
-        
-        user_choice = MenuChoice(choice, 2);
-    
-    }while(user_choice == 0);
+    RemoveUpperCase(sentence_cpy, sentence);
+    RemoveUpperCase(search_cpy, search);
 
-    if(user_choice == 2){
+    while(sentence[c2] != '\0'){
 
-        return 0;
+        c = 0;
+
+        while(sentence_cpy[c2] == search_cpy[c]){
+
+            a++;
+
+            if(search[c] == '\0'){
+
+                printf("\033[%sm", "32");
+                for(int i=c2-c;i<c2;i++){
+
+                    printf("%c", sentence[i]);
+
+                }
+                printf("\033[%sm", "39");
+                return;
+
+            }
+
+            c++;
+            c2++;
+
+        }
+
+        if(search_cpy[c] == '\0' && sentence_cpy[c2] != '\0'){
+
+            printf(GRN);
+            for(int i=c2-c;i<c2;i++){
+
+                printf("%c", sentence[i]);
+
+            }
+            printf(DFT);
+            a = 0;
+
+        }
+        else if(a != 0){
+            for(int i=c2-a;i<c2;i++){
+                if(i < (int)strlen(sentence)){
+                    printf("%c", sentence[i]);
+                }
+                
+            }
+            a = 0;
+        }
+        else{
+            if(c2 < (int)strlen(sentence)){
+                printf("%c", sentence[c2]);
+            }
+            c2++;
+        }        
 
     }
 
-    return user_choice;
+}
 
+void RemoveUpperCase(char *strcopy, char *str){
+
+    strcopy = strcpy(strcopy, str);
+
+    for(int i=0;i<strlen(strcopy);i++){
+
+        if((int)strcopy[i] >= 65 && (int)strcopy[i] <= 90){
+
+            strcopy[i] += 32;
+
+        }
+
+    }
 }

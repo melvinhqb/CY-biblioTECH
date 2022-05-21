@@ -8,17 +8,27 @@ Book *SearchByTitle(Book *tabBook, char *content, int size, int *count){
     *count = 0;
     int c, c2;
 
+    char *content_cpy = malloc(strlen(content)+1);
+    Book *tabBook_cpy = malloc(size*sizeof(Book));
+
+    RemoveUpperCase(content_cpy, content);
+
+    for(int i=0;i<size;i++){
+
+        RemoveUpperCase(tabBook_cpy[i].title, tabBook[i].title);
+    }
+
     for(int i=0;i<size;i++){
 
         c2 = 0;
 
-        while(tabBook[i].title[c2] != '\0'){
+        while(tabBook_cpy[i].title[c2] != '\0'){
 
             c = 0;
 
-            while(tabBook[i].title[c2] == content[c]){
+            while(tabBook_cpy[i].title[c2] == content_cpy[c]){
 
-                if(content[c] == '\0'){
+                if(content_cpy[c] == '\0'){
 
                     *count += 1;
                     break;
@@ -30,7 +40,7 @@ Book *SearchByTitle(Book *tabBook, char *content, int size, int *count){
 
             }
 
-            if(content[c] == '\0' && tabBook[i].title[c2] != '\0'){
+            if(content_cpy[c] == '\0' && tabBook_cpy[i].title[c2] != '\0'){
 
                 *count += 1;
                 break;
@@ -51,13 +61,13 @@ Book *SearchByTitle(Book *tabBook, char *content, int size, int *count){
 
         c2 = 0;
 
-        while(tabBook[i].title[c2] != '\0'){
+        while(tabBook_cpy[i].title[c2] != '\0'){
 
             c = 0;
 
-            while(tabBook[i].title[c2] == content[c]){
+            while(tabBook_cpy[i].title[c2] == content_cpy[c]){
 
-                if(content[c] == '\0'){
+                if(content_cpy[c] == '\0'){
 
                     book[*count] = tabBook[i];
                     *count += 1;
@@ -70,7 +80,7 @@ Book *SearchByTitle(Book *tabBook, char *content, int size, int *count){
 
             }
 
-            if(content[c] == '\0' && tabBook[i].title[c2] != '\0'){
+            if(content_cpy[c] == '\0' && tabBook_cpy[i].title[c2] != '\0'){
 
                 book[*count] = tabBook[i];
                 *count += 1;
@@ -96,17 +106,27 @@ Book *SearchByAuthor(Book *tabBook, char *content, int size, int *count){
     *count = 0;
     int c, c2;
 
+    char *content_cpy = malloc(strlen(content)+1);
+    Book *tabBook_cpy = malloc(size*sizeof(Book));
+
+    RemoveUpperCase(content_cpy, content);
+
+    for(int i=0;i<size;i++){
+
+        RemoveUpperCase(tabBook_cpy[i].author, tabBook[i].author);
+    }
+
     for(int i=0;i<size;i++){
 
         c2 = 0;
 
-        while(tabBook[i].author[c2] != '\0'){
+        while(tabBook_cpy[i].author[c2] != '\0'){
 
             c = 0;
 
-            while(tabBook[i].author[c2] == content[c]){
+            while(tabBook_cpy[i].author[c2] == content_cpy[c]){
 
-                if(content[c] == '\0'){
+                if(content_cpy[c] == '\0'){
 
                     *count += 1;
                     break;
@@ -118,7 +138,7 @@ Book *SearchByAuthor(Book *tabBook, char *content, int size, int *count){
 
             }
 
-            if(content[c] == '\0' && tabBook[i].author[c2] != '\0'){
+            if(content_cpy[c] == '\0' && tabBook_cpy[i].author[c2] != '\0'){
 
                 *count += 1;
                 break;
@@ -139,13 +159,13 @@ Book *SearchByAuthor(Book *tabBook, char *content, int size, int *count){
 
         c2 = 0;
 
-        while(tabBook[i].author[c2] != '\0'){
+        while(tabBook_cpy[i].author[c2] != '\0'){
 
             c = 0;
 
-            while(tabBook[i].author[c2] == content[c]){
+            while(tabBook_cpy[i].author[c2] == content_cpy[c]){
 
-                if(content[c] == '\0'){
+                if(content_cpy[c] == '\0'){
 
                     book[*count] = tabBook[i];
                     *count += 1;
@@ -158,7 +178,7 @@ Book *SearchByAuthor(Book *tabBook, char *content, int size, int *count){
 
             }
 
-            if(content[c] == '\0' && tabBook[i].author[c2] != '\0'){
+            if(content_cpy[c] == '\0' && tabBook_cpy[i].author[c2] != '\0'){
 
                 book[*count] = tabBook[i];
                 *count += 1;
@@ -404,75 +424,7 @@ Book *SearchBooks(Book *book, char *search, int size, int *search_size){
     search_book_type = SearchByType(book, search, size, &search_size_type);
     search_book = MergesBooks(search_book_title, search_book_author, search_size_title, search_size_author, search_size);
     search_book = MergesBooks(search_book, search_book_type, *search_size, search_size_type, search_size);
-    //search_book = SearchByStock(search_book, 1, *search_size, search_size);
 
     return search_book;
-
-}
-
-// Function that displays the search item in colour in relation to another item
-
-void ShowWithColor(char *sentence, char *search){
-
-    int c, c2;
-    int a = 0;
-
-    c2 = 0;
-
-    while(sentence[c2] != '\0'){
-
-        c = 0;
-
-        while(sentence[c2] == search[c]){
-
-            a++;
-
-            if(search[c] == '\0'){
-
-                printf("\033[%sm", "32");
-                for(int i=0;i<c;i++){
-
-                    printf("%c", search[i]);
-
-                }
-                printf("\033[%sm", "39");
-                return;
-
-            }
-
-            c++;
-            c2++;
-
-        }
-
-        if(search[c] == '\0' && sentence[c2] != '\0'){
-
-            printf("\033[%sm", "32");
-            for(int i=0;i<c;i++){
-
-                    printf("%c", search[i]);
-
-            }
-            printf("\033[%sm", "39");
-            a = 0;
-
-        }
-        else if(a != 0){
-            for(int i=c2-a;i<c2;i++){
-                if(i < (int)strlen(sentence)){
-                    printf("%c", sentence[i]);
-                }
-                
-            }
-            a = 0;
-        }
-        else{
-            if(c2 < (int)strlen(sentence)){
-                printf("%c", sentence[c2]);
-            }
-            c2++;
-        }        
-
-    }
 
 }

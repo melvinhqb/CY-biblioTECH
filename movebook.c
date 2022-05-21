@@ -4,18 +4,18 @@
 
 int AddBook(char *name_file, Book *book, int *size){
 
-    int check_size;
-    Book new_book;
+    int check_size, index;
     char id_char[15];
-    char type[3];
-    long long c;
-    char *ptr = NULL;
-    int index;
+
+    Book new_book;
     FILE *file = NULL;
+
+    // Request user to enter a title
 
     do{
 
-        printf("\nTitre\n>>>");
+        printf("\nTitre\n");
+        printf(ARROW);
 
         check_size = UserInput(new_book.title, sizeof(new_book.title));
 
@@ -23,9 +23,12 @@ int AddBook(char *name_file, Book *book, int *size){
 
     check_size = 0;
 
+    // Request user to enter an author
+
     do{
 
-        printf("\nAuteur\n>>>");
+        printf("\nAuteur\n");
+        printf(ARROW);
 
         check_size = UserInput(new_book.author, sizeof(new_book.author));
 
@@ -33,24 +36,22 @@ int AddBook(char *name_file, Book *book, int *size){
 
     check_size = 0;
 
+    // Request user to enter a type
+
     do{
 
-        printf("\nQuel est la categorie ?\n");
-        printf("1 - Science\n");
-        printf("2 - Litterature\n");
-        printf("3 - Art\n");
-        printf("4 - History\n");
-        printf(">>>");
-
-        new_book.type = MenuChoice(type, 4);
+        new_book.type = TypeMenu();
 
     }while(new_book.type == 0);
 
     check_size = 0;
 
+    // Request user to enter an the ID Book
+
    do{
 
-        printf("\nIdentifiant (ISBN)\n>>>");
+        printf("\nIdentifiant (ISBN)\n");
+        printf(ARROW);
 
         check_size = ReadInput(id_char, sizeof(id_char));
 
@@ -126,45 +127,89 @@ int AddBook(char *name_file, Book *book, int *size){
 
 // Function that remove a book to a text file
 
-void RemoveBook(Book *book, int size){
+int RemoveBook(Book *book, int size){
 
-    int check_size;
-    char id_char[15];
-    int index;
-    long long id;
+    char search[MAX_SIZE_TITLE];
+    char choice[5];
 
-    do{
+    int check_size, user_choice, search_size;
 
-        printf("\nIdentifiant (ISBN)\n>>>");
+    Book *search_book = NULL;
 
-        check_size = ReadInput(id_char, sizeof(id_char));
+    // Ask user to make a search
 
-        if(check_size == 1){
+    printf("\nRechercher (titre/auteur/matiere)\n");
+    printf(ARROW);
 
-            ReplaceSpaces(id_char);
-            id = (long long)strtoll(id_char, NULL, 10);
-            index = CompareTableBookId(book, id, size);
+    check_size = UserInput(search, sizeof(search));
 
-            if(index != -1 && book[index].stock != 0){
+    if(check_size == 0){
 
-                book[index].stock = 0;
-                printf("\nLivre retire de la bibliotheque !\n");
+        printf("\nAuncun livre ne correspond a votre recherche !\n");
+        return 0;
 
-            }
-            else{
+    }
 
-                printf("\nReference inconnue !\n");
+    // Filter books by previous search
 
-            }
+    search_book = SearchBooks(book, search, size, &search_size);
+    search_book = SearchByStock(search_book, 1, search_size, &search_size);
+
+    if(search_size == 0){
+
+        printf("\nAuncun livre ne correspond a votre recherche !\n");
+        return 0;
+
+    }
+
+    // Asks the user to choose the type of sorting
+
+    user_choice = SortMenu();
+
+    switch(user_choice){
+
+        case 2:
+            qsort(search_book, search_size, sizeof(Book), AuthorCompare);
+            break;
+        case 3:
+            qsort(search_book, search_size, sizeof(Book), TypeCompare);
+            break;
+        default:
+            qsort(search_book, search_size, sizeof(Book), TitleCompare);
+
+    }
+
+    // Displays the filtered and sorted book table
+
+    ShowBookSuggestion(search_book, search_size, search);
+
+    // Asks the user to choose among the books
+
+    printf("\nChoisir numero\n");
+    printf(ARROW);
+
+    user_choice = MenuChoice(choice, sizeof(choice), search_size);
+
+    if(user_choice == 0){
+
+        printf("\nErreur de saisie !\n");
+        return 0;
+
+    }
+
+    // Update of the book table
+
+    for(int i=0;i<size;i++){
+        if(book[i].id == search_book[user_choice-1].id && book[i].stock != 0){
+
+            book[i].stock = 0;
+
+            printf("\nLivre retirer avec succes !\n");
+
+            return 1;
 
         }
-        else{
-
-            printf("\nCet identifiant est trop grand ! (13 caracteres max)\n");
-
-        }
-
-    }while(index == -1 || check_size != 1);
+    }
 
 }
 
@@ -173,24 +218,18 @@ void RemoveBook(Book *book, int size){
 int ReserveBook(Book *book, User *user, int size){
 
     char search[MAX_SIZE_TITLE];
-    int check_size;
-    int count = 0;
-    int delay;
-    int role;
-    int verif;
     char choice[5];
-    int user_choice;
 
-    Book *search_book_stock = NULL;
+    int check_size, count, delay, role;
+    int verif, user_choice, search_size;
+
     Book *search_book = NULL;
-
-    int search_size_stock;
-    int search_size;
-    
     Book_tm *user_books = NULL;
-    user_books = user->books;
 
     // Count how many books have the user
+
+    count = 0;
+    user_books = user->books;
 
     for(int i=0;i<5;i++){
 
@@ -235,80 +274,83 @@ int ReserveBook(Book *book, User *user, int size){
 
     }
 
-    // Make a research
+    // Ask user to make a search
 
-    do{
 
-        printf("\nRechercher (titre/auteur/matiere)\n>>>");
+    printf("\nRechercher (titre/auteur/matiere)\n");
+    printf(ARROW);
 
-        check_size = UserInput(search, sizeof(search));
+    check_size = UserInput(search, sizeof(search));
 
-    }while(check_size != 1);
+    if(check_size == 0){
+
+        printf("\nAuncun livre ne correspond a votre recherche !\n");
+        return 0;
+
+    }
+
+    // Filter books by previous search
 
     search_book = SearchBooks(book, search, size, &search_size);
     search_book = SearchByStock(search_book, 1, search_size, &search_size);
 
-    SortBooks(search_book, search_size);
+    if(search_size == 0){
 
-    if(search_size > 0 && (int)search[0] != 0){
-        printf("\nSuggestions :\n\n");
-        for(int i=0;i<search_size;i++){
-            int j = i+1;
-            while(j < 1000){
-                printf(" ");
-                j = j*10;
-            }
-            printf("%d - ",i+1);
-            ShowBookColor(search_book[i], search);
-            printf("\n");
-
-        }
-    }
-    else if(search_size > 0 && (int)search[0] == 0){
-        printf("\nSuggestions :\n\n");
-
-        for(int i=0;i<search_size;i++){
-            int j = i+1;
-            while(j < 1000){
-                printf(" ");
-                j = j*10;
-            }
-            printf("%d - ",i+1);
-            ShowBook(search_book[i]);
-            printf("\n");
-
-        }
-
-    }
-    else{
-        printf("\nAucun livre ne correcpond aux termes recherche !\n");
+        printf("\nAuncun livre ne correspond a votre recherche !\n");
         return 0;
-    }
-
-    printf("\n\nChoisir numero\n>>>");
-
-    user_choice = MenuChoice(choice, search_size);
-
-    if(user_choice != 0){
-
-        for(int i=0;i<size;i++){
-                if(book[i].id == search_book[user_choice-1].id && book[i].stock != 0){
-
-                    book[i].stock -= 1;
-                    user_books[count].id = book[i].id;
-                    user_books[count].time = time(NULL) + delay;
-
-                    printf("\nLivre reserve avec succes !\n");
-
-                    return 1;
-
-                }
-            }
 
     }
-    
-    printf("\nCe livre n'est pas disponible pour le moment !\n");
-    return 0;
+
+    // Asks the user to choose the type of sorting
+
+    user_choice = SortMenu();
+
+    switch(user_choice){
+
+        case 2:
+            qsort(search_book, search_size, sizeof(Book), AuthorCompare);
+            break;
+        case 3:
+            qsort(search_book, search_size, sizeof(Book), TypeCompare);
+            break;
+        default:
+            qsort(search_book, search_size, sizeof(Book), TitleCompare);
+
+    }
+
+    // Displays the filtered and sorted book table
+
+    ShowBookSuggestion(search_book, search_size, search);
+
+    // Asks the user to choose among the books
+
+    printf("\nChoisir numero\n");
+    printf(ARROW);
+
+    user_choice = MenuChoice(choice, sizeof(choice), search_size);
+
+    if(user_choice == 0){
+
+        printf("\nErreur de saisie !\n");
+        return 0;
+
+    }
+
+    // Update of the book table
+
+    for(int i=0;i<size;i++){
+        if(book[i].id == search_book[user_choice-1].id && book[i].stock != 0){
+
+            book[i].stock -= 1;
+            user_books[count].id = book[i].id;
+            user_books[count].time = time(NULL) + delay;
+
+            printf("\nLivre reserve avec succes !\n");
+
+            return 1;
+
+        }
+    }
 
 }
 
@@ -316,13 +358,17 @@ int ReserveBook(Book *book, User *user, int size){
 
 int ReturnBook(Book *book, User *user, int size){
 
-    int count1 = 0;
-    int role;
-
+    int count, role, user_choice;
     char choice[3];
-    int user_choice;
+    time_t sec;
+    struct tm tm_time;
+    char hm_time[sizeof "HH h MM"];
 
     Book_tm *user_books = NULL;
+
+    // Displays the books borrowed by a user
+
+    count = 0;
     user_books = user->books;
 
     for(int i=0;i<5;i++){
@@ -332,17 +378,36 @@ int ReturnBook(Book *book, User *user, int size){
             for(int j=0;j<size;j++){
 
                 if(user_books[i].id == book[j].id){
-                    if(count1 == 0){
+                    if(count == 0){
                         printf("\nVos livres :\n\n");
                     }
+
+                    sec = user_books[i].time; // get timestamp
+                    tm_time=*localtime(&sec); // convert timestamp in localtime
+
                     printf("   %d - ", i+1);
                     ShowBook(book[j]);
+
+                    strftime(hm_time, sizeof hm_time, "%H h %M", &tm_time);
+
+                    for(int k=0;k<20-strlen(ShowBookType(book[j].type));k++){
+                        printf(" ");
+                    }
+
+                    printf("a rendre pour %s", hm_time);
+
+                    if(user_books[i].time < time(NULL)){
+                        printf(RED);
+                        printf("    (en retard)");
+                        printf(DFT);
+                    }
+
                     printf("\n");
                     break;
                 }
             }
 
-            count1++;
+            count++;
 
         }
 
@@ -350,39 +415,46 @@ int ReturnBook(Book *book, User *user, int size){
 
     role = user->role;
 
-    if((count1 == 0)){
+    if((count == 0)){
 
         printf("\nVous ne pouvez pas retourner de livres !\n");
         return 0;
     }
 
-    printf("\n\nChoisir numero\n>>>");
+    // Asks the user to choose among the books
 
-    user_choice = MenuChoice(choice, count1);
+    printf("\nChoisir numero\n");
+    printf(ARROW);
 
-    if(user_choice != 0){
+    user_choice = MenuChoice(choice, sizeof(choice), count);
 
-        for(int i=0;i<size;i++){
-                if(book[i].id == user_books[user_choice-1].id ){
+    if(user_choice == 0){
 
-                    book[i].stock += 1;
-                    for(int j=user_choice-1;j<4;j++){
-                        user_books[j].id = user_books[j+1].id;
-                        user_books[j].time = user_books[j+1].time;
-                    }
-                    user_books[4].id = 0;
-                    user_books[4].time = 0;
-
-                    printf("\nLivre rendu avec succes !\n");
-
-                    return 1;
-
-                }
-            }
+        printf("\nErreur de saisie !\n");
+        return 0;
 
     }
-    // printf("\nVous ne possedez pas ce livre !\n");
 
-    return 0;
+    // Update of the book table
+
+    for(int i=0;i<size;i++){
+
+        if(book[i].id == user_books[user_choice-1].id ){
+
+            book[i].stock += 1;
+            for(int j=user_choice-1;j<4;j++){
+                user_books[j].id = user_books[j+1].id;
+                user_books[j].time = user_books[j+1].time;
+            }
+            user_books[4].id = 0;
+            user_books[4].time = 0;
+
+            printf("\nLivre rendu avec succes !\n");
+
+            return 1;
+
+        }
+
+    }
 
 }
