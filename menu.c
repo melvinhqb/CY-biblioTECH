@@ -13,11 +13,13 @@ int MenuChoice(char *choice, int size_choice, int max){
 
     if(check_size != 1){
 
+        printf("\nErreur de saisie !\n");
         return 0;
 
     }
     else if(choice[1] != '\0' && ((int)choice[1] < 48 || (int)choice[1] > 57)){
 
+        printf("\nErreur de saisie !\n");
         return 0;
 
     }
@@ -25,7 +27,8 @@ int MenuChoice(char *choice, int size_choice, int max){
     c = (int)strtol(choice, NULL, 10);
 
     if(c < 1 || c > max){
-
+        
+        printf("\nErreur de saisie !\n");
         return 0;
 
     }
@@ -58,12 +61,6 @@ int MainMenu(int nb_users){
     printf(ARROW);
     
     user_choice = MenuChoice(choice, sizeof(choice), 2);
-
-    if(user_choice == 0){
-
-        printf("\nErreur de saisie !\n");
-
-    }
 
     return user_choice; // Returns 1 or 2
 
@@ -99,12 +96,6 @@ int SecondMenu(int role){
 
     user_choice = MenuChoice(choice, sizeof(choice), nb_choice);
 
-    if(user_choice == 0){
-
-        printf("\nErreur de saisie !\n");
-
-    }
-
     return user_choice;
 
 }
@@ -121,7 +112,7 @@ int EndMenu(){
     char choice[3];
 
     printf("\n1 - Continuer\n");
-    printf("2 - Quitter\n");
+    printf("2 - Quitter %s(par defaut)%s\n", ITALIC, RESET_FONT);
     printf(ARROW);
     
     user_choice = MenuChoice(choice, sizeof(choice), 2);
@@ -131,9 +122,14 @@ int EndMenu(){
         return 1;
 
     }
-    else{
+    else if(user_choice == 2){
 
         return 0;
+
+    }
+    else{
+
+        user_choice = EndMenu();
 
     }
 
@@ -147,11 +143,9 @@ int SortMenu(){
     char choice[3];
 
     printf("\nType de tri :\n\n");
-    printf("1 - Par titre\n");
+    printf("1 - Par titre %s(par defaut)%s\n", ITALIC, RESET_FONT);
     printf("2 - Par auteur\n");
     printf("3 - Par categorie\n");
-
-    printf("\nChoisir numero\n");
     printf(ARROW);
 
     user_choice = MenuChoice(choice, sizeof(choice), 3);
@@ -174,7 +168,7 @@ int TypeMenu(){
     printf("4 - History\n");
     printf(ARROW);
 
-    user_choice = MenuChoice(choice, sizeof(choice), 3);
+    user_choice = MenuChoice(choice, sizeof(choice), 4);
 
     return user_choice;
 

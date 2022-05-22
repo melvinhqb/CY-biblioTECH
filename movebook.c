@@ -5,7 +5,7 @@
 int AddBook(char *name_file, Book *book, int *size){
 
     int check_size, index;
-    char id_char[15];
+    char id_char[MAX_SIZE_ID + 2];
 
     Book new_book;
     FILE *file = NULL;
@@ -19,7 +19,7 @@ int AddBook(char *name_file, Book *book, int *size){
 
         check_size = UserInput(new_book.title, sizeof(new_book.title));
 
-    }while(check_size != 1);
+    }while(check_size != 1 || (int)new_book.title[0] == 0);
 
     check_size = 0;
 
@@ -42,6 +42,12 @@ int AddBook(char *name_file, Book *book, int *size){
 
         new_book.type = TypeMenu();
 
+        if(new_book.type == 0){
+
+            printf("\nErreur de saisie !\n");
+
+        }
+
     }while(new_book.type == 0);
 
     check_size = 0;
@@ -53,7 +59,7 @@ int AddBook(char *name_file, Book *book, int *size){
         printf("\nIdentifiant (ISBN)\n");
         printf(ARROW);
 
-        check_size = ReadInput(id_char, sizeof(id_char));
+        check_size = UserInput(id_char, sizeof(id_char));
 
         if(check_size == 1){
 
@@ -113,11 +119,6 @@ int AddBook(char *name_file, Book *book, int *size){
             }
 
         }
-        else{
-
-            printf("\nCet identifiant est trop grand ! (13 caracteres max)\n");
-
-        }
 
     }while(check_size != 1);
     
@@ -141,7 +142,7 @@ int RemoveBook(Book *book, int size){
     printf("\nRechercher (titre/auteur/matiere)\n");
     printf(ARROW);
 
-    check_size = UserInput(search, sizeof(search));
+    check_size = ReadInput(search, sizeof(search));
 
     if(check_size == 0){
 
@@ -149,6 +150,8 @@ int RemoveBook(Book *book, int size){
         return 0;
 
     }
+    
+    ReplaceSpaces(search);
 
     // Filter books by previous search
 
@@ -192,7 +195,6 @@ int RemoveBook(Book *book, int size){
 
     if(user_choice == 0){
 
-        printf("\nErreur de saisie !\n");
         return 0;
 
     }
@@ -280,7 +282,7 @@ int ReserveBook(Book *book, User *user, int size){
     printf("\nRechercher (titre/auteur/matiere)\n");
     printf(ARROW);
 
-    check_size = UserInput(search, sizeof(search));
+    check_size = ReadInput(search, sizeof(search));
 
     if(check_size == 0){
 
@@ -288,6 +290,8 @@ int ReserveBook(Book *book, User *user, int size){
         return 0;
 
     }
+
+    ReplaceSpaces(search);
 
     // Filter books by previous search
 
@@ -331,7 +335,6 @@ int ReserveBook(Book *book, User *user, int size){
 
     if(user_choice == 0){
 
-        printf("\nErreur de saisie !\n");
         return 0;
 
     }
@@ -430,7 +433,6 @@ int ReturnBook(Book *book, User *user, int size){
 
     if(user_choice == 0){
 
-        printf("\nErreur de saisie !\n");
         return 0;
 
     }

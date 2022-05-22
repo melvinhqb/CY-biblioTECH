@@ -70,12 +70,30 @@ int UserInput(char *input, int size){
 
     check_size = ReadInput(input, size);
 
-    if(check_size == 1){
+    if(check_size == 0){
 
-            ReplaceSpaces(input); // text processing 
+        printf("\nErreur de saisie ! (%d caractere max)\n", size-2);
+        return 0;
+
+    }
+    else if((int)input[0] == 0){
+
+        printf("\nErreur de saisie !\n");
+        return 0;
 
     }
 
+    for(int i=0;i<strlen(input);i++){
+
+        if((int)input[i] < 32 || (int)input[i] > 126){
+
+            printf("\nErreur de saisie !\n");
+            return 0;
+
+        }
+    }
+
+    ReplaceSpaces(input); // text processing 
     return check_size;
 
 }

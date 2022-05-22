@@ -35,8 +35,9 @@
 
 #define MAX_SIZE_LOGIN 20
 #define MAX_SIZE_PSWRD 20
-#define MAX_SIZE_TITLE 80
-#define MAX_SIZE_AUTHOR 50
+#define MAX_SIZE_TITLE 70
+#define MAX_SIZE_AUTHOR 40
+#define MAX_SIZE_ID 13
 
 typedef enum{STUDENT=1, TEACHER}Role;
 

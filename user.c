@@ -77,11 +77,9 @@ void CreateAccount(char *name_file, int *size){
         printf("\nLogin\n");
         printf(ARROW);
 
-        check_size = ReadInput(login, sizeof(login));
+        check_size = UserInput(login, sizeof(login));
 
         if(check_size == 1){
-
-            ReplaceSpaces(login);
 
             index = CompareTableUserLogin(tab, login, *size);
 
@@ -90,11 +88,6 @@ void CreateAccount(char *name_file, int *size){
                 printf("\nCe login est deja pris !\n");
 
             }
-
-        }
-        else{
-
-            printf("\nCe login est trop grand ! (%d caracteres max)\n", MAX_SIZE_LOGIN);
 
         }
 
@@ -110,19 +103,12 @@ void CreateAccount(char *name_file, int *size){
         printf(ARROW);
 
         //system(HIDE_ECHO);
-        check_size = ReadInput(pswrd, sizeof(pswrd));
+        check_size = UserInput(pswrd, sizeof(pswrd));
         //system(SHOW_ECHO);
 
         if(check_size == 1){
 
-            ReplaceSpaces(pswrd);
-
             check_size = SecurePswrd(pswrd);
-
-        }
-        else{
-
-            printf("\nCe mot de passe est trop grand !  (%d caracteres max)\n", MAX_SIZE_PSWRD);
 
         }
 
@@ -179,11 +165,9 @@ int ConnectAccount(User *tab, int size){
 
         printf("\nLogin\n");
         printf(ARROW);
-        check_size = ReadInput(login, sizeof(login));
+        check_size = UserInput(login, sizeof(login));
 
         if(check_size == 1){
-
-            ReplaceSpaces(login);
 
             index = CompareTableUserLogin(tab, login, size);
 
@@ -203,7 +187,7 @@ int ConnectAccount(User *tab, int size){
         printf("\nMot de passe\n");
         printf(ARROW);
         //system(HIDE_ECHO); // Hide echo
-        check_size = ReadInput(pswrd, sizeof(pswrd));
+        check_size = UserInput(pswrd, sizeof(pswrd));
         //system(SHOW_ECHO); // Show echo
 
         if(check_size != 1){
@@ -212,7 +196,6 @@ int ConnectAccount(User *tab, int size){
         }
         else{
 
-            ReplaceSpaces(pswrd);
             Encode(pswrd, VIGENERE_KEY);
             cmp = strcmp(pswrd, tab[index].pswrd);
 
