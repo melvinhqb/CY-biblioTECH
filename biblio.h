@@ -74,6 +74,7 @@ int UserInput(char *input, int size);
 int DelayCheck(Book_tm *my_books, int size);
 void ShowWithColor(char *sentence, char *search);
 void RemoveUpperCase(char *strcopy, char *str);
+int SecurePswrd(char *pswrd);
 
 // menu.c
 

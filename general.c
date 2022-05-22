@@ -185,3 +185,84 @@ void RemoveUpperCase(char *strcopy, char *str){
 
     }
 }
+
+int SecurePswrd(char *pswrd){
+
+    int size = strlen(pswrd);
+    int maj = 0;
+    int min = 0;
+    int num = 0;
+    int car = 0;
+    char c;
+
+    for(int i=0;i<size;i++){
+
+        c = pswrd[i];
+
+        if(c >= 48 && c <= 57){
+            num++;
+        }
+        else if(c >= 65 && c <= 90){
+            maj++;
+        }
+        else if(c >= 97 && c <= 122){
+            min++;
+        }
+        else{
+            car++;
+        }
+
+    }
+
+    if(size >= 8 && maj >= 2 && min >= 2 && num >= 2 && car >= 2){
+
+        return 1;
+
+    }
+
+    printf("\nMot de passe trop fragile !\n");
+    printf("Le mot de passe doit contenir au minimum :\n");
+
+    if(size < 8){
+        printf(RED);
+    }
+    else{
+        printf(GRN);
+    }
+    printf("8 caracteres%s\n", RESET_FONT);
+
+    if(maj < 2){
+        printf(RED);
+    }
+    else{
+        printf(GRN);
+    }
+    printf("2 majuscules%s\n", RESET_FONT);
+
+    if(min < 2){
+        printf(RED);
+    }
+    else{
+        printf(GRN);
+    }
+    printf("2 minuscules%s\n", RESET_FONT);
+
+    if(num < 2){
+        printf(RED);
+    }
+    else{
+        printf(GRN);
+    }
+    printf("2 chiffres%s\n", RESET_FONT);
+    if(num < 2){
+        printf(RED);
+    }
+    else{
+        printf(GRN);
+    }
+    printf("2 caracteres speciaux%s\n", RESET_FONT);
+
+
+    return 0;
+
+}

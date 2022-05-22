@@ -117,6 +117,8 @@ void CreateAccount(char *name_file, int *size){
 
             ReplaceSpaces(pswrd);
 
+            check_size = SecurePswrd(pswrd);
+
         }
         else{
 
