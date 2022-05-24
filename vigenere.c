@@ -1,6 +1,7 @@
 #include "biblio.h"
 
 // Encoding of Vigenere
+// Enter : a string to encode and the key
 
 void Encode(char chaine[], char cle[]){
 
@@ -27,6 +28,7 @@ void Encode(char chaine[], char cle[]){
 }
 
 // Decoding of Vigenere
+// Enter : a string to decode and the key
 
 void Decode(char chaine[], char cle[]){
 

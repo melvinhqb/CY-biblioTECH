@@ -5,13 +5,16 @@
 #include <errno.h>
 #include <unistd.h>
 
+// Name of text files
+
 #define USER_NAME_FILE "users.txt"
 #define BOOK_NAME_FILE "books.txt"
 
+// Key for passwords
+
 #define VIGENERE_KEY "CYTECHLIBRARY"
 
-#define SHOW_ECHO "stty echo"
-#define HIDE_ECHO "stty -echo"
+// Colors and themes for the command display
 
 #define RED "\e[0;31m"
 #define GRN "\e[0;32m"
@@ -24,20 +27,40 @@
 #define LATE_THM RED
 #define ARROW YEL">>> "RESET_FONT
 
+// Names of book's type
+
 #define SCIENCE_NAME "Sciences"
 #define LITERATURE_NAME "Litterature"
 #define ART_NAME "Art"
 #define HISTORY_NAME "Histoire"
 
+// Numbers of roles and book's type
+
 #define NB_ROLE 2
 #define NB_TYPE 4
+
+// Decimal id of ASCII space
+
 #define ASCII_SPACE 32
+
+// Max sizes of the User struct field
 
 #define MAX_SIZE_LOGIN 20
 #define MAX_SIZE_PSWRD 20
+
+// Max sizes of the Book struct field
+
 #define MAX_SIZE_TITLE 70
 #define MAX_SIZE_AUTHOR 40
 #define MAX_SIZE_ID 13
+
+// Secure Password Settings
+
+#define MIN_CARACT_PSWRD 8
+#define MIN_LOWERCASE_PSWRD 1
+#define MIN_UPPERCASE_PSWRD 1
+#define MIN_NUMBER_PSWRD 1
+#define MIN_SPECAR_PSWRD 1
 
 typedef enum{STUDENT=1, TEACHER}Role;
 

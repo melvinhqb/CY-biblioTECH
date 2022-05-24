@@ -1,6 +1,16 @@
 #include "biblio.h"
 
 // Function that add a book to a text file
+// enter the name of txt book archive, the current book table and its size 
+/* return the kind of modification made:
+
+    -> -2 the book does not exist and has been added to the text file 
+    -> -1 the ID  is taken form another book
+    -> -3 the bokks exists under another ID
+
+    othewize the function returns the index (poistion of the book in the book table) o the modified bookq
+
+*/
 
 int AddBook(char *name_file, Book *book, int *size){
 
@@ -127,6 +137,8 @@ int AddBook(char *name_file, Book *book, int *size){
 }
 
 // Function that remove a book to a text file
+// enter: the current book table and its size 
+// return 1 if a book has been modified , O else  
 
 int RemoveBook(Book *book, int size){
 
@@ -216,6 +228,8 @@ int RemoveBook(Book *book, int size){
 }
 
 // Function that adds a book to a user file and the storage status to a book file
+// enter: the current book table its size and the address of a user 
+// return 1 if a book has been reserved with success, O (for exemple if some book hasn't been return) else  
 
 int ReserveBook(Book *book, User *user, int size){
 
@@ -358,6 +372,8 @@ int ReserveBook(Book *book, User *user, int size){
 }
 
 // Function that removes a book to a user file and the storage status to a book file
+// enter: the current book table its size and the address of a user 
+// return 1 if a book has been reserved with success, O (for exemple if some book hasn't been return) else  
 
 int ReturnBook(Book *book, User *user, int size){
 

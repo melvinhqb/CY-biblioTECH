@@ -1,5 +1,9 @@
 #include "biblio.h"
 
+// Compare 2 Book.title
+// Enter : 2 Book struct
+// Return 0 if title1 == title 2
+
 int TitleCompare(const void *p1, const void *p2){
 
     Book *point1 = (Book *)p1;
@@ -9,6 +13,10 @@ int TitleCompare(const void *p1, const void *p2){
 
 }
 
+// Compare 2 Book.author
+// Enter : 2 Book struct
+// Return 0 if author1 == author2
+
 int AuthorCompare(const void *p1, const void *p2){
 
     Book *point1 = (Book *)p1;
@@ -17,6 +25,10 @@ int AuthorCompare(const void *p1, const void *p2){
     return strcmp(point1->author, point2->author);
 
 }
+
+// Compare 2 Book.type
+// Enter : 2 Book struct
+// Return 0 if type1 == type2
 
 int TypeCompare(const void *p1, const void *p2){
 

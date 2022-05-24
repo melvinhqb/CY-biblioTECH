@@ -158,10 +158,14 @@ void BookMsg(Book *book, User user, int size){
 }
 
 // Display a table in the form of suggestions
+// enter: tab of suggestion, its size and the element searched 
+
 
 void ShowBookSuggestion(Book *search_book, int search_size, char *search){
 
-    int j;
+    int j; 
+
+    // if one or more sugegestions are found 
 
     if(search_size > 0 && (int)search[0] != 0){
 
@@ -184,6 +188,9 @@ void ShowBookSuggestion(Book *search_book, int search_size, char *search){
 
         }
     }
+
+    // if the user doesn't anything in the search field 
+
     else if(search_size > 0 && (int)search[0] == 0){
 
         printf("\nSuggestions :\n\n");
@@ -206,6 +213,9 @@ void ShowBookSuggestion(Book *search_book, int search_size, char *search){
         }
 
     }
+
+    //if no suggestions is found
+
     else{
 
         printf("\nAuncun livre ne correspond a votre recherche !\n");

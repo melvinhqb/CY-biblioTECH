@@ -102,9 +102,7 @@ void CreateAccount(char *name_file, int *size){
         printf("\nMot de passe\n");
         printf(ARROW);
 
-        //system(HIDE_ECHO);
         check_size = UserInput(pswrd, sizeof(pswrd));
-        //system(SHOW_ECHO);
 
         if(check_size == 1){
 
@@ -186,9 +184,9 @@ int ConnectAccount(User *tab, int size){
 
         printf("\nMot de passe\n");
         printf(ARROW);
-        //system(HIDE_ECHO); // Hide echo
+        
         check_size = UserInput(pswrd, sizeof(pswrd));
-        //system(SHOW_ECHO); // Show echo
+        
 
         if(check_size != 1){
             

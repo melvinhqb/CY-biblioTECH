@@ -1,6 +1,13 @@
 #include "biblio.h"
 
 // Convert an integer to its corresponding subject
+//enter the ID of a type 
+//
+//  SCIENCE=1,
+//  LITERATURE=2, 
+//  ART=3, 
+//  HISTORY=4
+// return a string relating to the type 
 
 char *ShowBookType(int a){
 
@@ -20,6 +27,8 @@ char *ShowBookType(int a){
 }
 
 // Convert an integer to its corresponding state
+// enter an integer 
+// return a string relating to a state 
 
 char *ShowBookStock(int a){
 
@@ -56,6 +65,7 @@ void ReplaceSpaces(char *tab){
 }
 
 // Replace underscores in a table of caracteres by spaces
+// enter a string 
 
 void ReplaceUnderscores(char *tab){
 
@@ -74,3 +84,28 @@ void ReplaceUnderscores(char *tab){
     }
     
 }
+
+/*
+         _________________________.
+        / _____________________  /|
+       / / ___________________/ / |
+      / / /| |               / /  |
+     / / / | |              / / . |
+    / / /| | |             / / /| |
+   / / / | | |            / / / | |
+  / / /  | | |           / / /| | |
+ / /_/___| | |__________/ / / | | |
+/________| | |___________/ /  | | |
+| _______| | |__________ | |  | | |
+| | |    | | |_________| | |__| | |
+| | |    | |___________| | |____| |
+| | |   / / ___________| | |_  / /
+| | |  / / /           | | |/ / /
+| | | / / /            | | | / /
+| | |/ / /             | | |/ /
+| | | / /              | | ' /
+| | |/_/_______________| |  /
+| |____________________| | /
+|________________________|/
+
+*/

@@ -78,7 +78,7 @@ int UserInput(char *input, int size){
     }
     else if((int)input[0] == 0){
 
-        printf("\nErreur de saisie !\n");
+        printf("\nErreur de saisie !\nLe champ est vide.\n");
         return 0;
 
     }
@@ -87,7 +87,7 @@ int UserInput(char *input, int size){
 
         if((int)input[i] < 32 || (int)input[i] > 126){
 
-            printf("\nErreur de saisie !\n");
+            printf("\nErreur de saisie !\nNe pas utiliser de caracteres speciaux comme les accents.\n");
             return 0;
 
         }
@@ -232,7 +232,7 @@ int SecurePswrd(char *pswrd){
 
     }
 
-    if(size >= 8 && maj >= 2 && min >= 2 && num >= 2 && car >= 2){
+    if(size >= MIN_CARACT_PSWRD && maj >= MIN_UPPERCASE_PSWRD && min >= MIN_LOWERCASE_PSWRD && num >= MIN_NUMBER_PSWRD && car >= MIN_SPECAR_PSWRD){
 
         return 1;
 
@@ -241,44 +241,44 @@ int SecurePswrd(char *pswrd){
     printf("\nMot de passe trop fragile !\n");
     printf("Le mot de passe doit contenir au minimum :\n");
 
-    if(size < 8){
+    if(size < MIN_CARACT_PSWRD){
         printf(RED);
     }
     else{
         printf(GRN);
     }
-    printf("8 caracteres%s\n", RESET_FONT);
+    printf("%d caracteres%s\n", MIN_CARACT_PSWRD, RESET_FONT);
 
-    if(maj < 2){
+    if(maj < MIN_UPPERCASE_PSWRD){
         printf(RED);
     }
     else{
         printf(GRN);
     }
-    printf("2 majuscules%s\n", RESET_FONT);
+    printf("%d majuscule%s\n", MIN_UPPERCASE_PSWRD, RESET_FONT);
 
-    if(min < 2){
+    if(min < MIN_LOWERCASE_PSWRD){
         printf(RED);
     }
     else{
         printf(GRN);
     }
-    printf("2 minuscules%s\n", RESET_FONT);
+    printf("%d minuscule%s\n", MIN_LOWERCASE_PSWRD, RESET_FONT);
 
-    if(num < 2){
+    if(num < MIN_NUMBER_PSWRD){
         printf(RED);
     }
     else{
         printf(GRN);
     }
-    printf("2 chiffres%s\n", RESET_FONT);
-    if(num < 2){
+    printf("%d chiffre%s\n", MIN_NUMBER_PSWRD, RESET_FONT);
+    if(car < MIN_SPECAR_PSWRD){
         printf(RED);
     }
     else{
         printf(GRN);
     }
-    printf("2 caracteres speciaux%s\n", RESET_FONT);
+    printf("%d caractere special%s\n", MIN_SPECAR_PSWRD, RESET_FONT);
 
 
     return 0;

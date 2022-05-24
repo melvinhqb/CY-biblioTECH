@@ -46,7 +46,7 @@ int main(){
                         break;
                     case 4:
                         choice = AddBook(BOOK_NAME_FILE, tabBook, &sizeBook);
-                        if(choice < 0){
+                        if(choice == -2){
                             tabBook = LoadBooks(BOOK_NAME_FILE, sizeBook);
                         }
                         else{

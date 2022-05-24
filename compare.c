@@ -1,6 +1,7 @@
 #include "biblio.h"
 
 // Compare a login with a login table
+// enter the current tab of user and its size, a login 
 
 int CompareTableUserLogin(User *tab, char *login, int size){
     
@@ -18,6 +19,7 @@ int CompareTableUserLogin(User *tab, char *login, int size){
 }
 
 // Compare an ID with an ID table
+// enter the current book table and its size, and the ID of a book 
 
 int CompareTableBookId(Book *tab, long long id, int size){
     
@@ -35,6 +37,7 @@ int CompareTableBookId(Book *tab, long long id, int size){
 }
 
 // Compare a title with a title table
+// enter the current book table and its size, and the title of a book 
 
 int CompareTableBookTitle(Book *tab, char *title, int size){
 
@@ -53,6 +56,7 @@ int CompareTableBookTitle(Book *tab, char *title, int size){
 }
 
 // Compare an author with an author table
+// enter the current book table and its size, and the an author 
 
 int CompareTableBookAuthor(Book *tab, char *author, int size){
 
@@ -69,6 +73,12 @@ int CompareTableBookAuthor(Book *tab, char *author, int size){
 }
 
 // Compare a type with a type table
+// enter the current book table and its size, and the a type->
+
+//  SCIENCE=1
+//  LITERATURE=2
+//  ART=3 
+//  HISTORY=4
 
 int CompareTableBookType(Book *tab, int type, int size){
 
@@ -87,6 +97,7 @@ int CompareTableBookType(Book *tab, int type, int size){
 }
 
 // Compare a book with a book table
+// enter the current book table and its size, and the a book 
 
 int CompareTableBook(Book *tab, Book book, int size){
 

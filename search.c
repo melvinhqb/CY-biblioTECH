@@ -1,6 +1,8 @@
 #include "biblio.h"
 
 // Function that returns an array of books based on a book title
+// Enter : the current books table, a string to compare, the size of tabBook and a counter for the new tab
+// Return : a filter tab by title
 
 Book *SearchByTitle(Book *tabBook, char *content, int size, int *count){
 
@@ -99,6 +101,8 @@ Book *SearchByTitle(Book *tabBook, char *content, int size, int *count){
 }
 
 // Function that returns an array of books based on a book author
+// Enter : the current books table, a string to compare, the size of tabBook and a counter for the new tab
+// Return : a filter tab by author
 
 Book *SearchByAuthor(Book *tabBook, char *content, int size, int *count){
 
@@ -197,6 +201,8 @@ Book *SearchByAuthor(Book *tabBook, char *content, int size, int *count){
 }
 
 // Function that returns an array of books based on a book type
+// Enter : the current books table, a string to compare, the size of tabBook and a counter for the new tab
+// Return : a filter tab by type
 
 Book *SearchByType(Book *tabBook, char *content, int size, int *count){
 
@@ -316,6 +322,10 @@ Book *SearchByType(Book *tabBook, char *content, int size, int *count){
 
 }
 
+// Function that returns an array of books based on a book stoking state
+// Enter : the current books table, an address of an integer (0 = Unvalaible 1 or + = Avalaible), the size of tabBook and a counter for the new tab
+// Return : a filter tab by stocking state
+
 Book *SearchByStock(Book *tabBook, int stock, int size, int *count){ // Stock = 0 (Unavailable) or Stock = 1 (Available)
 
     Book *book = NULL;
@@ -323,11 +333,16 @@ Book *SearchByStock(Book *tabBook, int stock, int size, int *count){ // Stock = 
 
     for(int i=0;i<size;i++){
 
+        // If the book is unavalaible
+
         if(tabBook[i].stock == 0 && stock == 0){
 
             *count += 1;
 
         }
+
+        // If the book is avalaible
+
         else if(tabBook[i].stock != 0 && stock != 0){
 
             *count += 1;
@@ -360,6 +375,8 @@ Book *SearchByStock(Book *tabBook, int stock, int size, int *count){ // Stock = 
 }
 
 // Function that merges two tables by removing duplicates
+// Enter : 2 books tab and their sizes, the address of the new tab size
+// Return : A merges tab of books
 
 Book *MergesBooks(Book *tab1, Book *tab2, int size1, int size2, int *size3){
 
@@ -402,6 +419,10 @@ Book *MergesBooks(Book *tab1, Book *tab2, int size1, int size2, int *size3){
     return tab3;
 
 }
+
+// Search books by title, author and type
+// Enter : the current books table, a string to compare, the size of tabBook and the address of the new tab
+// Return : a filter tab by title
 
 Book *SearchBooks(Book *book, char *search, int size, int *search_size){
 

@@ -1,6 +1,7 @@
 #include "biblio.h"
 
 // Function that counts the number of lines in a text file
+// enter: the file that will be analyzed
 
 int FileSize(char *name_file){
 
@@ -8,7 +9,7 @@ int FileSize(char *name_file){
     char line[1000]; // Max number of characters per line
     int count = 0; // Counts the number of lines in a text file
 
-    file = fopen(name_file, "r"); // Charge a text file
+    file = fopen(name_file, "r"); // load a text file
 
     if(file == NULL){
         printf("%s\n",strerror(errno)); // Error message
@@ -31,6 +32,8 @@ int FileSize(char *name_file){
 *****************************************************/
 
 // Function that loads data from users.txt into an array structure
+// Enter : the name of user text file and its size
+// Return : A table of users
 
 User *LoadUsers(char *name_file, int size){
 
@@ -67,6 +70,8 @@ User *LoadUsers(char *name_file, int size){
 }
 
 // Function that loads data from book.txt into an array structure
+// Enter : the name of book text file and its size
+// Return : A table of books
 
 Book *LoadBooks(char *name_file, int size){
     
@@ -102,6 +107,7 @@ Book *LoadBooks(char *name_file, int size){
 *****************************************************/
 
 // Writes a user table to a text file
+// Enter : the name of user file, the current user table and its size
 
 void WriteUser(char *name_file, User *tab, int size){
 
@@ -144,6 +150,8 @@ void WriteUser(char *name_file, User *tab, int size){
 }
 
 // Writes a book table to a text file
+// Enter : the name of book file, the current book table and its size
+
 
 void WriteBook(char *name_file, Book *tab, int size){
 

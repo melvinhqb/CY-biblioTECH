@@ -15,6 +15,9 @@ clean:
 mrproper: clean
 	rm -f $(EXEC)
 
+secret:
+	@cat secret.txt
+
 help:
 	@echo "help     : Show this help"
 	@echo "all      : Compiles all files"
