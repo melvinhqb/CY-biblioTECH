@@ -50,8 +50,8 @@
 
 // Max sizes of the Book struct field
 
-#define MAX_SIZE_TITLE 70
-#define MAX_SIZE_AUTHOR 40
+#define MAX_SIZE_TITLE 65
+#define MAX_SIZE_AUTHOR 30
 #define MAX_SIZE_ID 13
 
 // Secure Password Settings

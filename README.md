@@ -45,27 +45,39 @@ For more information about secondary commands, please write the following comman
 
 ### Account creation
 
-The account creation function requires a non-existent user name and a password respecting our security rules.
+The account creation function requires a __non-existent user name__ and a __secure password__.
 
-![Test](Images/3.png)
+![Account creation](Images/3.png)
 
 ### Account connection
 
-The function of connection to an account requires to give a username and a password registered in the database.
+The function of connection to an account requires to give a __username__ and a __password__ registered __in the database__.
+
+![Account connection](Images/5.png)
 
 ### Book reservetion
 
-![Test](Images/1.png)
+The book reservation function requires that there are __no delays__ in returning a book. Do a __book search__ (2 or 3 letters are sometimes enough) and select the __type of sorting__. Finally, simply __enter the number of the book__ you wish to return.
+
+![Book reservetion](Images/1.png)
 
 ### Book return
 
+The book return function requires that you have __reserved at least one book__. Simply __enter the number of the book__ you wish to return.
+
+![Book return](Images/2.png)
+
 ### Adding books
+
+The add book function requires you to enter the __title__ of the book, the __author's name__, the __genre__ of the book and its identifier such as its __ISBN__.
+
+![Adding books](Images/4.png)
 
 ### Deleting books
 
-## Uses of the program
+The book deletion function requires __at least one copy of the book__ to be deleted. The book is __not actually deleted__ from the database but the __stock counter is set to zero__.
 
-### Text entry
+![Deleting books](Images/6.png)
 
 ## Authors
 

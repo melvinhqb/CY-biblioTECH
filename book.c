@@ -17,7 +17,7 @@ void ShowBook(Book book){
     printf("de %s ",book.author);
     ReplaceSpaces(book.author);
 
-    for(int i=0;i<55-strlen(book.author);i++){
+    for(int i=0;i<MAX_SIZE_AUTHOR+3-strlen(book.author);i++){
         printf(" ");
     }
 
@@ -45,7 +45,7 @@ void ShowBookColor(Book book, char *content){
     ShowWithColor(book.author, content);
     ReplaceSpaces(book.author);
 
-    for(int i=0;i<55-strlen(book.author);i++){
+    for(int i=0;i<MAX_SIZE_AUTHOR+3-strlen(book.author);i++){
         printf(" ");
     }
     ShowWithColor(ShowBookType(book.type), content);
