@@ -21,31 +21,51 @@ To use CY-biblioTECH, you need to create your local clone of this repository :
 
 ### Compile CY-biblioTECH
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+To compile all the files needed to run the program, please write the following command in your terminal :
 
     make all
 
+or
+
+    make
+
 ### Run CY-biblioTECH
 
-Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+To run the compiled program, please write the following command in your terminal :
 
     ./exec
 
 ### Show all the Makefile's functions
 
-Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+For more information about secondary commands, please write the following command in your terminal :
 
     make help
 
-## Project Progress
+## Program features
 
-- [x] Main menu
+### Account creation
 
-- [x] Login menu
+The account creation function requires a non-existent user name and a password respecting our security rules.
 
-- [x] Account creation menu
+![Test](Images/3.png)
 
-- [ ] Action menu (borrow a book, add a book, leave the app...)
+### Account connection
+
+The function of connection to an account requires to give a username and a password registered in the database.
+
+### Book reservetion
+
+![Test](Images/1.png)
+
+### Book return
+
+### Adding books
+
+### Deleting books
+
+## Uses of the program
+
+### Text entry
 
 ## Authors
 
