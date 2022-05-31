@@ -14,7 +14,7 @@ int main(){
 
         choice = MainMenu(sizeUser);
 
-        if(choice == 1){
+        if(choice == 1){ // Connect Account
 
             Book *tabBook = LoadBooks(BOOK_NAME_FILE, sizeBook);
             User *tabUser = LoadUsers(USER_NAME_FILE, sizeUser);
@@ -67,14 +67,13 @@ int main(){
             }while(choice != 0);
 
         }
-
-        else if(choice == 2){
+        else if(choice == 2){ // Create Account
 
             CreateAccount(USER_NAME_FILE, &sizeUser);
             choice = EndMenu();
 
         }
-        else{
+        else{ // If Error Input
 
             choice = EndMenu();
 

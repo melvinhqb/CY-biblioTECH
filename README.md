@@ -79,6 +79,33 @@ The book deletion function requires __at least one copy of the book__ to be dele
 
 ![Deleting books](Images/6.png)
 
+### Storage of books (in books.txt)
+
+The books data are stock in the books.txt file by :
+- Title
+- Author
+- Identifiant (ISBN)
+- Book's type
+- Current stock  
+
+![Storage of books](Images/7.png)
+
+### Storage of users (in users.txt)
+
+The users data are stock in the books.txt file by :
+- Login
+- Encoded Password
+- Role (Student or Teacher)
+- Book 1
+    - Book ID
+    - Time (in timestamp)
+- __...__
+- Book N
+    - Book ID
+    - Time (in timestamp)
+
+![Storage of users](Images/8.png)
+
 ## Authors
 
 - Melvin Huynh-Quan-Binh _alias_ [@melvinhqb](https://www.github.com/melvinhqb)
