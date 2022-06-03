@@ -3,17 +3,17 @@ A program to automatically manage the book stock of a university library !
 
 ## Installation
 
-### Dependencies
+### Installing GCC on Ubuntu
 
-Before you run CY-biblioTECH in your development environment, check you have installed GCC.
+Install the ```build-essential``` package by typing :
 
-With Ubuntu or Debian, you can do (as root):
+    sudo apt install build-essential
 
-    apt-get install build-essential
+The command installs a bunch of new packages including ```gcc``` and ```make```.
 
 ### Clone the repository
 
-To use CY-biblioTECH, you need to create your local clone of this repository :
+Create your local clone of the ```CY-biblioTECH``` repository by typing :
     
     git clone https://github.com/melvinhqb/CY-biblioTECH.git
 
@@ -21,7 +21,7 @@ To use CY-biblioTECH, you need to create your local clone of this repository :
 
 ### Compile CY-biblioTECH
 
-To compile all the files needed to run the program, please write the following command in your terminal :
+Compile all the files needed to run the program by typing :
 
     make all
 
@@ -31,13 +31,13 @@ or
 
 ### Run CY-biblioTECH
 
-To run the compiled program, please write the following command in your terminal :
+Run the compiled program by typing :
 
     ./exec
 
 ### Show all the Makefile's functions
 
-For more information about secondary commands, please write the following command in your terminal :
+More information about secondary commands by typing :
 
     make help
 
