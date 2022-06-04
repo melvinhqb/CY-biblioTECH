@@ -1,23 +1,19 @@
 # CY-biblioTECH
 A program to automatically manage the book stock of a university library !
 
-## Installation
+## Table of contents
 
-### Installing GCC on Ubuntu
+* [Using CY-biblioTECH](#part1)
+* [Program features](#part2)
+* [Authors](#part3)
 
-Install the ```build-essential``` package by typing :
-
-    sudo apt install build-essential
-
-The command installs a bunch of new packages including ```gcc``` and ```make```.
+## Using CY-biblioTECH <a class="anchor" id="part1"></a>
 
 ### Clone the repository
 
 Create your local clone of the ```CY-biblioTECH``` repository by typing :
     
     git clone https://github.com/melvinhqb/CY-biblioTECH.git
-
-## Using CY-biblioTECH
 
 ### Compile CY-biblioTECH
 
@@ -41,7 +37,7 @@ More information about secondary commands by typing :
 
     make help
 
-## Program features
+## Program features <a class="anchor" id="part2"></a>
 
 ### Account creation
 
@@ -106,7 +102,7 @@ The users data are stock in the books.txt file by :
 
 ![Storage of users](Images/8.png)
 
-## Authors
+## Authors <a class="anchor" id="part3"></a>
 
 - Melvin Huynh-Quan-Binh _alias_ [@melvinhqb](https://www.github.com/melvinhqb)
 - Augustin Verove _alias_ [@Hermeticis](https://github.com/Hermeticis)
