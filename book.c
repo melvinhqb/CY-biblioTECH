@@ -224,7 +224,7 @@ void ShowBookSuggestion(Book *search_book, int search_size, char *search){
 
 }
 
-void SearchBookNoUser(Book *book, int size){
+void ShowBookSuggestionNoAccount(Book *book, int size){
 
     char search[MAX_SIZE_TITLE];
 
@@ -232,6 +232,7 @@ void SearchBookNoUser(Book *book, int size){
     int user_choice, search_size;
 
     Book *search_book = NULL;
+    Book_tm *user_books = NULL;
 
     // Ask user to make a search
 

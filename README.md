@@ -1,27 +1,23 @@
 # CY-biblioTECH
 A program to automatically manage the book stock of a university library !
 
-## Installation
+## Table of contents
 
-### Dependencies
+* [Using CY-biblioTECH](#part1)
+* [Program features](#part2)
+* [Authors](#part3)
 
-Before you run CY-biblioTECH in your development environment, check you have installed GCC.
-
-With Ubuntu or Debian, you can do (as root):
-
-    apt-get install build-essential
+## Using CY-biblioTECH <a class="anchor" id="part1"></a>
 
 ### Clone the repository
 
-To use CY-biblioTECH, you need to create your local clone of this repository :
+Create your local clone of the ```CY-biblioTECH``` repository by typing :
     
     git clone https://github.com/melvinhqb/CY-biblioTECH.git
 
-## Using CY-biblioTECH
-
 ### Compile CY-biblioTECH
 
-To compile all the files needed to run the program, please write the following command in your terminal :
+Compile all the files needed to run the program by typing :
 
     make all
 
@@ -31,17 +27,17 @@ or
 
 ### Run CY-biblioTECH
 
-To run the compiled program, please write the following command in your terminal :
+Run the compiled program by typing :
 
     ./exec
 
 ### Show all the Makefile's functions
 
-For more information about secondary commands, please write the following command in your terminal :
+More information about secondary commands by typing :
 
     make help
 
-## Program features
+## Program features <a class="anchor" id="part2"></a>
 
 ### Account creation
 
@@ -79,7 +75,34 @@ The book deletion function requires __at least one copy of the book__ to be dele
 
 ![Deleting books](Images/6.png)
 
-## Authors
+### Storage of books (in books.txt)
+
+The books data are stock in the books.txt file by :
+- Title
+- Author
+- Identifiant (ISBN)
+- Book's type
+- Current stock  
+
+![Storage of books](Images/7.png)
+
+### Storage of users (in users.txt)
+
+The users data are stock in the books.txt file by :
+- Login
+- Encoded Password
+- Role (Student or Teacher)
+- Book 1
+    - Book ID
+    - Time (in timestamp)
+- __...__
+- Book N
+    - Book ID
+    - Time (in timestamp)
+
+![Storage of users](Images/8.png)
+
+## Authors <a class="anchor" id="part3"></a>
 
 - Melvin Huynh-Quan-Binh _alias_ [@melvinhqb](https://www.github.com/melvinhqb)
 - Augustin Verove _alias_ [@Hermeticis](https://github.com/Hermeticis)

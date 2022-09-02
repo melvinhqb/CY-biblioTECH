@@ -121,6 +121,11 @@ void WriteUser(char *name_file, User *tab, int size){
 
     file = fopen(name_file, "w"); // Open books.txt with written mode
 
+    if(file == NULL){
+        printf("%s\n",strerror(errno)); // Error message
+        exit(1);
+    }
+
     for(int i=0;i<size;i++){
         login = tab[i].login;
         pswrd = tab[i].pswrd;
@@ -164,6 +169,11 @@ void WriteBook(char *name_file, Book *tab, int size){
     FILE *file = NULL;
 
     file = fopen(name_file, "w");
+
+    if(file == NULL){
+        printf("%s\n",strerror(errno)); // Error message
+        exit(1);
+    }
 
     for(int i=0;i<size;i++){
         title = tab[i].title;
