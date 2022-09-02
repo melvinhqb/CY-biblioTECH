@@ -74,6 +74,13 @@ int main(){
             choice = EndMenu();
 
         }
+        else if(choice == 3){
+
+            Book *tabBook = LoadBooks(BOOK_NAME_FILE, sizeBook);
+            SearchBookNoUser(tabBook, sizeBook);
+            choice = EndMenu();
+
+        }
         else{
 
             choice = EndMenu();

@@ -223,3 +223,63 @@ void ShowBookSuggestion(Book *search_book, int search_size, char *search){
     }
 
 }
+
+void SearchBookNoUser(Book *book, int size){
+
+    char search[MAX_SIZE_TITLE];
+
+    int check_size;
+    int user_choice, search_size;
+
+    Book *search_book = NULL;
+
+    // Ask user to make a search
+
+    printf("\nRechercher (titre/auteur/matiere)\n");
+    printf(ARROW);
+
+    check_size = ReadInput(search, sizeof(search));
+
+    if(check_size == 0){
+
+        printf("\nAuncun livre ne correspond a votre recherche !\n");
+        return;
+
+    }
+
+    ReplaceSpaces(search);
+
+    // Filter books by previous search
+
+    search_book = SearchBooks(book, search, size, &search_size);
+    search_book = SearchByStock(search_book, 1, search_size, &search_size);
+
+    if(search_size == 0){
+
+        printf("\nAuncun livre ne correspond a votre recherche !\n");
+        return;
+
+    }
+
+    // Asks the user to choose the type of sorting
+
+    user_choice = SortMenu();
+
+    switch(user_choice){
+
+        case 2:
+            qsort(search_book, search_size, sizeof(Book), AuthorCompare);
+            break;
+        case 3:
+            qsort(search_book, search_size, sizeof(Book), TypeCompare);
+            break;
+        default:
+            qsort(search_book, search_size, sizeof(Book), TitleCompare);
+
+    }
+
+    // Displays the filtered and sorted book table
+
+    ShowBookSuggestion(search_book, search_size, search);
+
+}

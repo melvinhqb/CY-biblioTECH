@@ -57,10 +57,11 @@ int MainMenu(int nb_users){
 
     printf("\n1 - Se connecter\n");
     printf("2 - Creer un compte\n");
-    printf("%s(Tapez 1 ou 2)%s\n", ITALIC, RESET_FONT);
+    printf("3 - Consulter sans compte\n");
+    printf("%s(Tapez 1, 2 ou 3)%s\n", ITALIC, RESET_FONT);
     printf(ARROW);
     
-    user_choice = MenuChoice(choice, sizeof(choice), 2);
+    user_choice = MenuChoice(choice, sizeof(choice), 3);
 
     return user_choice; // Returns 1 or 2
 

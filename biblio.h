@@ -125,6 +125,7 @@ void ShowBooks(Book *tab, int size);
 void ShowBooksColor(Book *tab, char *content, int size);
 void BookMsg(Book *book, User user, int size);
 void ShowBookSuggestion(Book *search_book, int search_size, char *search);
+void SearchBookNoUser(Book *book, int size);
 
 // movebook.c
 
